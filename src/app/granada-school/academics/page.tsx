@@ -246,7 +246,7 @@ function SectionNav(){
 function Overview(){
   const {ref,vis}=useInView(0.08);
   const stats=[
-    {num:"2",label:"Academic Pathways",sub:"CBC & Edexcel"},
+    {num:"1",label:"Academic Pathway",sub:"CBE Curriculum"},
     {num:"4",label:"School Sections",sub:"Nursery to Senior"},
     {num:"5",label:"Core Values",sub:"Guiding Every Lesson"},
     {num:"∞",label:"Possibilities",sub:"For Every Learner"},
@@ -262,7 +262,7 @@ function Overview(){
             <p className="label-tag">Our Approach</p>
             <h2 className="section-heading">Learning That <em>Matters</em></h2>
             <div className="divider"/>
-            <p className="body-text" style={{marginBottom:"1.1rem"}}>Granada School offers the Competency Based Curriculum (CBC) — Kenya's national framework — alongside the internationally recognised British Edexcel curriculum. This dual-pathway model ensures every learner finds the right route to reach their full potential.</p>
+            <p className="body-text" style={{marginBottom:"1.1rem"}}>Granada School offers the Competency Based Curriculum (CBC) — Kenya’s national framework — ensuring every learner develops practical competencies and finds the right route to reach their full potential.</p>
             <p className="body-text" style={{marginBottom:"1.1rem"}}>The CBC at Granada focuses on developing practical competencies, creativity, collaboration, and communication skills that prepare learners for real-life challenges. Learners are supported in discovering their strengths and talents through an interactive, learner-centred approach.</p>
             <p className="body-text" style={{marginBottom:"2rem"}}>Through these pathways, Granada ensures that learners receive an education that is both locally relevant and internationally competitive — equipping them with the confidence and capability to thrive wherever their journey leads.</p>
             <div style={{display:"flex",gap:"0.75rem",flexWrap:"wrap"}}>
@@ -327,13 +327,13 @@ function CBCCurriculum(){
             </div>
           ))}
         </div>
-        {/* Dual pathway note */}
+        {/* CBE pathway note */}
         <div style={{border:"1px solid rgba(255,255,255,0.15)",padding:"clamp(1.5rem,2.5vw,2.25rem)",background:"rgba(255,255,255,0.05)",opacity:vis?1:0,transform:vis?"none":"translateY(24px)",transition:"all 0.9s ease 0.5s"}}>
           <div style={{display:"flex",gap:"clamp(1.5rem,3vw,3rem)",alignItems:"flex-start",flexWrap:"wrap"}}>
             <div style={{flex:1,minWidth:260}}>
-              <p style={{fontSize:"clamp(0.58rem,0.8vw,0.62rem)",letterSpacing:"0.2em",textTransform:"uppercase",color:"var(--secondary)",fontWeight:700,marginBottom:"0.75rem"}}>Dual Pathway Note</p>
+              <p style={{fontSize:"clamp(0.58rem,0.8vw,0.62rem)",letterSpacing:"0.2em",textTransform:"uppercase",color:"var(--secondary)",fontWeight:700,marginBottom:"0.75rem"}}>CBE Pathway</p>
               <p style={{color:"rgba(255,255,255,0.85)",fontSize:"clamp(0.78rem,0.95vw,0.88rem)",lineHeight:1.8}}>
-                Through these dual academic pathways, Granada ensures learners receive an education that is both locally relevant and internationally competitive. Parents can choose the nationally focused CBC route or the internationally recognised Edexcel route — depending on their child's academic and career aspirations.
+                Through the CBE pathway, Granada ensures learners receive an education that is both locally relevant and globally competitive. The nationally focused CBC route develops well-rounded competencies — preparing learners for success in their academic and career aspirations.
               </p>
             </div>
             <div style={{display:"flex",flexDirection:"column",gap:"0.75rem",minWidth:200}}>
@@ -367,7 +367,7 @@ function SchoolSections(){
       age:"Ages 3–6",
       color:"#ebae1b",
       img:"/class.jpeg",
-      curriculum:"CBC & Introduction to British Early Years",
+      curriculum:"CBC Early Years",
       tagline:"Play-Based Discovery",
       intro:"Our Early Years programme lays the foundation for a lifetime of learning through nurturing, play-based experiences that spark curiosity and confidence in every child.",
       highlights:[
@@ -386,14 +386,14 @@ function SchoolSections(){
       age:"Ages 6–13",
       color:"var(--primary)",
       img:"/class.jpeg",
-      curriculum:"CBC & British Edexcel Primary (Years 1–6)",
+      curriculum:"CBC Primary",
       tagline:"Building Strong Foundations",
-      intro:"Primary School at Granada develops strong academic foundations alongside practical skills. CBC focuses on competency development while Edexcel introduces internationally structured learning.",
+      intro:"Primary School at Granada develops strong academic foundations alongside practical skills. CBC focuses on competency development, creativity, and critical thinking through a learner-centred approach.",
       highlights:[
         "English, Mathematics, Science & Social Studies",
         "Creative Arts and Physical Education",
         "Project-Based Learning (CBC)",
-        "Structured international standards (Edexcel)",
+        "Competency-based assessments and portfolios",
         "Digital literacy and ICT integration",
       ],
       quote:"Curiosity ignited in Primary School becomes the fuel for a lifetime of achievement.",
@@ -405,13 +405,13 @@ function SchoolSections(){
       age:"Ages 13–16",
       color:"var(--accent-green)",
       img:"/building.jpeg",
-      curriculum:"CBC & Edexcel Lower Secondary (Years 7–9)",
+      curriculum:"CBC Lower Secondary",
       tagline:"Developing Independent Thinkers",
-      intro:"Junior School is where learners deepen understanding, develop independence, and sharpen their critical thinking. Both CBC and Edexcel pathways challenge learners to think analytically and creatively.",
+      intro:"Junior School is where learners deepen understanding, develop independence, and sharpen their critical thinking. The CBC pathway challenges learners to think analytically and creatively.",
       highlights:[
         "English, Maths, Sciences and Humanities",
         "ICT and Technology Integration",
-        "Edexcel internationally benchmarked syllabi",
+        "Competency-based learning and assessment",
         "Critical thinking and research skills",
         "Leadership and co-curricular development",
       ],
@@ -424,14 +424,14 @@ function SchoolSections(){
       age:"Ages 16–19",
       color:"var(--accent-warm)",
       img:"/class.jpeg",
-      curriculum:"CBC Senior Secondary & Edexcel IGCSE + A-Level",
+      curriculum:"CBC Senior Secondary",
       tagline:"Preparing Future Leaders",
-      intro:"Senior School brings both pathways to their fullest expression — CBC prepares learners for national examinations with a focus on holistic competencies, while Edexcel prepares learners for IGCSE and A-Level qualifications for university entry worldwide.",
+      intro:"Senior School brings the CBC pathway to its fullest expression — preparing learners for national examinations with a focus on holistic competencies, character formation, and readiness for higher education.",
       highlights:[
-        "CBC: National examinations, competency portfolio",
-        "IGCSE: Core and elective subjects (Years 10–11)",
-        "A-Level: University preparation (Years 12–13)",
-        "University applications support",
+        "National examinations and competency portfolio",
+        "Subject specialisation and career pathways",
+        "University preparation and applications support",
+        "Community service and leadership development",
         "Junior &amp; Senior Girls' Boarding",
       ],
       quote:"Senior School is not the end of a journey — it is the gateway to everything that follows.",
@@ -442,10 +442,10 @@ function SchoolSections(){
     <section className="section-cream" id="sections" ref={ref} style={{paddingTop:"clamp(3rem,6vw,5rem)",paddingBottom:"clamp(3rem,6vw,5rem)",scrollMarginTop:"100px"}}>
       <div style={{maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)"}}>
         <div style={{marginBottom:"clamp(1.5rem,2.5vw,2.75rem)",opacity:vis?1:0,transform:vis?"none":"translateY(20px)",transition:"all 0.8s ease"}}>
-          <p className="label-tag">CBC + Edexcel Pathways</p>
+          <p className="label-tag">CBC Pathway</p>
           <h2 className="section-heading">A Continuous Learning <em>Journey</em></h2>
           <div className="divider"/>
-          <p className="body-text" style={{maxWidth:600}}>Granada provides a seamless learning journey from Nursery to Senior School, offering both CBC and Edexcel pathways. Families can select the pathway that best suits their child's learning goals.</p>
+          <p className="body-text" style={{maxWidth:600}}>Granada provides a seamless learning journey from Nursery to Senior School through the CBC pathway. Every stage is designed to build on the last, developing well-rounded, confident learners.</p>
         </div>
         {/* Stage tabs */}
         <div style={{display:"flex",gap:1,background:"#dddbd8",marginBottom:"clamp(1.5rem,2vw,2rem)",overflowX:"auto"}} className="section-tabs">
@@ -589,7 +589,7 @@ function AdmissionsCTA(){
           <h2 className="section-heading" style={{fontSize:"clamp(2rem,4vw,3.2rem)"}}>Ready to Join <em>Granada School?</em></h2>
           <div className="divider" style={{margin:"1.5rem auto"}}/>
           <p className="body-text" style={{maxWidth:560,margin:"0 auto clamp(2rem,3vw,2.75rem)",fontSize:"clamp(0.85rem,1.1vw,0.95rem)"}}>
-            Whether you are choosing the CBC pathway, the Edexcel pathway, or exploring boarding for your daughter — our admissions team is here to guide you through every step.
+            Whether you are exploring the CBC pathway or boarding for your daughter — our admissions team is here to guide you through every step.
           </p>
           <div style={{display:"flex",gap:"clamp(0.6rem,1.2vw,1rem)",justifyContent:"center",flexWrap:"wrap"}}>
             <a href="/granada-school#admissions" className="btn-green" style={{fontSize:"clamp(0.65rem,1vw,0.72rem)",padding:"clamp(0.6rem,1vw,0.8rem) clamp(1.5rem,2.5vw,2.5rem)"}}>Apply Now</a>
@@ -622,7 +622,7 @@ function Footer(){
           </div>
           {[
             {title:"School",links:["About Us","Academic Life","Admissions","Curriculum","Campus Life","Our Team"]},
-            {title:"Curriculum",links:["CBE Kenya","Pearson Edexcel","Early Years","Primary School","Junior School","Senior School"]},
+            {title:"Curriculum",links:["CBE Kenya","Early Years","Primary School","Junior School","Senior School"]},
           ].map((col,i)=>(
             <div key={i}>
               <h4 style={{fontSize:"0.6rem",letterSpacing:"0.2em",textTransform:"uppercase",color:"var(--secondary)",fontWeight:700,marginBottom:"1.3rem"}}>{col.title}</h4>

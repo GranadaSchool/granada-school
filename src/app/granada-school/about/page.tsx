@@ -254,7 +254,7 @@ function Welcome(){
       <div style={{display:"grid",gridTemplateColumns:"1fr",gap:"clamp(2rem,4vw,3.5rem)",alignItems:"start"}} className="welcome-grid">
         <div style={{opacity:vis?1:0,transform:vis?"none":"translateY(24px)",transition:"all 0.9s ease 0.1s"}}>
           <p className="body-text" style={{marginBottom:"1.2rem"}}>Granada School is a vibrant learning community located along Kenya's beautiful coast in Vipingo. The school is dedicated to nurturing confident, capable, and compassionate learners who are prepared to thrive in a rapidly changing world.</p>
-          <p className="body-text" style={{marginBottom:"1.2rem"}}>Granada offers both Kenya's Competency Based Education (CBE) and the Pearson Edexcel curriculum, providing learners with a strong national foundation alongside an internationally recognised academic pathway.</p>
+          <p className="body-text" style={{marginBottom:"1.2rem"}}>Granada offers Kenya's Competency Based Education (CBE) curriculum, providing learners with a strong national foundation and a holistic, competency-driven academic pathway.</p>
           <p className="body-text" style={{marginBottom:"1.2rem"}}>Guided by the values of resilience, curiosity, kindness, honesty, and respect, the school focuses on developing the whole child — academically, socially, and morally.</p>
           <p className="body-text" style={{marginBottom:"2rem"}}>Granada CBE Junior &amp; Senior Girls' Boarding Secondary School also provides boarding facilities for both Junior and Senior School girls, offering a safe and supportive environment for focused learning and personal growth.</p>
           <div style={{display:"flex",gap:"0.75rem",flexWrap:"wrap"}}>
@@ -396,7 +396,7 @@ function OurStory(){
           <h2 className="section-heading">Rooted in <em>Vipingo</em>,<br/>Reaching the World</h2>
           <div className="divider"/>
           <p className="body-text" style={{marginBottom:"1.1rem"}}>Granada School was founded on a simple but powerful conviction: that every child deserves access to a world-class education. Situated in the serene coastal environment of Vipingo, Kilifi County, the school was established to serve the growing families of Kenya and around the world.</p>
-          <p className="body-text" style={{marginBottom:"1.1rem"}}>From its earliest days, Granada has been committed to academic rigour, character formation, and community involvement. The school's dual-curriculum model — combining Kenya's CBE with the Pearson Edexcel pathway — was designed to open doors for learners both locally and globally.</p>
+          <p className="body-text" style={{marginBottom:"1.1rem"}}>From its earliest days, Granada has been committed to academic rigour, character formation, and community involvement. The school's CBE curriculum — aligned with Kenya's national framework — was designed to open doors for learners both locally and globally.</p>
           <p className="body-text" style={{marginBottom:"2rem"}}>Today, Granada stands as a testament to what a school can become when vision, dedication, and community come together. Every day, our learners write the next chapter of a story that began on the beautiful Kenya coast — and whose impact reaches far beyond it.</p>
           <a href="/#campus" className="btn-solid">Explore Our Campus</a>
         </div>
@@ -457,7 +457,7 @@ function StaffSnapshot(){
     {name:"The Principal",         role:"Head of School",            img:"https://images.unsplash.com/photo-1629425733761-caae3b5f2e50?q=80&w=387"},
     {name:"Director of Academics", role:"Academic Leadership",        img:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&q=80"},
     {name:"Head of CBE",            role:"CBE Programme Coordinator",  img:"https://images.unsplash.com/photo-1573496527892-904f897eb744?q=80&w=869"},
-    {name:"Head of Edexcel",        role:"Pearson Curriculum Lead",    img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"},
+    {name:"Head of Boarding",        role:"Boarding Programme Lead",    img:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"},
   ];
   return(
     <section className="section-cream" id="staff" ref={ref} style={{paddingTop:"clamp(3rem,6vw,5rem)",paddingBottom:"clamp(3rem,6vw,5rem)",scrollMarginTop:"100px"}}>
@@ -527,7 +527,7 @@ function Footer(){
           </div>
           {[
             {title:"School",links:["About Us","Academic Life","Admissions","Curriculum","Campus Life","Our Team"]},
-            {title:"Curriculum",links:["CBE Kenya","Pearson Edexcel","Early Years","Primary School","Junior School","Senior School"]},
+            {title:"Curriculum",links:["CBE Kenya","Early Years","Primary School","Junior School","Senior School"]},
           ].map((col,i)=>(
             <div key={i}>
               <h4 style={{fontSize:"0.6rem",letterSpacing:"0.2em",textTransform:"uppercase",color:"var(--secondary)",fontWeight:700,marginBottom:"1.3rem"}}>{col.title}</h4>

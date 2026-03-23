@@ -407,7 +407,7 @@ function Footer(){
           </div>
           {[
             {title:"School",links:["About Us","Academic Life","Admissions","Curriculum","Campus Life","Our Team"]},
-            {title:"Curriculum",links:["CBE Kenya","Pearson Edexcel","Early Years","Primary School","Junior School","Senior School"]},
+            {title:"Curriculum",links:["CBE Kenya","Early Years","Primary School","Junior School","Senior School"]},
           ].map((col,i)=>(
             <div key={i}>
               <h4 style={{fontSize:"0.6rem",letterSpacing:"0.2em",textTransform:"uppercase",color:"var(--secondary)",fontWeight:700,marginBottom:"1.3rem"}}>{col.title}</h4>

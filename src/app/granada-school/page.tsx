@@ -241,7 +241,7 @@ function useInView(threshold=0.15){
 function Hero(){
   const slides=[
     {bg:"/building.jpeg",label:"Inspiring Excellence"},
-    {bg:"/class.jpeg",label:"CBC & Edexcel"},
+    {bg:"/class.jpeg",label:"CBE Curriculum"},
     {bg:"/sports.jpeg",label:"Vipingo, Kenya"},
     {bg:"/dorm.jpeg",label:"Values-Based Education"},
   ];
@@ -526,7 +526,7 @@ function Footer(){
           </div>
           {[
             {title:"School",links:["About Us","Academic Life","Admissions","Curriculum","Campus Life","Our Team"]},
-            {title:"Curriculum",links:["CBC Kenya","British Edexcel","Early Years","Primary School","Junior School","Senior School"]},
+            {title:"Curriculum",links:["CBC Kenya","Early Years","Primary School","Junior School","Senior School"]},
             {title:"Contact Us",links:null,contact:true},
           ].map((col,i)=>(
             <div key={i}>
