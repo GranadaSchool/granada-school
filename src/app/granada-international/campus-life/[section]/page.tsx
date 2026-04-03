@@ -120,11 +120,19 @@ function Navbar(){
           <Image src={scrolled ? "/g-international.svg" : "/g-international-dark.svg"} alt="Granada International" width={110} height={44} style={{height:"auto",width:"clamp(50px,8vw,110px)"}} priority/>
         </a>
         <div style={{display:"flex",alignItems:"center",gap:"clamp(1rem,2vw,1.5rem)",flexWrap:"wrap",justifyContent:"flex-end",flex:1}}>
+          <div style={{display:"none",gap:"1.25rem",alignItems:"center"}} className="nav-quick">
+            {[{l:"Parents",h:"/granada-international#contact"},{l:"Enquire",h:"/granada-international/contact"}].map(({l,h})=>(
+              <a key={l} href={h} style={{color:scrolled?"var(--muted)":"rgba(255,255,255,0.85)",textDecoration:"none",fontSize:"clamp(0.62rem,0.88vw,0.7rem)",letterSpacing:"0.1em",textTransform:"uppercase",fontWeight:500,transition:"color 0.2s"}}
+                onMouseEnter={e=>(e.currentTarget.style.color="var(--primary)")} onMouseLeave={e=>(e.currentTarget.style.color=scrolled?"var(--muted)":"rgba(255,255,255,0.85)")}>{l}</a>
+            ))}
+            <a href="/granada-international/admissions#apply" className="btn-green" style={{fontSize:"clamp(0.56rem,0.8vw,0.65rem)",padding:"0.5rem 1.2rem"}}>Apply Now</a>
+          </div>
           <button onClick={()=>setOpen(true)} aria-label="Open menu" style={{background:"none",border:`1px solid ${scrolled?"rgba(33,53,88,0.35)":"rgba(255,255,255,0.5)"}`,cursor:"pointer",display:"flex",flexDirection:"column",gap:5,padding:"0.5rem 0.6rem",transition:"border-color 0.3s"}} onMouseEnter={e=>(e.currentTarget.style.borderColor="var(--primary)")} onMouseLeave={e=>(e.currentTarget.style.borderColor=scrolled?"rgba(33,53,88,0.35)":"rgba(255,255,255,0.5)")}>
             <span style={{width:21,height:1.5,background:scrolled?"var(--primary)":"#fff",display:"block"}}/>
             <span style={{width:21,height:1.5,background:scrolled?"var(--primary)":"#fff",display:"block"}}/>
             <span style={{width:13,height:1.5,background:"var(--secondary)",display:"block"}}/>
           </button>
+          <style>{`@media(min-width:768px){.nav-quick{display:flex!important}}`}</style>
         </div>
       </div>
     </header>
@@ -197,9 +205,6 @@ function PageHero(){
               Life Beyond<br/><span style={{color:"var(--accent-light)"}}>the Classroom</span>
             </h1>
             <div style={{width:"clamp(35px,4.5vw,50px)",height:2,background:"var(--secondary)",marginBottom:"clamp(0.9rem,1.4vw,1.2rem)",opacity:loaded?1:0,transition:"width 0.9s ease 0.6s,opacity 0.7s ease 0.5s"}}/>
-            <p style={{color:"rgba(255,255,255,0.82)",fontSize:"clamp(0.84rem,1.25vw,1rem)",fontWeight:300,maxWidth:520,lineHeight:1.82,opacity:loaded?1:0,transform:loaded?"none":"translateY(18px)",transition:"all 0.8s ease 0.55s"}}>
-              At Granada International, campus life is vibrant, inclusive, and purposeful — a world of sport, performing arts, global leadership programmes, and lifelong friendships formed in Vipingo's stunning coastal environment.
-            </p>
           </div>
           <div style={{display:"flex",flexDirection:"column",gap:"clamp(0.6rem,1vw,0.9rem)",flexShrink:0,opacity:loaded?1:0,transition:"opacity 0.9s ease 0.7s"}}>
             <a href="#activities" onClick={e=>{e.preventDefault();document.getElementById("activities")?.scrollIntoView({behavior:"smooth",block:"start"});}} className="btn-green" style={{textAlign:"center"}}>Explore Campus</a>
@@ -387,7 +392,7 @@ function Sports(){
             </div>
           </div>
           <div>
-            <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:1,background:"#dddbd8",opacity:vis?1:0,transform:vis?"none":"translateX(24px)",transition:"all 0.9s ease 0.15s"}}>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:1,background:"#dddbd8",opacity:vis?1:0,transform:vis?"none":"translateX(24px)",transition:"all 0.9s ease 0.15s"}} className="sports-cards-grid">
               {sports.map((s,i)=>(
                 <div key={i} style={{background:"#fff",padding:"clamp(1rem,1.5vw,1.4rem)",transition:"all 0.3s",cursor:"default"}}
                   onMouseEnter={e=>{(e.currentTarget as HTMLElement).style.background="var(--primary)";(e.currentTarget as HTMLElement).querySelectorAll("h4,p").forEach(el=>(el as HTMLElement).style.color="#fff" );}}
@@ -401,7 +406,7 @@ function Sports(){
           </div>
         </div>
       </div>
-      <style>{`@media(min-width:900px){.sports-layout{grid-template-columns:1fr 1fr!important}}`}</style>
+      <style>{`@media(min-width:900px){.sports-layout{grid-template-columns:1fr 1fr!important}}@media(max-width:768px){.sports-cards-grid{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:500px){.sports-cards-grid{grid-template-columns:1fr!important}}`}</style>
     </section>
   );
 }
@@ -465,7 +470,7 @@ function Music(){
         </div>
         <div style={{display:"grid",gridTemplateColumns:"1fr",gap:"clamp(2rem,3.5vw,4rem)",alignItems:"center"}} className="music-layout">
           <div style={{opacity:vis?1:0,transform:vis?"none":"translateX(-24px)",transition:"all 0.9s ease 0.1s"}}>
-            <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:1,background:"#dddbd8",marginBottom:"clamp(1.5rem,2.5vw,2.5rem)"}}>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:1,background:"#dddbd8",marginBottom:"clamp(1.5rem,2.5vw,2.5rem)"}} className="instruments-grid">
               {instruments.map((inst,i)=>(
                 <div key={i} style={{background:"#fff",padding:"clamp(0.8rem,1.2vw,1.1rem)",textAlign:"center",transition:"all 0.25s",cursor:"default"}} onMouseEnter={e=>{(e.currentTarget as HTMLElement).style.background="var(--primary)";(e.currentTarget.querySelector("p") as HTMLElement).style.color="#fff";}} onMouseLeave={e=>{(e.currentTarget as HTMLElement).style.background="#fff";(e.currentTarget.querySelector("p") as HTMLElement).style.color="";}}>
                   <p style={{fontSize:"clamp(0.6rem,0.8vw,0.72rem)",fontWeight:700,textTransform:"uppercase",letterSpacing:"0.1em",color:"var(--primary)",transition:"color 0.25s"}}>{inst}</p>
@@ -497,7 +502,7 @@ function Music(){
           </div>
         </div>
       </div>
-      <style>{`@media(min-width:900px){.music-layout{grid-template-columns:1fr 1fr!important}}`}</style>
+      <style>{`@media(min-width:900px){.music-layout{grid-template-columns:1fr 1fr!important}}@media(max-width:768px){.instruments-grid{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:480px){.instruments-grid{grid-template-columns:1fr!important}}`}</style>
     </section>
   );
 }
@@ -516,8 +521,8 @@ function CoCurricular(){
     {title:"Student Council",icon:"🏛️",desc:"Elected student representatives driving school initiatives, community projects, and student welfare advocacy."},
   ];
   return(
-    <section id="cocurricular" className="section-blue" ref={ref} style={{padding:"clamp(3rem,5.5vw,5.5rem) clamp(1rem,2vw,2rem)",scrollMarginTop:"100px"}}>
-      <div style={{maxWidth:1280,margin:"0 auto"}}>
+    <section id="cocurricular" className="section-blue" ref={ref} style={{padding:"clamp(3rem,5.5vw,5.5rem) 0",scrollMarginTop:"100px"}}>
+      <div style={{maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)"}}>
         <div style={{marginBottom:"clamp(2rem,3vw,3.5rem)",opacity:vis?1:0,transform:vis?"none":"translateY(20px)",transition:"all 0.8s ease"}}>
           <p className="label-tag">Beyond the Curriculum</p>
           <h2 className="section-heading">Co-Curricular <em>Activities</em></h2>
@@ -594,10 +599,10 @@ function BoardingLife(){
     {icon:"👨‍👩‍👧",title:"Family Communication",desc:"Regular updates and dedicated parent communication channels keeping families fully connected."},
   ];
   return(
-    <section id="boarding" ref={ref} className="section-blue" style={{position:"relative",padding:"clamp(3rem,5.5vw,5.5rem) clamp(1rem,2vw,2rem)",scrollMarginTop:"100px",overflow:"hidden"}}>
+    <section id="boarding" ref={ref} className="section-blue" style={{position:"relative",padding:"clamp(3rem,5.5vw,5.5rem) 0",scrollMarginTop:"100px",overflow:"hidden"}}>
       <div style={{position:"absolute",inset:0,backgroundImage:"url(/dorm.jpeg)",backgroundSize:"cover",backgroundPosition:"center",backgroundAttachment:"fixed"}}/>
       <div style={{position:"absolute",inset:0,background:"rgba(33,53,88,0.93)"}}/>
-      <div style={{position:"relative",zIndex:2,maxWidth:1280,margin:"0 auto"}}>
+      <div style={{position:"relative",zIndex:2,maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)"}}>
         <div style={{marginBottom:"clamp(2rem,3vw,3.5rem)",opacity:vis?1:0,transform:vis?"none":"translateY(20px)",transition:"all 0.8s ease"}}>
           <p className="label-tag">Senior School Girls · Boarding Life</p>
           <h2 className="section-heading">Our <em>Boarding Community</em></h2>

@@ -208,9 +208,6 @@ function PageHero(){
               Begin Your Journey<br/><span style={{color:"var(--accent-light)"}}>at Granada International</span>
             </h1>
             <div style={{width:"clamp(35px,4.5vw,50px)",height:2,background:"var(--secondary)",marginBottom:"clamp(0.9rem,1.4vw,1.2rem)",opacity:loaded?1:0,transition:"width 0.9s ease 0.6s, opacity 0.7s ease 0.5s"}}/>
-            <p style={{color:"rgba(255,255,255,0.82)",fontSize:"clamp(0.84rem,1.25vw,1rem)",fontWeight:300,maxWidth:520,lineHeight:1.82,opacity:loaded?1:0,transform:loaded?"translateY(0)":"translateY(18px)",transition:"all 0.8s ease 0.55s"}}>
-              Pearson Edexcel International Curriculum — From Early Years to A-Levels. We welcome families who seek not only academic distinction, but the development of principled, globally minded leaders.
-            </p>
           </div>
 
           <div style={{display:"flex",flexDirection:"column",gap:"clamp(0.6rem,1vw,0.9rem)",flexShrink:0,opacity:loaded?1:0,transition:"opacity 0.9s ease 0.7s"}}>
@@ -287,23 +284,8 @@ function Intro(){
           <h2 className="section-heading">Beginning Your<br/><em>International Journey</em></h2>
           <div className="divider"/>
         </div>
-        <div style={{display:"grid",gridTemplateColumns:"1fr",gap:"clamp(2rem,4vw,3rem)",alignItems:"start"}} className="adm-intro-grid">
-        <div style={{opacity:vis?1:0,transform:vis?"none":"translateX(-30px)",transition:"all 0.9s ease"}}>
-          <p className="body-text" style={{marginBottom:"1.2rem"}}>
-            At Granada International School, we offer the globally respected Pearson Edexcel curriculum — designed to cultivate intellectual curiosity, academic excellence, and confident global citizenship.
-          </p>
-          <p className="body-text" style={{marginBottom:"1.2rem"}}>
-            Our co-educational Junior School welcomes boys and girls from Kindergarten through Year 9 in a dynamic, inspiring environment. At Senior School level, our girls transition seamlessly into Granada Girls&apos; Boarding Senior School — where they pursue internationally recognised qualifications in a focused, empowering academic environment.
-          </p>
-          <p className="body-text" style={{marginBottom:"clamp(1.5rem,2.5vw,2.2rem)"}}>
-            Our dedicated Admissions Team provides personalised guidance throughout every step of the application journey — from initial enquiry to enrollment confirmation.
-          </p>
-          <div style={{display:"flex",gap:"0.75rem",flexWrap:"wrap"}}>
-            <a href="#process" onClick={e=>{e.preventDefault();document.getElementById("process")?.scrollIntoView({behavior:"smooth",block:"start"});}} className="btn-solid">How to Apply</a>
-            <a href="/granada-international/contact?type=admissions" className="btn-outline">Contact Admissions</a>
-          </div>
-        </div>
-        <div style={{opacity:vis?1:0,transform:vis?"none":"translateY(28px)",transition:"all 0.9s ease 0.15s",display:"flex",flexDirection:"column",gap:"clamp(0.8rem,1.5vw,1.2rem)"}}>
+        <div>
+        <div className="section-float-img" style={{float:"right",margin:"0 0 1.2rem 1.5rem",width:"clamp(280px,38vw,420px)",opacity:vis?1:0,transform:vis?"none":"translateY(28px)",transition:"all 0.9s ease 0.15s",display:"flex",flexDirection:"column",gap:"clamp(0.8rem,1.5vw,1.2rem)"}}>
           <div className="img-hover" style={{overflow:"hidden",minHeight:"clamp(240px,32vw,360px)",height:"100%",position:"relative"}}>
             <img src="/sports2.jpeg" alt="Students at Granada International" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
             <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(33,53,88,0.45),transparent 65%)"}}/>
@@ -326,9 +308,24 @@ function Intro(){
             ))}
           </div>
         </div>
+        <div style={{opacity:vis?1:0,transform:vis?"none":"translateX(-30px)",transition:"all 0.9s ease"}}>
+          <p className="body-text" style={{marginBottom:"1.2rem"}}>
+            At Granada International School, we offer the globally respected Pearson Edexcel curriculum — designed to cultivate intellectual curiosity, academic excellence, and confident global citizenship.
+          </p>
+          <p className="body-text" style={{marginBottom:"1.2rem"}}>
+            Our co-educational Junior School welcomes boys and girls from Kindergarten through Year 9 in a dynamic, inspiring environment. At Senior School level, our girls transition seamlessly into Granada Girls&apos; Boarding Senior School — where they pursue internationally recognised qualifications in a focused, empowering academic environment.
+          </p>
+          <p className="body-text" style={{marginBottom:"clamp(1.5rem,2.5vw,2.2rem)"}}>
+            Our dedicated Admissions Team provides personalised guidance throughout every step of the application journey — from initial enquiry to enrollment confirmation.
+          </p>
+          <div style={{display:"flex",gap:"0.75rem",flexWrap:"wrap",clear:"both"}}>
+            <a href="#process" onClick={e=>{e.preventDefault();document.getElementById("process")?.scrollIntoView({behavior:"smooth",block:"start"});}} className="btn-solid">How to Apply</a>
+            <a href="/granada-international/contact?type=admissions" className="btn-outline">Contact Admissions</a>
+          </div>
+        </div>
+        <div style={{clear:"both"}}/>
+        </div>
       </div>
-      </div>
-      <style>{`@media(min-width:768px){.adm-intro-grid{grid-template-columns:1fr 1fr!important}.adm-sidebar{display:block!important}}`}</style>
     </section>
   );
 }
@@ -342,8 +339,8 @@ function AdmissionsTeam(){
     {name:"Asya Adan",role:"Admissions Officer",phone:"+254 717 682 138",email:"admissions@granadaschools.group",img:"https://images.unsplash.com/photo-1573496527892-904f897eb744?q=80&w=869",note:"Asya supports prospective families with warm, attentive guidance — handling applications, scheduling visits, and ensuring every family feels welcomed into the Granada community."},
   ];
   return(
-    <section id="team" className="section-blue" ref={ref} style={{padding:"clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)",scrollMarginTop:"100px"}}>
-      <div style={{maxWidth:1280,margin:"0 auto"}}>
+    <section id="team" className="section-blue" ref={ref} style={{padding:"clamp(3rem,6vw,6rem) 0",scrollMarginTop:"100px"}}>
+      <div style={{maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)"}}>
         <div style={{marginBottom:"clamp(2rem,3vw,3.5rem)",opacity:vis?1:0,transform:vis?"none":"translateY(20px)",transition:"all 0.8s ease"}}>
           <p className="label-tag">Meet the Team</p>
           <h2 className="section-heading">Our <em>Admissions Team</em></h2>
@@ -524,8 +521,8 @@ function SeniorSchoolProcess(){
     {num:"05",icon:"✅",title:"Reporting & Enrollment into Year 10",desc:"The journey continues — students officially report to Senior School and begin their International GCSE pathway, supported by experienced faculty and a close-knit boarding community.",color:"var(--accent-blue)"},
   ];
   return(
-    <section id="senior-process" className="section-blue" ref={ref} style={{padding:"clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)",scrollMarginTop:"100px"}}>
-      <div style={{maxWidth:1280,margin:"0 auto"}}>
+    <section id="senior-process" className="section-blue" ref={ref} style={{padding:"clamp(3rem,6vw,6rem) 0",scrollMarginTop:"100px"}}>
+      <div style={{maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)"}}>
         <div style={{marginBottom:"clamp(2rem,3vw,3rem)",opacity:vis?1:0,transform:vis?"none":"translateY(20px)",transition:"all 0.8s ease"}}>
           <p className="label-tag">Girls Only · Senior School Boarding</p>
           <h2 className="section-heading">Transition to <em>Senior School</em></h2>
@@ -592,7 +589,7 @@ function Apply(){
       {/* Intro */}
       <div className="section-cream" style={{padding:"clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)"}}>
         <div style={{maxWidth:1280,margin:"0 auto"}}>
-          <div style={{maxWidth:720,opacity:vis?1:0,transform:vis?"none":"translateY(22px)",transition:"all 0.8s ease"}}>
+          <div style={{opacity:vis?1:0,transform:vis?"none":"translateY(22px)",transition:"all 0.8s ease"}}>
             <p className="label-tag">Apply to Granada International</p>
             <h2 className="section-heading">Begin Your <em>Application</em></h2>
             <div className="divider"/>
@@ -799,7 +796,7 @@ export default function AdmissionsPage(){
     <PageHero/>
     <TaglineStrip/>
     <div style={{background:"var(--body-bg)"}}>
-      <div style={{maxWidth:1280,margin:"0 auto",padding:"clamp(2rem,4vw,4.5rem) clamp(1rem,2vw,2rem) 0",display:"flex",gap:"clamp(2rem,3vw,3.5rem)",alignItems:"flex-start",flexWrap:"wrap"}} className="section-layout">
+      <div style={{maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)",display:"flex",gap:"clamp(2rem,3vw,3.5rem)",alignItems:"flex-start",flexWrap:"wrap"}} className="section-layout">
         <SectionNav/>
         <main style={{flex:1,minWidth:0}}>
           <div key={section} style={{animation:"sectionFadeIn 0.45s ease"}}>

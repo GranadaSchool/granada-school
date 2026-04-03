@@ -125,12 +125,12 @@ function Navbar(){
   return(<>
     <SideNav open={open} onClose={()=>setOpen(false)}/>
     <header style={{position:"fixed",top:0,left:0,right:0,zIndex:100,transition:"all 0.4s",background:scrolled?"rgba(255,255,255,0.97)":"transparent",backdropFilter:scrolled?"blur(10px)":"none",boxShadow:scrolled?"0 1px 0 #e8e6e3":"none",padding:scrolled?"0.7rem 0":"clamp(0.8rem,2vw,1.2rem) 0"}}>
-      <div style={{maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+      <div style={{maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"0.5rem"}}>
         <a href="/granada-international" style={{textDecoration:"none"}}>
           <Image src={scrolled ? "/g-international.svg" : "/g-international-dark.svg"} alt="Granada International" width={110} height={44} style={{height:"auto",width:"clamp(50px,8vw,110px)"}} priority/>
         </a>
-        <div style={{display:"flex",alignItems:"center",gap:"clamp(1rem,2vw,1.5rem)"}}>
-          <div style={{display:"flex",gap:"1.25rem",alignItems:"center"}} className="nav-quick">
+        <div style={{display:"flex",alignItems:"center",gap:"clamp(1rem,2vw,1.5rem)",flex:1,justifyContent:"flex-end"}}>
+          <div style={{display:"none",gap:"1.25rem",alignItems:"center"}} className="nav-quick">
             {[{l:"Parents",h:"/granada-international#contact"},{l:"Enquire",h:"/granada-international/contact"}].map(({l,h})=>(
               <a key={l} href={h} style={{color:scrolled?"var(--muted)":"rgba(255,255,255,0.85)",textDecoration:"none",fontSize:"clamp(0.6rem,1.2vw,0.68rem)",letterSpacing:"0.1em",textTransform:"uppercase",fontWeight:500,transition:"color 0.2s"}}
                 onMouseEnter={e=>(e.currentTarget.style.color="var(--primary)")} onMouseLeave={e=>(e.currentTarget.style.color=scrolled?"var(--muted)":"rgba(255,255,255,0.85)")}>{l}</a>
@@ -146,7 +146,7 @@ function Navbar(){
           </button>
         </div>
       </div>
-      <style>{`@media(max-width:640px){.nav-quick{display:none!important}}`}</style>
+      <style>{`@media(min-width:768px){.nav-quick{display:flex!important}}`}</style>
     </header>
   </>);
 }
@@ -205,9 +205,6 @@ function PageHero(){
             <h1 className="font-display" style={{fontSize:"clamp(2.5rem,6vw,5rem)",fontWeight:600,lineHeight:1.03,color:"#fff",marginBottom:"0.9rem",opacity:loaded?1:0,transform:loaded?"translateY(0)":"translateY(22px)",transition:"all 0.8s ease 0.4s"}}>
               Academic Excellence<br/><span style={{color:"var(--accent-light)"}}>at Granada International</span>
             </h1>
-            <p style={{color:"rgba(255,255,255,0.82)",fontSize:"clamp(0.88rem,1.2vw,1rem)",fontWeight:300,maxWidth:580,lineHeight:1.8,opacity:loaded?1:0,transform:loaded?"translateY(0)":"translateY(20px)",transition:"all 0.8s ease 0.55s"}}>
-              A globally benchmarked education through the British Edexcel curriculum — developing analytical thinkers, confident communicators, and globally minded graduates.
-            </p>
           </div>
           <div style={{display:"flex",flexDirection:"column",gap:"clamp(0.5rem,1vw,0.75rem)",flexShrink:0,opacity:loaded?1:0,transform:loaded?"translateY(0)":"translateY(16px)",transition:"all 0.8s ease 0.65s"}}>
             <a href="#overview" className="btn-green" style={{fontSize:"clamp(0.6rem,1vw,0.68rem)",padding:"clamp(0.5rem,1vw,0.7rem) clamp(1.2rem,2vw,1.8rem)",textAlign:"center"}}>Explore Curriculum</a>
@@ -267,20 +264,8 @@ function Overview(){
         <p className="font-display" style={{fontSize:"clamp(1rem,1.8vw,1.5rem)",color:"var(--primary)",lineHeight:1.7,marginBottom:"clamp(1.5rem,2.5vw,2.5rem)",borderLeft:"3px solid var(--secondary)",paddingLeft:"clamp(0.9rem,1.5vw,1.4rem)",maxWidth:820,opacity:vis?1:0,transform:vis?"none":"translateY(16px)",transition:"all 0.8s ease"}}>
           At Granada International, academic excellence is achieved through the internationally recognised British Edexcel curriculum — developing analytical thinking, academic depth, and global awareness in every learner.
         </p>
-        <div style={{display:"grid",gridTemplateColumns:"1fr",gap:"clamp(2rem,4vw,4rem)",alignItems:"start"}} className="overview-grid">
-          <div style={{opacity:vis?1:0,transform:vis?"none":"translateX(-24px)",transition:"all 0.9s ease 0.1s"}}>
-            <p className="label-tag">Our Approach</p>
-            <h2 className="section-heading">A World-Class <em>Education</em></h2>
-            <div className="divider"/>
-            <p className="body-text" style={{marginBottom:"1.1rem"}}>Granada International delivers the British Pearson Edexcel curriculum — one of the most respected and globally benchmarked academic frameworks in the world. This internationally recognised pathway prepares learners for higher education opportunities around the world.</p>
-            <p className="body-text" style={{marginBottom:"1.1rem"}}>The Edexcel programme develops analytical thinking, academic depth, and global awareness — equipping learners with the intellectual rigour, communication skills, and critical perspectives needed to succeed at the world's leading universities.</p>
-            <p className="body-text" style={{marginBottom:"2rem"}}>From the earliest years through to A-Level, every stage of learning at Granada International is designed to challenge, inspire, and prepare learners for a truly global future.</p>
-            <div style={{display:"flex",gap:"0.75rem",flexWrap:"wrap"}}>
-              <a href="#edexcel" onClick={e=>{e.preventDefault();const el=document.getElementById("edexcel");if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-100,behavior:"smooth"});}}} className="btn-solid">Edexcel Curriculum</a>
-              <a href="#sections" onClick={e=>{e.preventDefault();const el=document.getElementById("sections");if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-100,behavior:"smooth"});}}} className="btn-outline">School Sections</a>
-            </div>
-          </div>
-          <div style={{opacity:vis?1:0,transform:vis?"none":"translateX(24px)",transition:"all 0.9s ease 0.2s"}}>
+        <div>
+          <div className="section-float-img" style={{float:"right",margin:"0 0 1.2rem 1.5rem",width:"clamp(280px,38vw,420px)",opacity:vis?1:0,transform:vis?"none":"translateX(24px)",transition:"all 0.9s ease 0.2s"}}>
             <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:1,background:"#dddbd8",marginBottom:"clamp(1.2rem,2vw,1.5rem)"}}>
               {stats.map((s,i)=>(
                 <div key={i} style={{background:i===2?"var(--primary)":"#fff",padding:"clamp(1.2rem,2vw,1.75rem) clamp(1rem,1.5vw,1.4rem)",textAlign:"center",transition:"transform 0.3s",cursor:"default"}}
@@ -295,9 +280,21 @@ function Overview(){
               <img src="/class.jpeg" alt="International students" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
             </div>
           </div>
+          <div style={{opacity:vis?1:0,transform:vis?"none":"translateX(-24px)",transition:"all 0.9s ease 0.1s"}}>
+            <p className="label-tag">Our Approach</p>
+            <h2 className="section-heading">A World-Class <em>Education</em></h2>
+            <div className="divider"/>
+            <p className="body-text" style={{marginBottom:"1.1rem"}}>Granada International delivers the British Pearson Edexcel curriculum — one of the most respected and globally benchmarked academic frameworks in the world. This internationally recognised pathway prepares learners for higher education opportunities around the world.</p>
+            <p className="body-text" style={{marginBottom:"1.1rem"}}>The Edexcel programme develops analytical thinking, academic depth, and global awareness — equipping learners with the intellectual rigour, communication skills, and critical perspectives needed to succeed at the world's leading universities.</p>
+            <p className="body-text" style={{marginBottom:"2rem"}}>From the earliest years through to A-Level, every stage of learning at Granada International is designed to challenge, inspire, and prepare learners for a truly global future.</p>
+            <div style={{display:"flex",gap:"0.75rem",flexWrap:"wrap",clear:"both"}}>
+              <a href="#edexcel" onClick={e=>{e.preventDefault();const el=document.getElementById("edexcel");if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-100,behavior:"smooth"});}}} className="btn-solid">Edexcel Curriculum</a>
+              <a href="#sections" onClick={e=>{e.preventDefault();const el=document.getElementById("sections");if(el){window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-100,behavior:"smooth"});}}} className="btn-outline">School Sections</a>
+            </div>
+          </div>
+          <div style={{clear:"both"}}/>
         </div>
       </div>
-      <style>{`@media(min-width:768px){.overview-grid{grid-template-columns:1fr 1fr!important}.section-sidebar{display:block!important}}`}</style>
     </section>
   );
 }
@@ -755,7 +752,7 @@ export default function GranadaInternationalAcademics(){
         .img-hover:hover img{transform:scale(1.06);}
         @keyframes kenBurns{from{transform:scale(1) translateX(0);}to{transform:scale(1.07) translateX(-1%);}}
         @keyframes sectionFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-        @media(max-width:640px){.section-tabs button{min-width:80px!important;}}
+        @media(max-width:640px){.section-tabs button{min-width:90px!important;}}
       `}</style>
     </>
   );

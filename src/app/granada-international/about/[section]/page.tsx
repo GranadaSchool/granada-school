@@ -128,12 +128,12 @@ function Navbar(){
   return(<>
     <SideNav open={open} onClose={()=>setOpen(false)}/>
     <header style={{position:"fixed",top:0,left:0,right:0,zIndex:100,transition:"all 0.4s",background:scrolled?"rgba(255,255,255,0.97)":"transparent",backdropFilter:scrolled?"blur(10px)":"none",boxShadow:scrolled?"0 1px 0 #e8e6e3":"none",padding:scrolled?"0.7rem 0":"clamp(0.8rem,2vw,1.2rem) 0"}}>
-      <div style={{maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+      <div style={{maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)",display:"flex",alignItems:"center",justifyContent:"space-between",flexWrap:"wrap",gap:"0.5rem"}}>
         <a href="/granada-international" style={{textDecoration:"none"}}>
           <Image src={scrolled ? "/g-international.svg" : "/g-international-dark.svg"} alt="Granada International" width={110} height={44} style={{height:"auto",width:"clamp(50px,8vw,110px)"}} priority/>
         </a>
-        <div style={{display:"flex",alignItems:"center",gap:"clamp(1rem,2vw,1.5rem)"}}>
-          <div style={{display:"flex",gap:"1.25rem",alignItems:"center"}} className="nav-quick">
+        <div style={{display:"flex",alignItems:"center",gap:"clamp(1rem,2vw,1.5rem)",flex:1,justifyContent:"flex-end"}}>
+          <div style={{display:"none",gap:"1.25rem",alignItems:"center"}} className="nav-quick">
             {[{l:"Parents",h:"/granada-international#contact"},{l:"Enquire",h:"/granada-international/contact"}].map(({l,h})=>(
               <a key={l} href={h} style={{color:scrolled?"var(--muted)":"rgba(255,255,255,0.85)",textDecoration:"none",fontSize:"clamp(0.6rem,1.2vw,0.68rem)",letterSpacing:"0.1em",textTransform:"uppercase",fontWeight:500,transition:"color 0.2s"}}
                 onMouseEnter={e=>(e.currentTarget.style.color="var(--primary)")} onMouseLeave={e=>(e.currentTarget.style.color=scrolled?"var(--muted)":"rgba(255,255,255,0.85)")}>{l}</a>
@@ -149,7 +149,7 @@ function Navbar(){
           </button>
         </div>
       </div>
-      <style>{`@media(max-width:640px){.nav-quick{display:none!important}}`}</style>
+      <style>{`@media(min-width:768px){.nav-quick{display:flex!important}}`}</style>
     </header>
   </>);
 }
@@ -211,9 +211,6 @@ function PageHero(){
         <h1 className="font-display" style={{fontSize:"clamp(2.6rem,5.5vw,4.5rem)",fontWeight:600,lineHeight:1.05,color:"#fff",marginBottom:"0.8rem",opacity:loaded?1:0,transform:loaded?"translateY(0)":"translateY(20px)",transition:"all 0.8s ease 0.4s"}}>
           World-Class Education<br/><span style={{color:"var(--accent-light)"}}>at Granada International</span>
         </h1>
-        <p style={{color:"rgba(255,255,255,0.82)",fontSize:"clamp(0.85rem,1.2vw,0.95rem)",fontWeight:300,maxWidth:500,lineHeight:1.8,opacity:loaded?1:0,transform:loaded?"translateY(0)":"translateY(20px)",transition:"all 0.8s ease 0.5s"}}>
-          Forward Thinking. Inspiring Excellence. Shaping the Future.
-        </p>
       </div>
       <style>{`@keyframes kenBurns{from{transform:scale(1)}to{transform:scale(1.08)}}`}</style>
     </section>
@@ -318,7 +315,7 @@ function VisionMission(){
       {/* Strategic pillars */}
       <div style={{opacity:vis?1:0,transform:vis?"none":"translateY(24px)",transition:"all 0.9s ease 0.3s"}}>
         <p className="body-text" style={{marginBottom:"1.75rem",maxWidth:620}}>Our strategic pillars bring this vision to life — translating the Granada International ethos into everyday learning, personal growth, and inspiring global experiences.</p>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"1px",background:"rgba(255,255,255,0.12)"}}>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"1px",background:"rgba(255,255,255,0.12)"}} className="int-pillars-grid">
           {[
             {title:"Character & Wellbeing",       desc:"Cultivating resilient, ethical, and socially aware international learners across all aspects of school life.",icon:"◆"},
             {title:"Academic Excellence",          desc:"Delivering personalised, Edexcel-standard learning that equips pupils for universities across the globe.",icon:"◇"},
@@ -332,7 +329,7 @@ function VisionMission(){
           ))}
         </div>
       </div>
-      <style>{`@media(min-width:640px){.int-vision-grid{grid-template-columns:1fr 1fr!important}}`}</style>
+      <style>{`@media(min-width:640px){.int-vision-grid{grid-template-columns:1fr 1fr!important}}@media(max-width:768px){.int-pillars-grid{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:500px){.int-pillars-grid{grid-template-columns:1fr!important}}`}</style>
       </div>
     </section>
   );
@@ -388,8 +385,9 @@ function OurStory(){
   return(
     <section className="section-light" id="history" ref={ref} style={{paddingTop:"clamp(3rem,6vw,5rem)",paddingBottom:"clamp(3rem,6vw,5rem)",scrollMarginTop:"100px"}}>
       <div style={{maxWidth:1280,margin:"0 auto",padding:"clamp(1.5rem,2vw,2rem) clamp(1rem,2vw,2rem)"}}>
-      <div style={{display:"grid",gridTemplateColumns:"1fr",gap:"clamp(2rem,4vw,4rem)",alignItems:"center"}} className="int-story-grid">
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gridTemplateRows:"clamp(180px,30vw,220px) clamp(140px,22vw,175px)",gap:8,opacity:vis?1:0,transform:vis?"none":"translateX(-24px)",transition:"all 0.9s ease"}}>
+      <div>
+        <div className="section-float-img" style={{float:"left",margin:"0 1.5rem 1.2rem 0",width:"clamp(260px,38vw,420px)",opacity:vis?1:0,transform:vis?"none":"translateX(-24px)",transition:"all 0.9s ease"}}>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gridTemplateRows:"clamp(180px,30vw,220px) clamp(140px,22vw,175px)",gap:8}}>
           {[
             {src:"/class.jpeg",col:"1/2",row:"1/2"},
             {src:"/building.jpeg",col:"2/3",row:"1/3"},
@@ -399,6 +397,7 @@ function OurStory(){
               <img src={img.src} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
             </div>
           ))}
+          </div>
         </div>
         <div style={{opacity:vis?1:0,transform:vis?"none":"translateX(24px)",transition:"all 0.9s ease 0.15s"}}>
           <p className="label-tag">Our Story</p>
@@ -407,10 +406,10 @@ function OurStory(){
           <p className="body-text" style={{marginBottom:"1.1rem"}}>Granada International was founded on a powerful conviction: that every child deserves access to a world-class, internationally recognised education. Situated in the serene coastal environment of Vipingo, Kilifi County, the school was established to serve the growing families of Kenya and the wider global community.</p>
           <p className="body-text" style={{marginBottom:"1.1rem"}}>From its earliest days, Granada International has been committed to academic rigour, character formation, and community involvement. The school's Pearson Edexcel pathway was designed to open doors for learners both locally and globally — ensuring every graduate is equipped for the world's best universities.</p>
           <p className="body-text" style={{marginBottom:"2rem"}}>Today, Granada International stands as a testament to what a school can become when vision, dedication, and community come together on Kenya's beautiful coast — a story whose next chapter is being written by our learners every single day.</p>
-          <a href="/granada-international#campus" className="btn-solid">Explore Our Campus</a>
+          <a href="/granada-international#campus" className="btn-solid" style={{clear:"both",display:"inline-block"}}>Explore Our Campus</a>
         </div>
+        <div style={{clear:"both"}}/>
       </div>
-      <style>{`@media(min-width:768px){.int-story-grid{grid-template-columns:1fr 1fr!important}}`}</style>
       </div>
     </section>
   );
@@ -453,7 +452,7 @@ function Boarding(){
           </div>
         ))}
       </div>
-      <style>{`@media(min-width:640px){.int-boarding-grid{grid-template-columns:1fr 1fr!important}}@media(max-width:500px){#boarding>div>div:last-child{grid-template-columns:1fr 1fr!important}}`}</style>
+      <style>{`@media(min-width:640px){.int-boarding-grid{grid-template-columns:1fr 1fr!important}}@media(max-width:640px){#boarding>div>div:last-child{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:400px){#boarding>div>div:last-child{grid-template-columns:1fr!important}}`}</style>
       </div>
     </section>
   );
@@ -589,7 +588,7 @@ export default function AboutPage(){
     <Navbar/>
     <PageHero/>
     <div style={{background:"var(--body-bg)"}}>
-      <div style={{maxWidth:1280,margin:"0 auto",padding:"clamp(2rem,4vw,4.5rem) clamp(1rem,2vw,2rem) 0",display:"flex",gap:"clamp(2rem,3vw,3.5rem)",alignItems:"flex-start",flexWrap:"wrap"}} className="section-layout">
+      <div style={{maxWidth:1280,margin:"0 auto",padding:"0 clamp(1rem,2vw,2rem)",display:"flex",gap:"clamp(2rem,3vw,3.5rem)",alignItems:"flex-start",flexWrap:"wrap"}} className="section-layout">
         <SectionNav/>
         <main style={{flex:1,minWidth:0}}>
           <div key={section} style={{animation:"sectionFadeIn 0.45s ease"}}>
