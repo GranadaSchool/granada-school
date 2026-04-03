@@ -292,7 +292,7 @@ function LatestNews(){
         <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"clamp(1.2rem,2vw,2rem)"}} className="news-grid">
           {shown.map((a,i)=>(
             <article key={i} style={{background:"#fff",overflow:"hidden",cursor:"pointer",transition:"all 0.35s",boxShadow:"none",opacity:vis?1:0,transitionDelay:`${i*0.07}s`}} onMouseEnter={e=>{(e.currentTarget as HTMLElement).style.transform="translateY(-6px)";(e.currentTarget as HTMLElement).style.boxShadow="0 16px 50px rgba(33,53,88,0.12)";}} onMouseLeave={e=>{(e.currentTarget as HTMLElement).style.transform="none";(e.currentTarget as HTMLElement).style.boxShadow="none";}}>
-              <div style={{overflow:"hidden",minHeight:"clamp(170px,20vw,240px)",height:"100%",position:"relative"}}>
+              <div style={{overflow:"hidden",height:"clamp(180px,18vw,230px)",position:"relative",flexShrink:0}}>
                 <img src={a.img} alt={a.title} style={{width:"100%",height:"100%",objectFit:"cover",transition:"transform 0.6s ease"}} onMouseEnter={e=>(e.currentTarget.style.transform="scale(1.05)")} onMouseLeave={e=>(e.currentTarget.style.transform="scale(1)")}/>
                 <div style={{position:"absolute",top:12,left:12,background:"var(--primary)",padding:"0.2rem 0.6rem"}}>
                   <span style={{color:"#fff",fontSize:"clamp(0.5rem,0.7vw,0.58rem)",fontWeight:700,letterSpacing:"0.12em",textTransform:"uppercase"}}>{a.category}</span>
@@ -301,7 +301,7 @@ function LatestNews(){
               <div style={{padding:"clamp(1.2rem,1.8vw,1.6rem)"}}>
                 <p style={{fontSize:"clamp(0.56rem,0.8vw,0.65rem)",color:"var(--secondary)",letterSpacing:"0.1em",textTransform:"uppercase",fontWeight:700,marginBottom:"0.5rem"}}>{a.date}</p>
                 <h3 style={{fontSize:"clamp(0.78rem,1.05vw,0.9rem)",fontWeight:700,color:"var(--primary)",lineHeight:1.45,marginBottom:"0.7rem"}}>{a.title}</h3>
-                <p style={{fontSize:"clamp(0.65rem,0.8vw,0.72rem)",color:"var(--muted)",lineHeight:1.75,marginBottom:"1rem"}}>{a.excerpt}</p>
+                <p style={{fontSize:"clamp(0.65rem,0.8vw,0.72rem)",color:"var(--muted)",lineHeight:1.75,marginBottom:"1rem",display:"-webkit-box",WebkitLineClamp:3,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{a.excerpt}</p>
                 <span style={{display:"inline-flex",alignItems:"center",gap:"0.4rem",fontSize:"clamp(0.56rem,0.8vw,0.65rem)",fontWeight:700,letterSpacing:"0.1em",textTransform:"uppercase",color:"var(--primary)"}}>
                   Read More <span>→</span>
                 </span>

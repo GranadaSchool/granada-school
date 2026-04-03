@@ -135,7 +135,7 @@ function Navbar(){
               <a key={l} href={h} style={{color:scrolled?"var(--muted)":"rgba(255,255,255,0.85)",textDecoration:"none",fontSize:"clamp(0.6rem,1.2vw,0.68rem)",letterSpacing:"0.1em",textTransform:"uppercase",fontWeight:500,transition:"color 0.2s"}}
                 onMouseEnter={e=>(e.currentTarget.style.color="var(--primary)")} onMouseLeave={e=>(e.currentTarget.style.color=scrolled?"var(--muted)":"rgba(255,255,255,0.85)")}>{l}</a>
             ))}
-            <a href="/granada-school#admissions" className="btn-green" style={{fontSize:"clamp(0.6rem,1.2vw,0.62rem)",padding:"clamp(0.4rem,0.8vw,0.5rem) clamp(0.8rem,1.5vw,1.2rem)"}}>Apply Now</a>
+            <a href="/granada-school/contact?type=admissions" className="btn-green" style={{fontSize:"clamp(0.6rem,1.2vw,0.62rem)",padding:"clamp(0.4rem,0.8vw,0.5rem) clamp(0.8rem,1.5vw,1.2rem)"}}>Apply Now</a>
           </div>
           <button onClick={()=>setOpen(true)} aria-label="Open menu"
             style={{background:"none",border:`1px solid ${scrolled?"rgba(33,53,88,0.35)":"rgba(255,255,255,0.5)"}`,cursor:"pointer",display:"flex",flexDirection:"column",gap:5,padding:"0.5rem 0.6rem",transition:"border-color 0.3s"}}
@@ -235,7 +235,7 @@ function SectionNav(){
       </nav>
       <div className="sidebar-where-next" style={{marginTop:"2.25rem",border:"1px solid #e8e6e3",padding:"1.4rem",background:"#fff"}}>
         <p style={{fontSize:"clamp(0.55rem,0.78vw,0.62rem)",letterSpacing:"0.18em",textTransform:"uppercase",color:S,fontWeight:700,marginBottom:"0.9rem"}}>Where Next?</p>
-        {[{label:"How to Apply",href:"/granada-school#admissions"},{label:"Visit Granada",href:"/granada-school/contact?type=visit"},{label:"Enquire Now",href:"/granada-school/contact"}].map((l,i)=>(
+        {[{label:"How to Apply",href:"/granada-school/admissions"},{label:"Visit Granada",href:"/granada-school/contact?type=visit"},{label:"Enquire Now",href:"/granada-school/contact"}].map((l,i)=>(
           <a key={i} href={l.href} style={{display:"flex",alignItems:"center",gap:"0.5rem",color:"#5a5a5a",textDecoration:"none",fontSize:"clamp(0.72rem,1vw,0.8rem)",padding:"0.45rem 0",borderBottom:"1px solid #f0eee9",transition:"color 0.2s"}}
             onMouseEnter={e=>(e.currentTarget.style.color=P)} onMouseLeave={e=>(e.currentTarget.style.color="#5a5a5a")}>
             <svg width="5" height="9" viewBox="0 0 5 9" fill="none"><path d="M1 1l3 3.5L1 8" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -492,7 +492,7 @@ function SchoolSections(){
               ))}
             </ul>
             <div style={{display:"flex",gap:"0.75rem",flexWrap:"wrap",clear:"both"}}>
-              <a href="/granada-school#admissions" className="btn-solid">Apply for {cur.label}</a>
+              <a href="/granada-school/contact?type=admissions" className="btn-solid">Apply for {cur.label}</a>
               <a href="/granada-school/contact" className="btn-outline">Make an Enquiry</a>
             </div>
           </div>
@@ -598,7 +598,7 @@ function AdmissionsCTA(){
             Whether you are exploring the CBC pathway or boarding for your daughter — our admissions team is here to guide you through every step.
           </p>
           <div style={{display:"flex",gap:"clamp(0.6rem,1.2vw,1rem)",justifyContent:"center",flexWrap:"wrap"}}>
-            <a href="/granada-school#admissions" className="btn-green" style={{fontSize:"clamp(0.65rem,1vw,0.72rem)",padding:"clamp(0.6rem,1vw,0.8rem) clamp(1.5rem,2.5vw,2.5rem)"}}>Apply Now</a>
+            <a href="/granada-school/contact?type=admissions" className="btn-green" style={{fontSize:"clamp(0.65rem,1vw,0.72rem)",padding:"clamp(0.6rem,1vw,0.8rem) clamp(1.5rem,2.5vw,2.5rem)"}}>Apply Now</a>
             <a href="/granada-school/contact?type=visit" style={{display:"inline-flex",alignItems:"center",gap:"0.5rem",padding:"clamp(0.6rem,1vw,0.8rem) clamp(1.5rem,2.5vw,2.5rem)",background:"transparent",border:"1px solid rgba(255,255,255,0.55)",color:"#fff",textDecoration:"none",fontSize:"clamp(0.65rem,1vw,0.72rem)",fontWeight:600,letterSpacing:"0.12em",textTransform:"uppercase",transition:"all 0.3s"}} onMouseEnter={e=>(e.currentTarget.style.background="rgba(255,255,255,0.12)")} onMouseLeave={e=>(e.currentTarget.style.background="transparent")}>Book a Visit</a>
             <a href="/granada-school#admissions" style={{display:"inline-flex",alignItems:"center",gap:"0.5rem",padding:"clamp(0.6rem,1vw,0.8rem) clamp(1.5rem,2.5vw,2.5rem)",background:"transparent",border:"1px solid rgba(255,255,255,0.35)",color:"rgba(255,255,255,0.8)",textDecoration:"none",fontSize:"clamp(0.65rem,1vw,0.72rem)",fontWeight:500,letterSpacing:"0.1em",textTransform:"uppercase",transition:"all 0.3s"}} onMouseEnter={e=>(e.currentTarget.style.borderColor="rgba(255,255,255,0.6)")} onMouseLeave={e=>(e.currentTarget.style.borderColor="rgba(255,255,255,0.35)")}>Download Prospectus</a>
           </div>
