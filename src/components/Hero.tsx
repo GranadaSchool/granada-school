@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -259,7 +260,7 @@ export default function Hero() {
                   {posts.slice(0, 1).map((post, pi) => {
                     const news = valueNews[value.label];
                     return (
-                      <>
+                      <React.Fragment key={pi}>
                         {/* ── YOUTUBE CARD ── */}
                         <a
                           key={`yt-${pi}`}
@@ -340,7 +341,7 @@ export default function Hero() {
                             </div>
                           </Link>
                         )}
-                      </>
+                      </React.Fragment>
                     );
                   })}
                 </div>
