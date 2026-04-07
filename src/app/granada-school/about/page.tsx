@@ -1,2 +1,4 @@
-import { redirect } from "next/navigation";
-export default function R() { redirect("/granada-school/about/welcome"); }
+import { redirect } from 'next/navigation';
+export default function R() {
+  redirect('/granada-school/about/welcome');
+}

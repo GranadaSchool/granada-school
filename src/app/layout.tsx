@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import "./colors.css";
+import type { Metadata } from 'next';
+import './globals.css';
+import './colors.css';
 
 export const metadata: Metadata = {
-  title: "Granada Schools",
-  description: "A modern web application built with Next.js",
+  title: 'Granada Schools',
+  description: 'A modern web application built with Next.js',
 };
 
 export default function RootLayout({
