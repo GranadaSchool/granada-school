@@ -61,7 +61,7 @@ export default function SchoolSideNav({
     : [];
 
   const P = '#213558';
-  const S = '#aac20c';
+  const S = '#e2c215';
 
   return (
     <div

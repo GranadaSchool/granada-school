@@ -88,7 +88,7 @@ export default function SchoolNavbar({
             }}
           >
             <Image
-              src={scrolledLogo}
+              src={scrolled ? scrolledLogo : clearLogo}
               alt={logoAlt}
               width={110}
               height={44}

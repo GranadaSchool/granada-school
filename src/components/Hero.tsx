@@ -22,7 +22,7 @@ const values = [
     desc: 'We promote empathy, compassion, and genuine respect for every person within and beyond the school community. Kindness shapes our classroom culture and the character of every graduate.',
   },
   {
-    label: 'Honesty', color: '#e79b0b', textColor: '#ffffff', rgb: '231,155,11', image: '/child-blue.png',
+    label: 'Honesty', color: '#e2c215', textColor: '#ffffff', rgb: '231,155,11', image: '/child-blue.png',
     tagline: 'Integrity Always',
     desc: 'We uphold integrity, accountability, and ethical behaviour in every aspect of school life. We believe trust is earned through honesty — and honest people build honest communities.',
   },
@@ -428,7 +428,7 @@ export default function Hero() {
         style={{ willChange: 'transform' }}
       >
         {/* ── LEFT HALF: Social media feed ── */}
-        <div style={{ flex: 1, backgroundColor: '#aac20c', display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '1.5rem 1.25rem 0.75rem' }}>
+        <div style={{ flex: 1, backgroundColor: '#e2c215', display: 'flex', flexDirection: 'column', overflow: 'hidden', padding: '1.5rem 1.25rem 0.75rem' }}>
 
           {/* Staircase article row — tops level, bottoms stair-step down */}
           <div style={{ flex: 1, overflow: 'hidden', minHeight: 0, position: 'relative' }}>
@@ -463,7 +463,7 @@ export default function Hero() {
                       borderBottom: '16px solid white',
                       zIndex: 2,
                     }} />
-                    <p style={{ fontSize: '0.44rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: '#aac20c', fontWeight: 700, fontFamily: 'sans-serif', margin: '0 0 0.3rem' }}>{post.platform}</p>
+                    <p style={{ fontSize: '0.44rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: '#e2c215', fontWeight: 700, fontFamily: 'sans-serif', margin: '0 0 0.3rem' }}>{post.platform}</p>
                     <p style={{ fontSize: '0.72rem', color: '#0d0c0d', fontFamily: 'sans-serif', lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
                     <p style={{ fontSize: '0.58rem', color: '#888', fontFamily: 'sans-serif', margin: 0 }}>{post.date}</p>
                   </div>
@@ -514,7 +514,7 @@ export default function Hero() {
               >
                 Granada School
               </Link>
-              <p style={{ fontSize: '0.72rem', color: '#aac20c', fontFamily: 'sans-serif', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0 }}>CBE Curriculum</p>
+              <p style={{ fontSize: '0.72rem', color: '#e2c215', fontFamily: 'sans-serif', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0 }}>CBE Curriculum</p>
             </div>
             <div>
               <Link
@@ -524,7 +524,7 @@ export default function Hero() {
               >
                 Granada International
               </Link>
-              <p style={{ fontSize: '0.72rem', color: '#aac20c', fontFamily: 'sans-serif', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0 }}>Edexcel Curriculum</p>
+              <p style={{ fontSize: '0.72rem', color: '#e2c215', fontFamily: 'sans-serif', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0 }}>Edexcel Curriculum</p>
             </div>
           </div>
 

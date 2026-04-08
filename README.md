@@ -31,7 +31,7 @@ Granada International School. Follows the Edexcel / British international curric
 | Token | Hex | Usage |
 |---|---|---|
 | Primary Blue | `#213558` | Main brand colour |
-| Secondary Green | `#aac20c` | Accents & highlights |
+| Secondary Green | `#e2c215` | Accents & highlights |
 | Dark | `#0d0c0d` | Body text |
 | Gray | `#afaeaf` | Secondary text |
 | Warm Accent | `#936c51` | Decorative |

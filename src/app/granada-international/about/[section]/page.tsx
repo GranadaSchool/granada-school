@@ -288,13 +288,13 @@ function PageHero() {
             transition: 'all 0.8s ease 0.4s',
           }}
         >
-          <span style={{ color: '#aac20c' }}>A Unique</span>
+          <span style={{ color: '#e2c215' }}>A Unique</span>
           <br />
-          <span style={{ color: '#aac20c' }}>Blend</span>
+          <span style={{ color: '#e2c215' }}>Blend</span>
           <br />
-          <span style={{ color: '#aac20c' }}>of </span>Discovery
+          <span style={{ color: '#e2c215' }}>of </span>Discovery
           <br />
-          <span style={{ color: '#aac20c' }}>+ </span>Purpose
+          <span style={{ color: '#e2c215' }}>+ </span>Purpose
         </h1>
       </div>
       <style>{`@keyframes kenBurns{from{transform:scale(1)}to{transform:scale(1.08)}}`}</style>
@@ -307,7 +307,7 @@ function SectionNav() {
   const params = useParams();
   const activeSection = params.section as string;
   const P = '#213558';
-  const S = '#aac20c';
+  const S = '#e2c215';
   return (
     <aside
       style={{

@@ -127,7 +127,7 @@ function SectionNav() {
   const params = useParams();
   const activeSection = params.section as string;
   const P = '#213558';
-  const S = '#aac20c';
+  const S = '#e2c215';
   return (
     <aside
       style={{
@@ -382,13 +382,13 @@ function PageHero() {
                 transition: 'all 0.8s ease 0.4s',
               }}
             >
-              <span style={{ color: '#aac20c' }}>A Unique</span>
+              <span style={{ color: '#e2c215' }}>A Unique</span>
               <br />
-              <span style={{ color: '#aac20c' }}>Blend</span>
+              <span style={{ color: '#e2c215' }}>Blend</span>
               <br />
-              <span style={{ color: '#aac20c' }}>of </span>Ambition
+              <span style={{ color: '#e2c215' }}>of </span>Ambition
               <br />
-              <span style={{ color: '#aac20c' }}>+ </span>Opportunity
+              <span style={{ color: '#e2c215' }}>+ </span>Opportunity
             </h1>
           </div>
         </div>
@@ -999,7 +999,7 @@ function BoardingLife() {
                   <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
                     <path
                       d="M1 3l2 2 4-4"
-                      stroke="#aac20c"
+                      stroke="#e2c215"
                       strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1124,7 +1124,7 @@ function AdmissionsProcess() {
   ];
   const steps = tab === 'new' ? newSteps : transferSteps;
   const P = '#213558';
-  const S = '#aac20c';
+  const S = '#e2c215';
   return (
     <section
       className="section-cream"

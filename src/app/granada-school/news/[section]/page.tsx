@@ -126,7 +126,7 @@ function SectionNav() {
   const params = useParams();
   const activeSection = params.section as string;
   const P = '#213558';
-  const S = '#aac20c';
+  const S = '#e2c215';
   return (
     <aside
       style={{
@@ -367,13 +367,13 @@ function PageHero() {
                 transition: 'all 0.8s ease 0.4s',
               }}
             >
-              <span style={{ color: '#aac20c' }}>A Unique</span>
+              <span style={{ color: '#e2c215' }}>A Unique</span>
               <br />
-              <span style={{ color: '#aac20c' }}>Blend</span>
+              <span style={{ color: '#e2c215' }}>Blend</span>
               <br />
-              <span style={{ color: '#aac20c' }}>of </span>Stories
+              <span style={{ color: '#e2c215' }}>of </span>Stories
               <br />
-              <span style={{ color: '#aac20c' }}>+ </span>Achievements
+              <span style={{ color: '#e2c215' }}>+ </span>Achievements
             </h1>
           </div>
         </div>
