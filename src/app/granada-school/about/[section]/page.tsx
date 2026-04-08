@@ -886,9 +886,9 @@ function CoreValues() {
               <Image
                 src={v.icon}
                 alt={v.title}
-                width={40}
-                height={40}
-                style={{ display: 'block', marginBottom: 'clamp(0.5rem,0.8vw,0.85rem)', width: 'clamp(1.5rem,2.5vw,2.5rem)', height: 'auto' }}
+                width={100}
+                height={100}
+                style={{ display: 'block', marginBottom: 'clamp(0.5rem,0.8vw,0.85rem)', width: 'clamp(2.9rem,3.9vw,3.9rem)', height: 'auto' }}
               />
               <h3
                 style={{
