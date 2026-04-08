@@ -508,7 +508,7 @@ export default function Hero() {
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', padding: '2rem clamp(2rem,5vw,3.5rem)' }}>
             <h1
                 style={{
-                  marginBottom: '0.9rem',
+                  marginBottom: '5rem',
                   fontSize: 'clamp(1.3rem, 2vw, 3rem)',
                   fontWeight: 700,
                   lineHeight: '1.1',
@@ -590,8 +590,28 @@ export default function Hero() {
           </div>
 
           {/* Footer — white box only here */}
-          <div style={{ flexShrink: 0, backgroundColor: 'white', padding: '1.25rem clamp(2rem,5vw,3.5rem)' }}>
-            <p style={{ fontSize: '0.85rem', color: '#213558', fontFamily: 'serif', fontWeight: 700, margin: 0 }}>Forward Thinking</p>
+          <div style={{ flexShrink: 0, backgroundColor: 'white', padding: '0.25rem clamp(2rem,5vw,3.5rem)' }}>
+            <h1 style={{
+              fontWeight: 400,
+                  fontSize: '0.85rem', color: '#213558',
+            }}>Address</h1>
+            <p style={{ fontSize: '0.85rem', color: '#213558', fontWeight: 300, margin: 0 }}>
+              Granada School,
+              Vipingo, Kilifi <br />
+              Off Mombasa-Malindi Highway <br />
+            </p>
+            <Link 
+                href="/granada-school/contact"
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  flex: 1,
+                  textDecoration: 'underline',
+                  fontWeight: 400,
+                  fontSize: '0.85rem', color: '#213558', 
+                }}
+              >
+                Directions
+              </Link>
           </div>
         </div>
       </nav>
