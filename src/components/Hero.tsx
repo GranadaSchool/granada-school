@@ -17,7 +17,7 @@ const values = [
     desc: 'We foster a deep love for learning, creativity, and the fearless exploration of new ideas. At Granada, questions are always welcome — curiosity drives discovery, innovation, and lifelong learning.',
   },
   {
-    label: 'Kindness', color: '#94d1d4', textColor: '#000000', rgb: '148,209,212', image: '/child-green.png',
+    label: 'Kindness', color: '#A6D6C9', textColor: '#000000', rgb: '166,214,201', image: '/child-green.png',
     tagline: 'Empathy in Action',
     desc: 'We promote empathy, compassion, and genuine respect for every person within and beyond the school community. Kindness shapes our classroom culture and the character of every graduate.',
   },
@@ -506,25 +506,86 @@ export default function Hero() {
 
           {/* Nav links */}
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '2rem clamp(2rem,5vw,3.5rem)' }}>
-            <div style={{ borderBottom: '1px solid rgba(255,255,255,0.2)', paddingBottom: '1.75rem', marginBottom: '1.75rem' }}>
-              <Link
+            <h1
+                style={{
+                  marginBottom: '0.9rem',
+                  fontSize: 'clamp(1.3rem, 2vw, 3rem)',
+                  fontWeight: 700,
+                  lineHeight: '1.1',
+                  maxWidth: '25ch',
+                  textAlign: 'start',
+                  display: 'flex', 
+                  justifyContent: 'flex-end', 
+                  alignItems: 'center',
+                  // fontFamily: 'Inter, sans-serif',
+                }}
+              >
+                Two Schools, <br/> One standard of Excellence.<br />
+                Discover the right Granada pathway
+                for your child.
+              </h1>
+
+              <div
+              style={{
+                borderBottom: '3px solid rgba(255,255,255,0.2)',
+                paddingBottom: '1.75rem',
+                marginBottom: '1.75rem',
+                display: 'flex',
+                gap: '1.3rem',
+              }}
+            >
+              <Link 
                 href="/granada-school"
                 onClick={() => setMenuOpen(false)}
-                style={{ display: 'block', fontSize: 'clamp(1.1rem,2vw,1.6rem)', fontWeight: 700, color: 'white', textDecoration: 'none', lineHeight: 1.2, marginBottom: '0.4rem' }}
+                style={{
+                  flex: 1,
+                  backgroundColor: '#e2c215',
+                  color: '#0b1b3b',
+                  padding: '0.15rem',
+                  borderRadius: '10px',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                  fontSize: 'clamp(1rem,1.1vw,1.2rem)',
+                  textAlign: 'center',
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  alignItems: 'center',
+                }}
               >
-                Granada School
+                CBE Pathway
               </Link>
-              <p style={{ fontSize: '0.72rem', color: '#e2c215', fontFamily: 'sans-serif', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0 }}>CBE Curriculum</p>
-            </div>
-            <div>
+
               <Link
                 href="/granada-international"
                 onClick={() => setMenuOpen(false)}
-                style={{ display: 'block', fontSize: 'clamp(1.1rem,2vw,1.6rem)', fontWeight: 700, color: 'white', textDecoration: 'none', lineHeight: 1.2, marginBottom: '0.4rem' }}
+                style={{
+                  flex: 1,
+                  backgroundColor: '#A6D6C9',
+                  color: '#0b1b3b',
+                  padding: '0.15rem',
+                  borderRadius: '10px',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                  fontSize: 'clamp(1rem,1.1vw,1.2rem)',
+                  textAlign: 'center',
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  alignItems: 'center',
+                }}
               >
-                Granada International
+                International Pathway
+                {/* <p
+                  style={{
+                    fontSize: '0.65rem',
+                    margin: 0,
+                    marginTop: '0.2rem',
+                    letterSpacing: '0.08em',
+                    fontWeight: 400,
+                  }}
+                >
+                  Edexcel & Cambridge Curriculums
+                </p> */}
               </Link>
-              <p style={{ fontSize: '0.72rem', color: '#e2c215', fontFamily: 'sans-serif', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', margin: 0 }}>Edexcel & Cambridge Curriculums</p>
             </div>
           </div>
 
