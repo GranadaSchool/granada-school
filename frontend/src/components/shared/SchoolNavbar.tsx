@@ -92,7 +92,7 @@ export default function SchoolNavbar({
               alt={logoAlt}
               width={120}
               height={54}
-              style={{ height: 'auto', width: 'clamp(50px,8vw,110px)' }}
+              style={{ height: 'auto', width: 'clamp(150px,7vw,170px)' }}
               priority
             />
           </a>

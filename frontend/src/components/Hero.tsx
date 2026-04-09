@@ -868,7 +868,7 @@ export default function Hero() {
           width={110}
           height={44}
           className="md:hidden"
-          style={{ height: 'auto', width: 'clamp(50px,8vw,110px)' }}
+          style={{ height: 'auto', width: 'clamp(150px,18vw,210px)' }}
           priority
         />
         <Image
@@ -877,7 +877,7 @@ export default function Hero() {
           width={110}
           height={44}
           className="hidden md:block"
-          style={{ height: 'auto', width: 'clamp(50px,8vw,110px)' }}
+          style={{ height: 'auto', width: 'clamp(150px,7vw,170px)' }}
           priority
         />
 
@@ -1022,7 +1022,7 @@ export default function Hero() {
         <div
           className="md:order-1 md:flex-1 md:min-h-0 md:overflow-hidden"
           style={{
-            backgroundColor: '#e2c215',
+            backgroundColor: '#e79b0b',
             display: 'flex',
             flexDirection: 'column',
             padding: '1.5rem 1.25rem 0.75rem',
