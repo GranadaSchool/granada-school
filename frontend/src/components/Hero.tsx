@@ -901,7 +901,7 @@ export default function Hero() {
       >
         {/* ── NAV LINKS section — top on mobile (order 0), right half on desktop (md:order-2) ── */}
         <div
-          className="md:order-2 md:flex-1 md:min-h-0 md:overflow-hidden"
+          className="md:order-2 md:flex-1 md:min-h-0 md:overflow-clip"
           style={{
             backgroundColor: '#213558',
             display: 'flex',
@@ -943,7 +943,7 @@ export default function Hero() {
             <h1
               style={{
                 marginBottom: '2rem',
-                fontSize: 'clamp(1.4rem, 2vw, 3rem)',
+                fontSize: 'clamp(1.7rem, 2vw, 3rem)',
                 fontWeight: 700,
                 lineHeight: '1.1',
                 color: 'white',
