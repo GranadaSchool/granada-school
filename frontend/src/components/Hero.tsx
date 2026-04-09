@@ -971,11 +971,7 @@ export default function Hero() {
                 <CardHeader style={{ background: '#e2c215' }}>
                   <CardTitle style={{ fontSize: 'clamp(0.85rem, 1vw, 1.05rem)', fontWeight: 700, color: '#0b1b3b' }}>CBE Pathway</CardTitle>
                   <CardDescription style={{ fontSize: '0.7rem', color: '#0b1b3b', opacity: 0.75, lineHeight: 1.5 }}>
-                    Our CBE pathway for junior and senior secondary offers:
-                    <ul className="mt-2 ml-4 list-disc space-y-1">
-                      <li>Comprehensive national curriculum fostering academic excellence and personal growth.</li>
-                      <li>Senior secondary boarding facilities providing a safe, supportive, and enriching environment.</li>
-                    </ul>
+                    Comprehensive national curriculumn designed to foster academic excellence, with quality boarding facilities for girls in both junior and senior schools.
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
@@ -992,11 +988,7 @@ export default function Hero() {
                 <CardHeader style={{ background: '#A6D6C9' }}>
                   <CardTitle style={{ fontSize: 'clamp(0.85rem, 1vw, 1.05rem)', fontWeight: 700, color: '#0b1b3b' }}>International Pathway</CardTitle>
                   <CardDescription style={{ fontSize: '0.7rem', color: '#0b1b3b', opacity: 0.75, lineHeight: 1.5 }}>
-                    Our British-aligned international curriculum (Cambridge &amp; Edexcel) offers students:
-                    <ul className="mt-2 ml-4 list-disc space-y-1">
-                      <li>Globally recognised qualifications that open doors worldwide.</li>
-                      <li>Strong foundations for success at leading universities and beyond.</li>
-                    </ul>
+                    An international curriculum (Cambridge &amp; Edexcel) offering a strong foundation and globally recognised qualifications
                   </CardDescription>
                 </CardHeader>
                 <CardFooter>
