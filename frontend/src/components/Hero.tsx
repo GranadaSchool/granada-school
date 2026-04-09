@@ -953,45 +953,109 @@ export default function Hero() {
             </h1>
 
             <div
-              className="flex-col md:flex-row"
+              className="flex flex-col md:flex-row items-stretch"
               style={{
                 borderBottom: '3px solid rgba(255,255,255,0.2)',
                 paddingBottom: '1.75rem',
                 marginBottom: '1.75rem',
-                display: 'flex',
                 gap: '1.25rem',
               }}
             >
               {/* CBE Pathway card */}
-              <Card className="relative w-full pt-0" style={{ background: '#e2c215' }}>
+              <Card
+                className="relative w-full pt-0 flex flex-col justify-between"
+                style={{ background: '#e2c215' }}
+              >
                 <div className="absolute inset-0 z-30 aspect-video" />
-                {/* <img src="./building.jpeg" alt="CBE Pathway" className="relative z-20 aspect-video w-full object-cover brightness-100" /> */}
-                <CardHeader className='pt-3' style={{ background: '#e2c215' }}>
-                  <CardTitle style={{ fontSize: 'clamp(0.85rem, 1vw, 1.05rem)', fontWeight: 700, color: '#0b1b3b' }}>CBE Pathway</CardTitle>
-                  <CardDescription style={{ fontSize: '0.7rem', color: '#0b1b3b', opacity: 0.75, lineHeight: 1.5 }}>
-                    Comprehensive national curriculumn designed to foster academic excellence, with quality boarding facilities for girls in both junior and senior schools.
+
+                <CardHeader
+                  className="pt-3 grow"
+                  style={{ background: '#e2c215' }}
+                >
+                  <CardTitle
+                    style={{
+                      fontSize: 'clamp(0.85rem, 1vw, 1.05rem)',
+                      fontWeight: 700,
+                      color: '#0b1b3b',
+                    }}
+                  >
+                    CBE Pathway
+                  </CardTitle>
+
+                  <CardDescription
+                    style={{
+                      fontSize: '0.7rem',
+                      color: '#0b1b3b',
+                      opacity: 0.75,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    Comprehensive national curriculumn designed to foster academic
+                    excellence, with quality boarding facilities for girls in both junior
+                    and senior schools.
                   </CardDescription>
                 </CardHeader>
+
                 <CardFooter>
-                  <Button className="w-full" style={{ backgroundColor: '#0b1b3b', color: '#e2c215' }}>
-                    <Link href="/granada-school" onClick={() => setMenuOpen(false)}>Learn more</Link>
+                  <Button
+                    className="w-full"
+                    style={{ backgroundColor: '#0b1b3b', color: '#e2c215' }}
+                  >
+                    <Link
+                      href="/granada-school"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      Learn more
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
 
               {/* International Pathway card */}
-              <Card className="relative w-full pt-0" style={{ background: '#A6D6C9' }}>
+              <Card
+                className="relative w-full pt-0 flex flex-col justify-between"
+                style={{ background: '#A6D6C9' }}
+              >
                 <div className="absolute inset-0 z-30 aspect-video" />
-                {/* <img src="./building.jpeg" alt="International Pathway" className="relative z-20 aspect-video w-full object-cover brightness-100" /> */}
-                <CardHeader className='pt-3' style={{ background: '#A6D6C9' }}>
-                  <CardTitle style={{ fontSize: 'clamp(0.85rem, 1vw, 1.05rem)', fontWeight: 700, color: '#0b1b3b' }}>International Pathway</CardTitle>
-                  <CardDescription style={{ fontSize: '0.7rem', color: '#0b1b3b', opacity: 0.75, lineHeight: 1.5 }}>
-                    An international curriculum (Cambridge &amp; Edexcel) offering a strong foundation and globally recognised qualifications
+
+                <CardHeader
+                  className="pt-3 flex-grow"
+                  style={{ background: '#A6D6C9' }}
+                >
+                  <CardTitle
+                    style={{
+                      fontSize: 'clamp(0.85rem, 1vw, 1.05rem)',
+                      fontWeight: 700,
+                      color: '#0b1b3b',
+                    }}
+                  >
+                    International Pathway
+                  </CardTitle>
+
+                  <CardDescription
+                    style={{
+                      fontSize: '0.7rem',
+                      color: '#0b1b3b',
+                      opacity: 0.75,
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    An international curriculum (Cambridge &amp; Edexcel) offering a strong
+                    foundation and globally recognised qualifications
                   </CardDescription>
                 </CardHeader>
+
                 <CardFooter>
-                  <Button className="w-full" style={{ backgroundColor: '#0b1b3b', color: '#A6D6C9' }}>
-                    <Link href="/granada-international" onClick={() => setMenuOpen(false)}>Learn more</Link>
+                  <Button
+                    className="w-full"
+                    style={{ backgroundColor: '#0b1b3b', color: '#A6D6C9' }}
+                  >
+                    <Link
+                      href="/granada-international"
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      Learn more
+                    </Link>
                   </Button>
                 </CardFooter>
               </Card>
