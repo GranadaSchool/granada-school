@@ -943,7 +943,7 @@ export default function Hero() {
             <h1
               style={{
                 marginBottom: '2rem',
-                fontSize: 'clamp(2.5rem, 2vw, 3.5rem)',
+                fontSize: 'clamp(2rem, 2vw, 3rem)',
                 fontWeight: 700,
                 lineHeight: '1.1',
                 color: 'white',
