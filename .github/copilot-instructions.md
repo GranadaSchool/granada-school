@@ -15,6 +15,8 @@ This is a Next.js frontend project with TypeScript, Tailwind CSS, and ESLint for
 
 ## Development Commands
 
+Run these from the `frontend/` directory:
+
 - `npm run dev` - Start development server (port 3000)
 - `npm run build` - Build for production
 - `npm start` - Start production server
@@ -23,27 +25,30 @@ This is a Next.js frontend project with TypeScript, Tailwind CSS, and ESLint for
 ## Project Structure
 
 ```
-├── public/
-│   ├── granada-hero2.jpg       ← ADD YOUR HERO IMAGE HERE
-│   └── granada-logo.svg        # Granada logo with GS emblem
-├── src/
-│   ├── app/
-│   │   ├── layout.tsx          # Root layout
-│   │   ├── page.tsx            # Home/Landing page
-│   │   ├── colors.css          # Color scheme
-│   │   ├── globals.css         # Global styles
-│   │   ├── granada-school/
-│   │   │   └── page.tsx        # Granada School page
-│   │   └── granada-international/
-│   │       └── page.tsx        # Granada International page
-│   └── components/
-│       └── Hero.tsx            # Hero landing component
-├── package.json
-├── tsconfig.json
-├── tailwind.config.ts
-├── next.config.ts
-├── .eslintrc.json
-└── README.md
+├── frontend/                   # Next.js app
+│   ├── public/
+│   │   ├── granada-hero2.jpg       ← ADD YOUR HERO IMAGE HERE
+│   │   └── granada-logo.svg        # Granada logo with GS emblem
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── layout.tsx          # Root layout
+│   │   │   ├── page.tsx            # Home/Landing page
+│   │   │   ├── colors.css          # Color scheme
+│   │   │   ├── globals.css         # Global styles
+│   │   │   ├── granada-school/
+│   │   │   │   └── page.tsx        # Granada School page
+│   │   │   └── granada-international/
+│   │   │       └── page.tsx        # Granada International page
+│   │   └── components/
+│   │       └── Hero.tsx            # Hero landing component
+│   ├── package.json
+│   ├── tsconfig.json
+│   ├── tailwind.config.ts
+│   ├── next.config.ts
+│   └── .eslintrc.json
+├── backend/                    # Strapi CMS (to be initialized)
+├── .gitignore
+└── LICENSE
 ```
 
 ## Color Scheme
