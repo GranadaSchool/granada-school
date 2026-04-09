@@ -1,11 +1,11 @@
-﻿'use client';
+'use client';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
 /* ── NAV DATA ──────────────────────────────────────────────────────────────── */
-import SchoolNavbar from '@/components/SchoolNavbar';
+import SchoolNavbar from '@/components/shared/SchoolNavbar';
 import SchoolFooter from '@/components/shared/SchoolFooter';
 
 const NAV_ITEMS = [
@@ -954,7 +954,12 @@ function CoreValues() {
                 alt={v.title}
                 width={100}
                 height={100}
-                style={{ display: 'block', marginBottom: 'clamp(0.5rem,0.8vw,0.85rem)', width: 'clamp(2.9rem,3.9vw,3.9rem)', height: 'auto' }}
+                style={{
+                  display: 'block',
+                  marginBottom: 'clamp(0.5rem,0.8vw,0.85rem)',
+                  width: 'clamp(2.9rem,3.9vw,3.9rem)',
+                  height: 'auto',
+                }}
               />
               <h3
                 style={{

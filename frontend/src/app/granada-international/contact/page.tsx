@@ -1,10 +1,10 @@
-﻿'use client';
+'use client';
 import Image from 'next/image';
 import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-/* ── NAV DATA ──────────────────────────────────────────────────────────────── */
-import SchoolNavbar from '@/components/SchoolNavbar';
+/* -- NAV DATA ---------------------------------------------------------------- */
+import SchoolNavbar from '@/components/shared/SchoolNavbar';
 import SchoolFooter from '@/components/shared/SchoolFooter';
 
 const NAV_ITEMS = [
@@ -46,7 +46,7 @@ const NAV_ITEMS = [
         href: '/granada-international/admissions/team',
       },
       {
-        label: 'KG–Year 9 Process',
+        label: 'KG�Year 9 Process',
         href: '/granada-international/admissions/process',
       },
       {
@@ -187,7 +187,7 @@ const NAV_ITEMS = [
   },
 ];
 
-/* ── SIDE NAV ──────────────────────────────────────────────────────────────── */
+/* -- SIDE NAV ---------------------------------------------------------------- */
 function useInView(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
@@ -204,7 +204,7 @@ function useInView(threshold = 0.12) {
   return { ref, vis };
 }
 
-/* ── ENQUIRY TYPES & FIELDS ────────────────────────────────────────────────── */
+/* -- ENQUIRY TYPES & FIELDS -------------------------------------------------- */
 type FieldDef = {
   key: string;
   label: string;
@@ -296,7 +296,7 @@ const ENQUIRY_TYPES: { id: string; label: string; fields: FieldDef[] }[] = [
         key: 'message',
         label: 'Message',
         type: 'textarea',
-        placeholder: 'Any additional information…',
+        placeholder: 'Any additional information�',
       },
     ],
   },
@@ -344,7 +344,7 @@ const ENQUIRY_TYPES: { id: string; label: string; fields: FieldDef[] }[] = [
         key: 'special_requests',
         label: 'Special Requests',
         type: 'textarea',
-        placeholder: 'Any accessibility needs or questions…',
+        placeholder: 'Any accessibility needs or questions�',
       },
     ],
   },
@@ -368,7 +368,7 @@ const ENQUIRY_TYPES: { id: string; label: string; fields: FieldDef[] }[] = [
         key: 'message',
         label: 'Message',
         type: 'textarea',
-        placeholder: 'Any specific questions about fees…',
+        placeholder: 'Any specific questions about fees�',
       },
     ],
   },
@@ -442,7 +442,7 @@ const ENQUIRY_TYPES: { id: string; label: string; fields: FieldDef[] }[] = [
         key: 'reason_for_transfer',
         label: 'Reason for Transfer',
         type: 'textarea',
-        placeholder: 'Brief reason for transfer…',
+        placeholder: 'Brief reason for transfer�',
       },
       {
         key: 'intended_start_date',
@@ -459,7 +459,7 @@ const ENQUIRY_TYPES: { id: string; label: string; fields: FieldDef[] }[] = [
         key: 'message',
         label: 'Message',
         type: 'textarea',
-        placeholder: 'Any additional information…',
+        placeholder: 'Any additional information�',
       },
     ],
   },
@@ -490,7 +490,7 @@ const ENQUIRY_TYPES: { id: string; label: string; fields: FieldDef[] }[] = [
         key: 'message',
         label: 'Message',
         type: 'textarea',
-        placeholder: 'Any additional details…',
+        placeholder: 'Any additional details�',
       },
     ],
   },
@@ -514,13 +514,13 @@ const ENQUIRY_TYPES: { id: string; label: string; fields: FieldDef[] }[] = [
         label: 'Message',
         type: 'textarea',
         required: true,
-        placeholder: 'Please describe in detail…',
+        placeholder: 'Please describe in detail�',
       },
     ],
   },
 ];
 
-/* ── HERO ──────────────────────────────────────────────────────────────────── */
+/* -- HERO -------------------------------------------------------------------- */
 function Hero() {
   const [loaded, setLoaded] = useState(false);
   useEffect(() => setLoaded(true), []);
@@ -587,7 +587,7 @@ function Hero() {
   );
 }
 
-/* ── CONTACT INFO ──────────────────────────────────────────────────────────── */
+/* -- CONTACT INFO ------------------------------------------------------------ */
 function ContactInfo() {
   const { ref, vis } = useInView(0.08);
   return (
@@ -797,7 +797,7 @@ function ContactInfo() {
   );
 }
 
-/* ── ENQUIRY FORM ──────────────────────────────────────────────────────────── */
+/* -- ENQUIRY FORM ------------------------------------------------------------ */
 function EnquiryForm() {
   const searchParams = useSearchParams();
   const initialType = searchParams.get('type') || 'general';
@@ -957,7 +957,7 @@ function EnquiryForm() {
                 marginBottom: '0.5rem',
               }}
             >
-              ✓
+              ?
             </p>
             <h3
               style={{
@@ -1112,7 +1112,7 @@ function EnquiryForm() {
                       }
                     >
                       <option value="" style={{ background: '#213558' }}>
-                        Select…
+                        Select�
                       </option>
                       {f.options?.map((o) => (
                         <option
@@ -1215,7 +1215,7 @@ function EnquiryForm() {
   );
 }
 
-/* ── PAGE EXPORT ───────────────────────────────────────────────────────────── */
+/* -- PAGE EXPORT ------------------------------------------------------------- */
 export default function ContactPage() {
   return (
     <>

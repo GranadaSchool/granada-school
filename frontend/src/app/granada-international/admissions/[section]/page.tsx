@@ -1,11 +1,11 @@
-﻿'use client';
+'use client';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
 /* ── NAV DATA ──────────────────────────────────────────────────────────────── */
-import SchoolNavbar from '@/components/SchoolNavbar';
+import SchoolNavbar from '@/components/shared/SchoolNavbar';
 import SchoolFooter from '@/components/shared/SchoolFooter';
 
 const NAV_ITEMS = [
@@ -697,8 +697,9 @@ function Intro() {
           >
             <p className="body-text" style={{ marginBottom: '1.2rem' }}>
               At Granada International School, we offer the globally respected
-              Edexcel and Cambridge (CAIE) curriculum pathways — designed to cultivate intellectual
-              curiosity, academic excellence, and confident global citizenship.
+              Edexcel and Cambridge (CAIE) curriculum pathways — designed to
+              cultivate intellectual curiosity, academic excellence, and
+              confident global citizenship.
             </p>
             <p className="body-text" style={{ marginBottom: '1.2rem' }}>
               Our co-educational Junior School welcomes boys and girls from

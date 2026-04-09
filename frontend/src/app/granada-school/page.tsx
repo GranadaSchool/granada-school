@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 
-import SchoolNavbar from '@/components/SchoolNavbar';
+import SchoolNavbar from '@/components/shared/SchoolNavbar';
 import SchoolFooter from '@/components/shared/SchoolFooter';
 
 /* ── NAV DATA ──────────────────────────────────────────────────────────────── */
@@ -188,7 +188,8 @@ function Hero() {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(105deg, rgba(13,12,13,0.75) 0%, rgba(13,12,13,0.38) 58%, transparent 100%)',
+          background:
+            'linear-gradient(105deg, rgba(13,12,13,0.75) 0%, rgba(13,12,13,0.38) 58%, transparent 100%)',
           zIndex: 2,
           pointerEvents: 'none',
         }}

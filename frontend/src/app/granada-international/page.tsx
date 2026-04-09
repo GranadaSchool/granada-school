@@ -1,9 +1,9 @@
-﻿'use client';
+'use client';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 
-/* ── NAV DATA ──────────────────────────────────────────────────────────────── */
-import SchoolNavbar from '@/components/SchoolNavbar';
+/* -- NAV DATA ---------------------------------------------------------------- */
+import SchoolNavbar from '@/components/shared/SchoolNavbar';
 import SchoolFooter from '@/components/shared/SchoolFooter';
 
 const NAV_ITEMS = [
@@ -45,7 +45,7 @@ const NAV_ITEMS = [
         href: '/granada-international/admissions/team',
       },
       {
-        label: 'KG–Year 9 Process',
+        label: 'KG�Year 9 Process',
         href: '/granada-international/admissions/process',
       },
       {
@@ -186,7 +186,7 @@ const NAV_ITEMS = [
   },
 ];
 
-/* ── useInView ─────────────────────────────────────────────────────────────── */
+/* -- useInView --------------------------------------------------------------- */
 function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
@@ -203,7 +203,7 @@ function useInView(threshold = 0.15) {
   return { ref, vis };
 }
 
-/* ── HERO ──────────────────────────────────────────────────────────────────── */
+/* -- HERO -------------------------------------------------------------------- */
 function Hero() {
   const slides = [
     { bg: '/class.jpeg', label: 'World-Class Edexcel' },
@@ -267,7 +267,8 @@ function Hero() {
         style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(105deg, rgba(33,53,88,0.82) 0%, rgba(33,53,88,0.32) 58%, transparent 100%)',
+          background:
+            'linear-gradient(105deg, rgba(33,53,88,0.82) 0%, rgba(33,53,88,0.32) 58%, transparent 100%)',
           zIndex: 2,
           pointerEvents: 'none',
         }}
@@ -344,9 +345,9 @@ function Hero() {
               fontFamily: 'sans-serif',
             }}
           >
-            Offering Edexcel &amp; Cambridge pathways &mdash; Granada International
-            shapes curious, confident learners from Kindergarten through to
-            A-Levels.
+            Offering Edexcel &amp; Cambridge pathways &mdash; Granada
+            International shapes curious, confident learners from Kindergarten
+            through to A-Levels.
           </p>
         </div>
       </div>
@@ -355,7 +356,7 @@ function Hero() {
   );
 }
 
-/* ── TAGLINE STRIP ─────────────────────────────────────────────────────────── */
+/* -- TAGLINE STRIP ----------------------------------------------------------- */
 function TaglineStrip() {
   return (
     <div
@@ -414,7 +415,7 @@ function TaglineStrip() {
   );
 }
 
-/* ── WELCOME ───────────────────────────────────────────────────────────────── */
+/* -- WELCOME ----------------------------------------------------------------- */
 function Welcome() {
   const { ref, vis } = useInView(0.1);
   return (
@@ -459,10 +460,10 @@ function Welcome() {
             className="body-text"
             style={{ marginBottom: 'clamp(0.8rem,1.2vw,1.25rem)' }}
           >
-            Through our internationally recognised Edexcel and Cambridge curriculum pathways,
-            we empower students to discover their potential and grow into
-            responsible global citizens — ready to pursue opportunities at
-            universities worldwide.
+            Through our internationally recognised Edexcel and Cambridge
+            curriculum pathways, we empower students to discover their potential
+            and grow into responsible global citizens � ready to pursue
+            opportunities at universities worldwide.
           </p>
           <p
             className="body-text"
@@ -574,7 +575,7 @@ function Welcome() {
   );
 }
 
-/* ── EDEXCEL HIGHLIGHT ─────────────────────────────────────────────────────── */
+/* -- EDEXCEL HIGHLIGHT ------------------------------------------------------- */
 function EdexcelHighlight() {
   const { ref, vis } = useInView(0.1);
   const stages = [
@@ -583,35 +584,35 @@ function EdexcelHighlight() {
       sub: 'Foundation Stage',
       desc: 'Nurturing curiosity, creativity, and early literacy through a rich learning environment aligned with international standards.',
       color: 'var(--primary)',
-      icon: '🌱',
+      icon: '??',
     },
     {
       title: 'Primary School',
       sub: 'Key Stage 1 & 2',
       desc: 'Building essential skills in English, Mathematics, and Sciences through structured, engaging Edexcel and Cambridge coursework.',
       color: 'var(--accent-warm)',
-      icon: '📖',
+      icon: '??',
     },
     {
       title: 'Lower Secondary',
       sub: 'Key Stage 3',
       desc: 'Deepening knowledge across a broad curriculum, laying the groundwork for IGCSE success with rigorous academic preparation.',
       color: 'var(--accent-green)',
-      icon: '🔬',
+      icon: '??',
     },
     {
       title: 'IGCSE',
       sub: 'Key Stage 4',
-      desc: 'Internationally recognised examinations across a wide range of subjects — your gateway to A-Levels and university.',
+      desc: 'Internationally recognised examinations across a wide range of subjects � your gateway to A-Levels and university.',
       color: 'var(--secondary)',
-      icon: '🎓',
+      icon: '??',
     },
     {
       title: 'A-Levels',
       sub: 'Key Stage 5',
       desc: 'Specialised study in your chosen subjects, opening doors to top universities across the UK, USA, and beyond.',
       color: 'var(--accent-blue)',
-      icon: '🌍',
+      icon: '??',
     },
   ];
   return (
@@ -640,7 +641,7 @@ function EdexcelHighlight() {
           <div className="divider" style={{ margin: '1.25rem auto' }} />
           <p className="body-text" style={{ maxWidth: 540, margin: '0 auto' }}>
             A complete Edexcel and Cambridge journey from Early Years through to
-            A-Levels — preparing learners for the world's best universities.
+            A-Levels � preparing learners for the world's best universities.
           </p>
         </div>
         <div
@@ -738,7 +739,7 @@ function EdexcelHighlight() {
   );
 }
 
-/* ── PILLARS ───────────────────────────────────────────────────────────────── */
+/* -- PILLARS ----------------------------------------------------------------- */
 function Pillars() {
   const { ref, vis } = useInView(0.1);
   const items = [
@@ -910,7 +911,7 @@ function Pillars() {
   );
 }
 
-/* ── QUOTE BANNER ──────────────────────────────────────────────────────────── */
+/* -- QUOTE BANNER ------------------------------------------------------------ */
 function QuoteBanner() {
   return (
     <section
@@ -969,7 +970,7 @@ function QuoteBanner() {
           }}
         >
           "We are committed to inspiring excellence and preparing learners for a
-          successful future — today, tomorrow, and beyond."
+          successful future � today, tomorrow, and beyond."
         </blockquote>
         <div
           style={{
@@ -988,14 +989,14 @@ function QuoteBanner() {
             fontWeight: 500,
           }}
         >
-          Granada International — Vipingo, Kenya
+          Granada International � Vipingo, Kenya
         </p>
       </div>
     </section>
   );
 }
 
-/* ── VALUES STRIP ──────────────────────────────────────────────────────────── */
+/* -- VALUES STRIP ------------------------------------------------------------ */
 function ValuesStrip() {
   const { ref, vis } = useInView(0.1);
   const values = [
@@ -1135,7 +1136,7 @@ function ValuesStrip() {
   );
 }
 
-/* ── ADMISSIONS CTA ────────────────────────────────────────────────────────── */
+/* -- ADMISSIONS CTA ---------------------------------------------------------- */
 function AdmissionsCTA() {
   const { ref, vis } = useInView(0.2);
   return (
@@ -1169,7 +1170,7 @@ function AdmissionsCTA() {
           }}
         >
           Join a community of internationally-minded learners on Kenya's
-          breathtaking Vipingo coast — where British excellence meets African
+          breathtaking Vipingo coast � where British excellence meets African
           warmth.
         </p>
         <div
@@ -1233,7 +1234,7 @@ function AdmissionsCTA() {
   );
 }
 
-/* ── PAGE ──────────────────────────────────────────────────────────────────── */
+/* -- PAGE -------------------------------------------------------------------- */
 export default function GranadaInternationalHome() {
   return (
     <>

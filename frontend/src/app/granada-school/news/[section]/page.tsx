@@ -1,10 +1,10 @@
-﻿'use client';
+'use client';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
-import SchoolNavbar from '@/components/SchoolNavbar';
+import SchoolNavbar from '@/components/shared/SchoolNavbar';
 import SchoolFooter from '@/components/shared/SchoolFooter';
 
 const NAV_ITEMS = [
@@ -1337,7 +1337,13 @@ function PageCTA() {
           backgroundAttachment: 'fixed',
         }}
       />
-      <div style={{ position: 'absolute', inset: 0, background: 'rgba(33,53,88,0.9)' }} />
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'rgba(33,53,88,0.9)',
+        }}
+      />
       <div
         style={{
           position: 'relative',
@@ -1373,7 +1379,14 @@ function PageCTA() {
           Are you ready to feel the{' '}
           <span style={{ color: 'var(--accent-light)' }}>difference?</span>
         </h2>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.9rem', flexWrap: 'wrap' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '0.9rem',
+            flexWrap: 'wrap',
+          }}
+        >
           {[
             { l: 'Enquire', h: '/granada-school/contact' },
             { l: 'Visit Granada', h: '/granada-school/contact?type=visit' },
@@ -1396,8 +1409,12 @@ function PageCTA() {
                 transition: 'all 0.3s',
                 fontFamily: 'inherit',
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')}
-              onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.background = 'transparent')
+              }
             >
               {l}
             </a>

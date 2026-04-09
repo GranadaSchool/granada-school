@@ -1,11 +1,11 @@
-﻿'use client';
+'use client';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
 /* ── NAV DATA ──────────────────────────────────────────────────────────────── */
-import SchoolNavbar from '@/components/SchoolNavbar';
+import SchoolNavbar from '@/components/shared/SchoolNavbar';
 import SchoolFooter from '@/components/shared/SchoolFooter';
 
 const NAV_ITEMS = [

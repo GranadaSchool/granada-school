@@ -5,45 +5,48 @@ Website for the Granada group of schools — a dual-site platform serving two di
 ## About
 
 ### Granada School (`/granada-school`)
+
 Granada CBE Junior & Senior Girls' Boarding Secondary School, located in Kenya. Follows the Competency-Based Education (CBE) curriculum. Provides boarding for both junior and senior secondary girls, with a focus on academic excellence, character formation, and holistic development.
 
 - **Email:** admissions@granadagirls.ac.ke
 - **Admissions team:** Christopher Sabwa (+254 714 848 289) · Asya Adan (+254 717 682 138)
 
 ### Granada International (`/granada-international`)
+
 Granada International School. Follows the Edexcel / British international curriculum, preparing students for globally recognised qualifications.
 
 ---
 
 ## Tech Stack
 
-| Technology | Purpose |
-|---|---|
-| Next.js 16 (App Router) | Framework & routing |
-| TypeScript | Type safety |
-| Tailwind CSS | Utility-first styling |
-| CSS custom properties | Brand colour tokens |
-| Next.js `<Image>` | Optimised image delivery |
-| ESLint | Code quality |
+| Technology              | Purpose                  |
+| ----------------------- | ------------------------ |
+| Next.js 16 (App Router) | Framework & routing      |
+| TypeScript              | Type safety              |
+| Tailwind CSS            | Utility-first styling    |
+| CSS custom properties   | Brand colour tokens      |
+| Next.js `<Image>`       | Optimised image delivery |
+| ESLint                  | Code quality             |
 
 ## Colour Scheme
 
-| Token | Hex | Usage |
-|---|---|---|
-| Primary Blue | `#213558` | Main brand colour |
+| Token           | Hex       | Usage                |
+| --------------- | --------- | -------------------- |
+| Primary Blue    | `#213558` | Main brand colour    |
 | Secondary Green | `#e2c215` | Accents & highlights |
-| Dark | `#0d0c0d` | Body text |
-| Gray | `#afaeaf` | Secondary text |
-| Warm Accent | `#936c51` | Decorative |
+| Dark            | `#0d0c0d` | Body text            |
+| Gray            | `#afaeaf` | Secondary text       |
+| Warm Accent     | `#936c51` | Decorative           |
 
 ### Core Value Colours (Granada School)
-| Value | Hex |
-|---|---|
+
+| Value      | Hex       |
+| ---------- | --------- |
 | Resilience | `#c0180b` |
-| Curiosity | `#ebae1b` |
-| Kindness | `#4a6428` |
-| Honesty | `#84b7c8` |
-| Respect | `#483454` |
+| Curiosity  | `#ebae1b` |
+| Kindness   | `#4a6428` |
+| Honesty    | `#84b7c8` |
+| Respect    | `#483454` |
 
 ---
 

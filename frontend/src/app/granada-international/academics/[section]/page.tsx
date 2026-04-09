@@ -1,11 +1,11 @@
-﻿'use client';
+'use client';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 
 /* ── NAV DATA ──────────────────────────────────────────────────────────────── */
-import SchoolNavbar from '@/components/SchoolNavbar';
+import SchoolNavbar from '@/components/shared/SchoolNavbar';
 import SchoolFooter from '@/components/shared/SchoolFooter';
 
 const NAV_ITEMS = [
@@ -500,9 +500,9 @@ function Overview() {
           }}
         >
           At Granada International, academic excellence is achieved through the
-          internationally recognised British Edexcel and Cambridge curriculum pathways — developing
-          analytical thinking, academic depth, and global awareness in every
-          learner.
+          internationally recognised British Edexcel and Cambridge curriculum
+          pathways — developing analytical thinking, academic depth, and global
+          awareness in every learner.
         </p>
         <div>
           <div
@@ -609,16 +609,16 @@ function Overview() {
             <div className="divider" />
             <p className="body-text" style={{ marginBottom: '1.1rem' }}>
               Granada International delivers both the British Pearson Edexcel
-              curriculum and the Cambridge (CAIE) curriculum — two of the most respected and globally benchmarked
-              academic frameworks in the world. These internationally recognised pathways prepare learners for higher education opportunities
-              around the world.
+              curriculum and the Cambridge (CAIE) curriculum — two of the most
+              respected and globally benchmarked academic frameworks in the
+              world. These internationally recognised pathways prepare learners
+              for higher education opportunities around the world.
             </p>
             <p className="body-text" style={{ marginBottom: '1.1rem' }}>
-              Both programmes develop analytical thinking, academic
-              depth, and global awareness — equipping learners with the
-              intellectual rigour, communication skills, and critical
-              perspectives needed to succeed at the world's leading
-              universities.
+              Both programmes develop analytical thinking, academic depth, and
+              global awareness — equipping learners with the intellectual
+              rigour, communication skills, and critical perspectives needed to
+              succeed at the world's leading universities.
             </p>
             <p className="body-text" style={{ marginBottom: '2rem' }}>
               From the earliest years through to A-Level, every stage of
@@ -760,9 +760,10 @@ function EdexcelCurriculum() {
             </h2>
             <div className="divider" />
             <p className="body-text" style={{ maxWidth: 560 }}>
-              Granada International offers both the Pearson Edexcel and Cambridge (CAIE)
-              curriculum pathways — globally benchmarked academic frameworks that prepare
-              learners for higher education opportunities around the world.
+              Granada International offers both the Pearson Edexcel and
+              Cambridge (CAIE) curriculum pathways — globally benchmarked
+              academic frameworks that prepare learners for higher education
+              opportunities around the world.
             </p>
           </div>
           <div
@@ -910,12 +911,13 @@ function EdexcelCurriculum() {
                   lineHeight: 1.8,
                 }}
               >
-                Pearson Edexcel and Cambridge (CAIE) are two of the world&apos;s leading awarding bodies,
-                trusted by schools in over 160 countries. Qualifications from both pathways
-                are recognised by universities globally — including those in the
-                UK, USA, Canada, Australia, and beyond. At Granada
-                International, we deliver both curricula with excellence,
-                preparing learners to compete and succeed on the world stage.
+                Pearson Edexcel and Cambridge (CAIE) are two of the world&apos;s
+                leading awarding bodies, trusted by schools in over 160
+                countries. Qualifications from both pathways are recognised by
+                universities globally — including those in the UK, USA, Canada,
+                Australia, and beyond. At Granada International, we deliver both
+                curricula with excellence, preparing learners to compete and
+                succeed on the world stage.
               </p>
             </div>
             <div
