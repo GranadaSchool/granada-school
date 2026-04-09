@@ -943,7 +943,7 @@ export default function Hero() {
             <h1
               style={{
                 marginBottom: '2rem',
-                fontSize: 'clamp(1rem, 2vw, 3rem)',
+                fontSize: 'clamp(2.5rem, 2vw, 3.5rem)',
                 fontWeight: 700,
                 lineHeight: '1.1',
                 color: 'white',
@@ -966,9 +966,9 @@ export default function Hero() {
             >
               {/* CBE Pathway card */}
               <Card className="relative w-full pt-0" style={{ background: '#e2c215' }}>
-                <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
-                <img src="./building.jpeg" alt="CBE Pathway" className="relative z-20 aspect-video w-full object-cover brightness-100" />
-                <CardHeader style={{ background: '#e2c215' }}>
+                <div className="absolute inset-0 z-30 aspect-video" />
+                {/* <img src="./building.jpeg" alt="CBE Pathway" className="relative z-20 aspect-video w-full object-cover brightness-100" /> */}
+                <CardHeader className='pt-3' style={{ background: '#e2c215' }}>
                   <CardTitle style={{ fontSize: 'clamp(0.85rem, 1vw, 1.05rem)', fontWeight: 700, color: '#0b1b3b' }}>CBE Pathway</CardTitle>
                   <CardDescription style={{ fontSize: '0.7rem', color: '#0b1b3b', opacity: 0.75, lineHeight: 1.5 }}>
                     Comprehensive national curriculumn designed to foster academic excellence, with quality boarding facilities for girls in both junior and senior schools.
@@ -983,9 +983,9 @@ export default function Hero() {
 
               {/* International Pathway card */}
               <Card className="relative w-full pt-0" style={{ background: '#A6D6C9' }}>
-                <div className="absolute inset-0 z-30 aspect-video bg-black/35" />
-                <img src="./building.jpeg" alt="International Pathway" className="relative z-20 aspect-video w-full object-cover brightness-100" />
-                <CardHeader style={{ background: '#A6D6C9' }}>
+                <div className="absolute inset-0 z-30 aspect-video" />
+                {/* <img src="./building.jpeg" alt="International Pathway" className="relative z-20 aspect-video w-full object-cover brightness-100" /> */}
+                <CardHeader className='pt-3' style={{ background: '#A6D6C9' }}>
                   <CardTitle style={{ fontSize: 'clamp(0.85rem, 1vw, 1.05rem)', fontWeight: 700, color: '#0b1b3b' }}>International Pathway</CardTitle>
                   <CardDescription style={{ fontSize: '0.7rem', color: '#0b1b3b', opacity: 0.75, lineHeight: 1.5 }}>
                     An international curriculum (Cambridge &amp; Edexcel) offering a strong foundation and globally recognised qualifications
