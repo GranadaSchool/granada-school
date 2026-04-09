@@ -943,13 +943,13 @@ export default function Hero() {
             <h1
               style={{
                 marginBottom: '2rem',
-                fontSize: 'clamp(2rem, 2vw, 3rem)',
+                fontSize: 'clamp(1.5rem, 2vw, 3rem)',
                 fontWeight: 700,
                 lineHeight: '1.1',
                 color: 'white',
               }}
             >
-              Two Schools, <br /> One standard of Excellence.
+              Two Schools. One standard of Excellence.
               <br />
               Discover the right Granada pathway for your child.
             </h1>
