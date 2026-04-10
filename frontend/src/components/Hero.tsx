@@ -249,19 +249,25 @@ const socialPosts = [
     image: '/child-green.png',
     caption: 'Sports Day 2025 — Students push their limits on the field!',
     date: '15 Mar 2025',
+    color: '#e2c215',
+    textColor: '#0b1b3b',
   },
   {
     platform: 'Facebook',
     image: '/child-blue.png',
     caption:
-      'Science Fair 2025: Young inventors showcase groundbreaking projects.',
+      'Science Fair 2025: Young inventors showcase their projects.',
     date: '18 Mar 2025',
+    color: '#dbe5f5',
+    textColor: '#213558',
   },
   {
     platform: 'Instagram',
     image: '/child-yellow.png',
     caption: 'Community Outreach Day — giving back to Vipingo village.',
     date: '20 Mar 2025',
+    color: '#A6D6C9',
+    textColor: '#213558',
   },
   {
     platform: 'X / Twitter',
@@ -269,6 +275,8 @@ const socialPosts = [
     caption:
       'Cultural Day 2025 — A celebration of diversity and unity at Granada.',
     date: '25 Mar 2025',
+    color: '#e79b0b',
+    textColor: '#0b1b3b',
   },
 ];
 
@@ -1087,7 +1095,7 @@ export default function Hero() {
         <div
           className="md:order-1 md:flex-1 md:min-h-0 md:overflow-hidden"
           style={{
-            backgroundColor: '#e79b0b',
+            backgroundColor: '#ffffff',
             display: 'flex',
             flexDirection: 'column',
             padding: '1.5rem 1.25rem 0.75rem',
@@ -1115,11 +1123,11 @@ export default function Hero() {
                     <div style={{ flex: 1, position: 'relative', overflow: 'hidden', minHeight: 0 }}>
                       <Image src={post.image} alt={post.caption} fill sizes="25vw" style={{ objectFit: 'cover', objectPosition: 'center' }} />
                     </div>
-                    <div style={{ flexShrink: 0, position: 'relative', backgroundColor: 'white', padding: '1.1rem 0.85rem 0.85rem' }}>
-                      <div style={{ position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)', width: 0, height: 0, borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderBottom: '16px solid white', zIndex: 2 }} />
-                      <p style={{ fontSize: '0.44rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: '#e2c215', fontWeight: 700, fontFamily: 'sans-serif', margin: '0 0 0.3rem' }}>{post.platform}</p>
-                      <p style={{ fontSize: '0.72rem', color: '#0d0c0d', fontFamily: 'sans-serif', lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
-                      <p style={{ fontSize: '0.58rem', color: '#888', fontFamily: 'sans-serif', margin: 0 }}>{post.date}</p>
+                    <div style={{ flexShrink: 0, position: 'relative', backgroundColor: post.color, padding: '1.1rem 0.85rem 0.85rem' }}>
+                      <div style={{ position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)', width: 0, height: 0, borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderBottom: `16px solid ${post.color}`, zIndex: 2 }} />
+                      <p style={{ fontSize: '0.44rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: post.textColor, fontWeight: 700, fontFamily: 'sans-serif', margin: '0 0 0.3rem' }}>{post.platform}</p>
+                      <p style={{ fontSize: '0.72rem', color: post.textColor, fontFamily: 'sans-serif', lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
+                      <p style={{ fontSize: '0.58rem', color: post.textColor, opacity: 0.65, fontFamily: 'sans-serif', margin: 0 }}>{post.date}</p>
                     </div>
                   </div>
                 ))}
@@ -1160,11 +1168,11 @@ export default function Hero() {
                     <div style={{ flex: 1, position: 'relative', overflow: 'hidden', minHeight: 0 }}>
                       <Image src={post.image} alt={post.caption} fill sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'center' }} />
                     </div>
-                    <div style={{ flexShrink: 0, position: 'relative', backgroundColor: 'white', padding: '1.1rem 0.85rem 0.85rem' }}>
-                      <div style={{ position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)', width: 0, height: 0, borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderBottom: '16px solid white', zIndex: 2 }} />
-                      <p style={{ fontSize: '0.6rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: '#e2c215', fontWeight: 700, fontFamily: 'sans-serif', margin: '0 0 0.3rem' }}>{post.platform}</p>
-                      <p style={{ fontSize: '0.82rem', color: '#0d0c0d', fontFamily: 'sans-serif', lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
-                      <p style={{ fontSize: '0.72rem', color: '#888', fontFamily: 'sans-serif', margin: 0 }}>{post.date}</p>
+                    <div style={{ flexShrink: 0, position: 'relative', backgroundColor: post.color, padding: '1.1rem 0.85rem 0.85rem' }}>
+                      <div style={{ position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)', width: 0, height: 0, borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderBottom: `16px solid ${post.color}`, zIndex: 2 }} />
+                      <p style={{ fontSize: '0.6rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: post.textColor, fontWeight: 700, fontFamily: 'sans-serif', margin: '0 0 0.3rem' }}>{post.platform}</p>
+                      <p style={{ fontSize: '0.82rem', color: post.textColor, fontFamily: 'sans-serif', lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
+                      <p style={{ fontSize: '0.72rem', color: post.textColor, opacity: 0.65, fontFamily: 'sans-serif', margin: 0 }}>{post.date}</p>
                     </div>
                   </div>
                 ))}
