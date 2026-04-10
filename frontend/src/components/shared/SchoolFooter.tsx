@@ -31,7 +31,7 @@ export default function SchoolFooter({
           'clamp(3rem,4vw,5rem) clamp(1rem,2vw,2rem) clamp(1.2rem,2vw,2rem)',
       }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           style={{
             display: 'grid',

@@ -184,7 +184,6 @@ function PageHero() {
           position: 'relative',
           zIndex: 5,
           height: '100%',
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
           paddingTop: 'clamp(140px,16vw,165px)',
@@ -374,7 +373,6 @@ function Welcome() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: 'clamp(1.5rem,2vw,2rem) clamp(1rem,2vw,2rem)',
         }}
@@ -553,7 +551,6 @@ function VisionMission() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: 'clamp(1.5rem,2vw,2rem) clamp(1rem,2vw,2rem)',
         }}
@@ -820,7 +817,6 @@ function CoreValues() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: 'clamp(1.5rem,2vw,2rem) clamp(1rem,2vw,2rem)',
         }}
@@ -983,7 +979,6 @@ function OurStory() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: 'clamp(1.5rem,2vw,2rem) clamp(1rem,2vw,2rem)',
         }}
@@ -1081,7 +1076,6 @@ function Boarding() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: 'clamp(1.5rem,2vw,2rem) clamp(1rem,2vw,2rem)',
         }}
@@ -1289,7 +1283,6 @@ function StaffSnapshot() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: 'clamp(1.5rem,2vw,2rem) clamp(1rem,2vw,2rem)',
         }}
@@ -1517,7 +1510,6 @@ export default function AboutPage() {
         <PageHero />
         <div
           style={{
-            maxWidth: 1280,
             margin: '0 auto',
             padding: '0 clamp(1rem,2vw,2rem)',
             display: 'flex',

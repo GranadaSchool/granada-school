@@ -197,7 +197,6 @@ function PageHero() {
           position: 'relative',
           zIndex: 5,
           height: '100%',
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
           paddingTop: 'clamp(140px,16vw,165px)',
@@ -398,7 +397,6 @@ function Overview() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
         }}
@@ -647,7 +645,6 @@ function CBCCurriculum() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
         }}
@@ -981,7 +978,6 @@ function SchoolSections() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
         }}
@@ -1401,7 +1397,6 @@ function GirlsBoarding() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
         }}
@@ -1769,7 +1764,6 @@ export default function GranadaSchoolAcademics() {
         <PageHero />
         <div
           style={{
-            maxWidth: 1280,
             margin: '0 auto',
             padding: '0 clamp(1rem,2vw,2rem)',
             display: 'flex',

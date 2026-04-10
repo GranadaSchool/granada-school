@@ -336,7 +336,6 @@ function PageHero() {
           position: 'relative',
           zIndex: 5,
           height: '100%',
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
           paddingTop: 'clamp(140px,16vw,165px)',
@@ -437,7 +436,7 @@ function WellbeingApproach() {
         scrollMarginTop: '100px',
       }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           className="section-header-block"
           style={{
@@ -579,7 +578,7 @@ function CounsellingSection() {
         scrollMarginTop: '100px',
       }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           className="section-header-block"
           style={{
@@ -595,7 +594,7 @@ function CounsellingSection() {
           <div className="divider" />
         </div>
       </div>
-      <div style={{ maxWidth: 1280, margin: '0 2rem' }}>
+      <div style={{ width: '100%' }}>
         <div
           className="section-float-img"
           style={{
@@ -755,7 +754,7 @@ function CharacterSection() {
         scrollMarginTop: '100px',
       }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           className="section-header-block"
           style={{
@@ -926,7 +925,6 @@ function GlobalSection() {
         style={{
           position: 'relative',
           zIndex: 2,
-          maxWidth: 1280,
           margin: '0 auto',
         }}
       >
@@ -1210,7 +1208,6 @@ export default function WellbeingPage() {
         <PageHero />
         <div
           style={{
-            maxWidth: 1280,
             margin: '0 auto',
             padding: '0 clamp(1rem,2vw,2rem)',
             display: 'flex',

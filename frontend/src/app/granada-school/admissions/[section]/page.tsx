@@ -349,7 +349,6 @@ function PageHero() {
           position: 'relative',
           zIndex: 5,
           height: '100%',
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
           paddingTop: 'clamp(140px,16vw,165px)',
@@ -420,7 +419,6 @@ function TaglineStrip() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           display: 'flex',
           justifyContent: 'center',
@@ -735,7 +733,7 @@ function WhyChoose() {
       ref={ref}
       style={{ padding: 'clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)' }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           className="section-header-block"
           style={{
@@ -904,7 +902,6 @@ function BoardingLife() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
         }}
@@ -1135,7 +1132,7 @@ function AdmissionsProcess() {
         scrollMarginTop: '100px',
       }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           className="section-header-block"
           style={{
@@ -1403,7 +1400,7 @@ function Apply() {
         className="section-cream"
         style={{ padding: 'clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)' }}
       >
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <div style={{ width: '100%' }}>
           <div
             className="section-header-block"
             style={{
@@ -1457,7 +1454,7 @@ function Apply() {
         className="section-blue"
         style={{ padding: 'clamp(2.5rem,5vw,4.5rem) clamp(1rem,2vw,2rem)' }}
       >
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <div style={{ width: '100%' }}>
           <div
             className="section-header-block"
             style={{ marginBottom: 'clamp(1.5rem,2.5vw,2.5rem)' }}
@@ -1548,7 +1545,7 @@ function Apply() {
         className="section-cream"
         style={{ padding: 'clamp(3rem,6vw,5rem) clamp(1rem,2vw,2rem)' }}
       >
-        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <div style={{ width: '100%' }}>
           <div
             style={{
               marginBottom: 'clamp(1.5rem,3vw,2.5rem)',
@@ -1957,7 +1954,7 @@ function AdmissionsTeam() {
         scrollMarginTop: '100px',
       }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           className="section-header-block"
           style={{
@@ -2431,7 +2428,6 @@ export default function AdmissionsPage() {
         <TaglineStrip />
         <div
           style={{
-            maxWidth: 1280,
             margin: '0 auto',
             padding: '0 clamp(1rem,2vw,2rem)',
             display: 'flex',

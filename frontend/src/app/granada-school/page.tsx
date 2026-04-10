@@ -199,7 +199,6 @@ function Hero() {
           position: 'relative',
           zIndex: 5,
           height: '100%',
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
           display: 'flex',
@@ -285,7 +284,6 @@ function TaglineStrip() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           display: 'flex',
           justifyContent: 'center',
@@ -350,7 +348,6 @@ function Welcome() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: '1fr',
@@ -513,7 +510,7 @@ function Curriculum() {
       ref={ref}
       style={{ padding: 'clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)' }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           style={{
             textAlign: 'center',
@@ -687,7 +684,7 @@ function Pillars() {
       ref={ref}
       style={{ padding: 'clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)' }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           style={{
             display: 'flex',

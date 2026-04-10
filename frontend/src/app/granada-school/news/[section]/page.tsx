@@ -335,7 +335,6 @@ function PageHero() {
           position: 'relative',
           zIndex: 5,
           height: '100%',
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
           paddingTop: 'clamp(140px,16vw,165px)',
@@ -460,7 +459,7 @@ function FeaturedStory() {
         scrollMarginTop: '100px',
       }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           style={{
             display: 'flex',
@@ -644,7 +643,7 @@ function NewsGrid() {
         scrollMarginTop: '100px',
       }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           style={{
             display: 'flex',
@@ -897,7 +896,7 @@ function EventsCalendar() {
         scrollMarginTop: '100px',
       }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           style={{
             textAlign: 'center',
@@ -1055,7 +1054,6 @@ function Newsletters() {
     >
       <div
         style={{
-          maxWidth: 1280,
           margin: '0 auto',
           display: 'grid',
           gridTemplateColumns: '1fr',
@@ -1458,7 +1456,6 @@ export default function NewsPage() {
         <PageHero />
         <div
           style={{
-            maxWidth: 1280,
             margin: '0 auto',
             padding: '0 clamp(1rem,2vw,2rem)',
             display: 'flex',

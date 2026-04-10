@@ -481,7 +481,6 @@ function Hero() {
         style={{
           position: 'relative',
           zIndex: 5,
-          maxWidth: 1280,
           margin: '0 auto',
           padding: '0 clamp(1rem,2vw,2rem)',
           paddingTop: 'clamp(140px,16vw,165px)',
@@ -528,7 +527,7 @@ function ContactInfo() {
       className="section-cream"
       style={{ padding: 'clamp(3rem,6vw,5rem) clamp(1rem,2vw,2rem)' }}
     >
-      <div style={{ maxWidth: 1280, margin: '0 auto' }}>
+      <div style={{ width: '100%' }}>
         <div
           className="section-header-block"
           style={{
