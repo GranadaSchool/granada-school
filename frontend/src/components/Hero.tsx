@@ -908,56 +908,56 @@ export default function Hero() {
             flexDirection: 'column',
           }}
         >
-          {/* Close button */}
-          <div
-            style={{
-              flexShrink: 0,
-              display: 'flex',
-              justifyContent: 'flex-end',
-              padding: '1.5rem 1.75rem 0',
-            }}
-          >
-            <button
-              onClick={() => setMenuOpen(false)}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem' }}
-              aria-label="Close Menu"
-            >
-              <svg width="22" height="22" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                <path d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Scrollable nav content */}
+          {/* Nav content — no scroll on desktop */}
           <div
             style={{
               flex: 1,
               minHeight: 0,
-              overflowY: 'auto',
+              overflow: 'hidden',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'flex-start',
-              padding: '2rem clamp(1.25rem,5vw,3.5rem)',
+              padding: '1.25rem clamp(1.25rem,5vw,3.5rem)',
             }}
           >
-            <h1
+            {/* H1 + Close button row */}
+            <div
               style={{
-                marginBottom: '2rem',
-                fontSize: 'clamp(1.75rem, 2vw, 3rem)',
-                fontWeight: 700,
-                lineHeight: '1.1',
-                color: 'white',
+                flexShrink: 0,
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '1rem',
+                marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
               }}
             >
-              Two Schools. One standard of Excellence. Discover the right Granada pathway for your child.
-            </h1>
+              <h1
+                style={{
+                  flex: 1,
+                  fontSize: 'clamp(1.25rem, 1.6vw, 2rem)',
+                  fontWeight: 700,
+                  lineHeight: '1.15',
+                  color: 'white',
+                  margin: 0,
+                }}
+              >
+                Two Schools. One standard of Excellence. Discover the right Granada pathway for your child.
+              </h1>
+              <button
+                onClick={() => setMenuOpen(false)}
+                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem', flexShrink: 0 }}
+                aria-label="Close Menu"
+              >
+                <svg width="22" height="22" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                  <path d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
 
             <div
               className="flex flex-col md:flex-row items-stretch"
               style={{
-                borderBottom: '3px solid rgba(255,255,255,0.2)',
-                paddingBottom: '1.75rem',
-                marginBottom: '1.75rem',
+                flex: 1,
+                minHeight: 0,
                 gap: '1.25rem',
               }}
             >
