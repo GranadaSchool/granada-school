@@ -41,6 +41,11 @@ const NAV_ITEMS = [
       },
       { label: 'Apply', href: '/granada-school/admissions/apply' },
       { label: 'Admissions Team', href: '/granada-school/admissions/team' },
+      { label: 'Fees', href: '/granada-school/admissions/fees' },
+      { label: 'Term Dates', href: '/granada-school/admissions/term-dates' },
+      { label: 'Uniform', href: '/granada-school/admissions/uniform' },
+      { label: 'School Lunches', href: '/granada-school/admissions/school-lunches' },
+      { label: 'School Transport', href: '/granada-school/admissions/school-transport' },
     ],
   },
   {
@@ -53,6 +58,7 @@ const NAV_ITEMS = [
       { label: 'CBC Curriculum', href: '/granada-school/academics/cbc' },
       { label: 'School Sections', href: '/granada-school/academics/sections' },
       { label: "Girls' Boarding", href: '/granada-school/academics/boarding' },
+      { label: "Career", href: '/granada-school/academics/careers' },
       { label: 'Apply', href: '/granada-school/academics/apply' },
     ],
   },
@@ -101,24 +107,24 @@ const NAV_ITEMS = [
   },
   {
     label: 'Parents',
-    href: '/granada-school#contact',
+    href: '/granada-school/contact',
     image: '/staffroom.jpeg',
     imageCaption: 'A Unique Blend of Partnership + Trust',
     children: [
-      { label: 'Parent Portal', href: '/granada-school#contact' },
-      { label: 'School Calendar', href: '/granada-school#contact' },
-      { label: 'Term Dates', href: '/granada-school#contact' },
+      { label: 'Parent Portal', href: '/granada-school/contact' },
+      { label: 'School Calendar', href: '/granada-school/contact' },
+      { label: 'Term Dates', href: '/granada-school/admissions/term-dates' },
     ],
   },
   {
     label: 'Support Us',
-    href: '/granada-school#contact',
+    href: '/granada-school/contact',
     image: '/art-room.jpeg',
     imageCaption: 'A Unique Blend of Giving + Impact',
     children: [
       { label: 'Bursaries & Scholarships', href: '/granada-school/admissions' },
-      { label: 'Donations', href: '/granada-school#contact' },
-      { label: 'Community Partnerships', href: '/granada-school#contact' },
+      { label: 'Donations', href: '/granada-school/contact' },
+      { label: 'Community Partnerships', href: '/granada-school/contact' },
     ],
   },
 ];
@@ -147,8 +153,133 @@ const PAGE_SECTIONS = [
   { label: 'CBC Curriculum', id: 'cbc' },
   { label: 'School Sections', id: 'sections' },
   { label: "Girls' Boarding", id: 'boarding' },
+  { label: 'Careers', id: 'careers' },
   { label: 'Apply', id: 'apply' },
 ];
+/* ── CAREERS ─────────────────────────────────────────────────────────────── */
+function Careers() {
+  const { ref, vis } = useInView(0.08);
+  return (
+    <section
+      className="section-cream"
+      id="careers"
+      ref={ref}
+      style={{
+        paddingTop: 'clamp(3rem,6vw,5rem)',
+        paddingBottom: 'clamp(3rem,6vw,5rem)',
+        scrollMarginTop: '100px',
+      }}
+    >
+      <div
+        style={{
+          margin: '0 auto',
+          padding: '0 clamp(1rem,2vw,2rem)',
+          // maxWidth: 1100,
+        }}
+      >
+        <div
+          className="section-header-block"
+          style={{
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(20px)',
+            transition: 'all 0.8s ease',
+          }}
+        >
+          <p className="label-tag">Careers & University Guidance</p>
+          <h2 className="section-heading">
+            Empowering <em>Futures</em>
+          </h2>
+          <div className="divider" />
+        </div>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'clamp(2rem,3vw,3rem)', alignItems: 'flex-start', opacity: vis ? 1 : 0, transition: 'all 0.9s ease 0.1s' }}>
+          <div style={{ flex: 1 }}>
+            <p className="body-text" style={{ marginBottom: '1.2rem', }}>
+              At Granada School, we believe that preparing students for life beyond school is as important as academic achievement. Our Careers and University Guidance programme is designed to help every learner discover their strengths, explore opportunities, and make informed decisions about their future.
+            </p>
+            
+          </div>
+          <div style={{ flex: '0 1 340px',  alignSelf: 'flex-start', position: 'relative' }}>
+            <div className="img-hover" style={{ width: '100%', height: 0, paddingBottom: '66%', position: 'relative', overflow: 'hidden', borderRadius: 12, boxShadow: '0 4px 32px rgba(33,53,88,0.10)' }}>
+              <img
+                src="/art-room.jpeg"
+                alt="Career guidance at Granada School"
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top,rgba(33,53,88,0.18),transparent 60%)' }} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+      style={{
+        margin: '0 auto',
+        padding: 'clamp(1rem,2vw,2rem)',
+      }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(2rem,3vw,3rem)', marginBottom: '2.5rem' }}>
+              <div>
+                <h3 className="font-display" style={{ fontSize: 'clamp(1.1rem,1.8vw,1.4rem)', color: 'var(--primary)', fontWeight: 700, marginBottom: '0.7rem' }}>Personalised Careers Support</h3>
+                <p className="body-text" style={{ marginBottom: '0.8rem' }}>
+                  Our dedicated Careers team provides one-to-one guidance, aptitude assessments, and workshops to help students identify their interests and talents. We support learners in exploring a wide range of career pathways, from STEM and business to the arts, social sciences, and entrepreneurship.
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--body-text)', fontSize: 'clamp(0.85rem,1vw,0.92rem)' }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--secondary)', flexShrink: 0 }} />
+                    Individual careers interviews
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--body-text)', fontSize: 'clamp(0.85rem,1vw,0.92rem)' }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--secondary)', flexShrink: 0 }} />
+                    Aptitude and interest profiling
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--body-text)', fontSize: 'clamp(0.85rem,1vw,0.92rem)' }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--secondary)', flexShrink: 0 }} />
+                    Career talks and alumni panels
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--body-text)', fontSize: 'clamp(0.85rem,1vw,0.92rem)' }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--secondary)', flexShrink: 0 }} />
+                    Work experience placements
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-display" style={{ fontSize: 'clamp(1.1rem,1.8vw,1.4rem)', color: 'var(--primary)', fontWeight: 600, marginBottom: '0.7rem' }}>University & Global Pathways</h3>
+                <p className="body-text" style={{ marginBottom: '0.8rem' }}>
+                  We offer comprehensive support for university applications in Kenya and abroad, including guidance on course selection, personal statements, and interview preparation. Our team stays up to date with global admissions trends and scholarship opportunities.
+                </p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--body-text)', fontSize: 'clamp(0.85rem,1vw,0.92rem)' }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--secondary)', flexShrink: 0 }} />
+                    University application workshops
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--body-text)', fontSize: 'clamp(0.85rem,1vw,0.92rem)' }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--secondary)', flexShrink: 0 }} />
+                    Personal statement and essay support
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--body-text)', fontSize: 'clamp(0.85rem,1vw,0.92rem)' }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--secondary)', flexShrink: 0 }} />
+                    Interview and admissions test prep
+                  </li>
+                  <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', color: 'var(--body-text)', fontSize: 'clamp(0.85rem,1vw,0.92rem)' }}>
+                    <span style={{ width: 6, height: 6, background: 'var(--secondary)', flexShrink: 0 }} />
+                    Scholarship and financial aid advice
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div style={{ marginBottom: '2.5rem', opacity: vis ? 1 : 0, transition: 'all 0.9s ease 0.2s' }}>
+              <h3 className="font-display" style={{ fontSize: 'clamp(1.05rem,1.6vw,1.2rem)', color: 'var(--primary)', fontWeight: 600, marginBottom: '0.7rem' }}>Employer & Industry Links</h3>
+              <p className="body-text">
+                Granada School partners with local and international employers, universities, and organisations to provide students with real-world insights and opportunities. Our annual Careers Fair, guest speakers, and alumni network help learners build valuable connections for their future.
+              </p>
+            </div>
+            <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+              <a href="/granada-school/contact?type=careers" className="btn-solid">
+                Careers Enquiry
+              </a>
+            </div>
+      </div>
+    </section>
+  );
+}
 const BASE_PATH = '/granada-school/academics';
 
 function PageHero() {
@@ -1735,6 +1866,7 @@ const SECTION_MAP: Record<string, () => React.ReactNode> = {
   cbc: () => <CBCCurriculum />,
   sections: () => <SchoolSections />,
   boarding: () => <GirlsBoarding />,
+  careers: () => <Careers />,
   apply: () => <AdmissionsCTA />,
 };
 
@@ -1751,7 +1883,7 @@ export default function GranadaSchoolAcademics() {
         logoHref="/granada-school"
         navItems={NAV_ITEMS}
         quickLinks={[
-          { label: 'Parents', href: '/granada-school#contact' },
+          { label: 'Parents', href: '/granada-school/contact' },
           { label: 'Enquire', href: '/granada-school/contact' },
           { label: 'Contact us', href: '/granada-school/contact' },
         ]}

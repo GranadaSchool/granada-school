@@ -39,6 +39,11 @@ const NAV_ITEMS = [
       },
       { label: 'Apply', href: '/granada-school/admissions/apply' },
       { label: 'Admissions Team', href: '/granada-school/admissions/team' },
+      { label: 'Fees', href: '/granada-school/admissions/fees' },
+      { label: 'Term Dates', href: '/granada-school/admissions/term-dates' },
+      { label: 'Uniform', href: '/granada-school/admissions/uniform' },
+      { label: 'School Lunches', href: '/granada-school/admissions/school-lunches' },
+      { label: 'School Transport', href: '/granada-school/admissions/school-transport' },
     ],
   },
   {
@@ -51,6 +56,7 @@ const NAV_ITEMS = [
       { label: 'CBC Curriculum', href: '/granada-school/academics/cbc' },
       { label: 'School Sections', href: '/granada-school/academics/sections' },
       { label: "Girls' Boarding", href: '/granada-school/academics/boarding' },
+      { label: "Career", href: '/granada-school/academics/careers' },
       { label: 'Apply', href: '/granada-school/academics/apply' },
     ],
   },
@@ -99,24 +105,24 @@ const NAV_ITEMS = [
   },
   {
     label: 'Parents',
-    href: '/granada-school#contact',
+    href: '/granada-school/contact',
     image: '/staffroom.jpeg',
     imageCaption: 'A Unique Blend of Partnership + Trust',
     children: [
-      { label: 'Parent Portal', href: '/granada-school#contact' },
-      { label: 'School Calendar', href: '/granada-school#contact' },
-      { label: 'Term Dates', href: '/granada-school#contact' },
+      { label: 'Parent Portal', href: '/granada-school/contact' },
+      { label: 'School Calendar', href: '/granada-school/contact' },
+      { label: 'Term Dates', href: '/granada-school/admissions/term-dates' },
     ],
   },
   {
     label: 'Support Us',
-    href: '/granada-school#contact',
+    href: '/granada-school/contact',
     image: '/art-room.jpeg',
     imageCaption: 'A Unique Blend of Giving + Impact',
     children: [
       { label: 'Bursaries & Scholarships', href: '/granada-school/admissions' },
-      { label: 'Donations', href: '/granada-school#contact' },
-      { label: 'Community Partnerships', href: '/granada-school#contact' },
+      { label: 'Donations', href: '/granada-school/contact' },
+      { label: 'Community Partnerships', href: '/granada-school/contact' },
     ],
   },
 ];
@@ -152,7 +158,7 @@ function Hero() {
     setLoaded(true);
     const t = setInterval(
       () => setActive((a) => (a + 1) % slides.length),
-      5500
+      6500
     );
     return () => clearInterval(t);
   }, []);
@@ -175,11 +181,9 @@ function Hero() {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             opacity: i === active ? 1 : 0,
-            transition: 'opacity 1.2s ease',
-            animation:
-              i === active
-                ? 'kenBurns 10s ease-in-out infinite alternate'
-                : 'none',
+            transition: 'opacity 2s cubic-bezier(0.45, 0, 0.55, 1)',
+            animation: 'kenBurns 14s ease-in-out infinite alternate',
+            willChange: 'opacity, transform',
           }}
         />
       ))}
@@ -215,7 +219,7 @@ function Hero() {
             transition: 'all 1s ease 0.2s',
           }}
         >
-          <p
+          {/* <p
             style={{
               fontSize: 'clamp(0.55rem,0.8vw,0.62rem)',
               letterSpacing: '0.28em',
@@ -224,7 +228,6 @@ function Hero() {
               fontWeight: 700,
               marginBottom: '1rem',
               marginTop: '4.5rem',
-              fontFamily: 'sans-serif',
             }}
           >
             Vipingo, Kenya &middot; CBE Curriculum
@@ -247,7 +250,7 @@ function Hero() {
             <em style={{ color: 'var(--secondary)', fontStyle: 'normal' }}>
               meant to be.
             </em>
-          </h1>
+          </h1> */}
           {/* <div
             style={{
               width: 50,
@@ -465,8 +468,8 @@ function Curriculum() {
   const { ref, vis } = useInView(0.1);
   const curricula = [
     {
-      title: 'CBC',
-      subtitle: 'Competency Based Curriculum',
+      title: 'CBE',
+      subtitle: 'Competency Based Education',
       desc: "Kenya's national framework building strong local foundations, nurturing 21st-century skills through competency-driven, holistic learning.",
       color: 'var(--primary)',
       border: 'rgba(33,53,88,0.2)',
@@ -1050,7 +1053,7 @@ export default function Home() {
         logoHref="/granada-school"
         navItems={NAV_ITEMS}
         quickLinks={[
-          { label: 'Parents', href: '/granada-school#contact' },
+          { label: 'Parents', href: '/granada-school/contact' },
           { label: 'Enquire', href: '/granada-school/contact' },
           { label: 'Contact us', href: '/granada-school/contact' },
         ]}
@@ -1060,13 +1063,13 @@ export default function Home() {
         sideImageAlt="Granada School"
       />
       <Hero />
-      <TaglineStrip />
+      {/* <TaglineStrip />
       <Welcome />
       <Curriculum />
       <Pillars />
-      <QuoteBanner />
+      <QuoteBanner /> */}
       {/* <Community/> */}
-      <AdmissionsCTA />
+      {/* <AdmissionsCTA />
       <SchoolFooter
         logoSrc="/g-school-dark.svg"
         logoAlt="Granada School"
@@ -1081,7 +1084,7 @@ export default function Home() {
           'Senior School',
         ]}
         footerColsClass="footer-cols"
-      />
+      /> */}
     </>
   );
 }

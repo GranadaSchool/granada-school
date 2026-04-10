@@ -417,7 +417,7 @@ export default function SchoolSideNav({
               >
                 <p
                   style={{
-                    fontSize: 'clamp(0.55rem,1rem,0.6rem)',
+                    fontSize: 'clamp(0.95rem,1rem,0.6rem)',
                     letterSpacing: '0.22em',
                     textTransform: 'uppercase',
                     color: '#fff',
@@ -450,7 +450,7 @@ export default function SchoolSideNav({
                         padding: 'clamp(0.4rem,0.8vw,0.55rem) 0',
                         color: '#fff',
                         textDecoration: 'none',
-                        fontSize: 'clamp(0.7rem,1.2vw,0.8rem)',
+                        fontSize: 'clamp(0.9rem,1.2vw,0.8rem)',
                         borderBottom: '1px solid rgba(255,255,255,0.1)',
                         transition: 'color 0.2s',
                       }}
@@ -498,7 +498,7 @@ export default function SchoolSideNav({
                     onClick={onClose}
                     className="btn-solid"
                     style={{
-                      fontSize: 'clamp(0.55rem,1rem,0.6rem)',
+                      fontSize: 'clamp(0.95rem,1rem,0.6rem)',
                       padding:
                         'clamp(0.3rem,0.6vw,0.45rem) clamp(0.8rem,1.5vw,1.2rem)',
                     }}
@@ -510,7 +510,7 @@ export default function SchoolSideNav({
                     onClick={onClose}
                     className="btn-outline"
                     style={{
-                      fontSize: 'clamp(0.55rem,1rem,0.6rem)',
+                      fontSize: 'clamp(0.95rem,1rem,0.6rem)',
                       padding:
                         'clamp(0.3rem,0.6vw,0.45rem) clamp(0.8rem,1.5vw,1.2rem)',
                     }}

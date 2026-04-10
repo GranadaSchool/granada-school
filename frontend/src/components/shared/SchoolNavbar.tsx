@@ -73,28 +73,36 @@ export default function SchoolNavbar({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            flexWrap: 'wrap',
             gap: 'clamp(0.8rem,1.5vw,1rem)',
           }}
         >
+          {/* Logo — collapses width on scroll */}
           <a
             href={logoHref}
             style={{
               textDecoration: 'none',
               display: 'flex',
               alignItems: 'center',
-              minWidth: 0,
+              overflow: 'hidden',
+              maxWidth: scrolled ? '0px' : '500px',
+              opacity: scrolled ? 0 : 1,
+              pointerEvents: scrolled ? 'none' : 'auto',
+              transition: 'max-width 0.4s ease, opacity 0.3s ease',
             }}
+            tabIndex={scrolled ? -1 : 0}
+            aria-hidden={scrolled}
           >
             <Image
-              src={scrolled ? scrolledLogo : clearLogo}
+              src={clearLogo}
               alt={logoAlt}
               width={120}
               height={54}
-              style={{ height: 'auto', width: 'clamp(150px,7vw,170px)' }}
+              style={{ height: 'auto', width: 'clamp(180px,7vw,170px)', flexShrink: 0 }}
               priority
             />
           </a>
+
+          {/* Right side controls */}
           <div
             style={{
               display: 'flex',
@@ -118,24 +126,20 @@ export default function SchoolNavbar({
                   key={label}
                   href={href}
                   style={{
-                    color: scrolled ? 'var(--muted)' : 'rgba(255,255,255,0.9)',
+                    color: scrolled ? 'var(--muted)' : 'rgba(255,255,255)',
                     textDecoration: 'none',
-                    fontSize: 'clamp(0.6rem,1.2vw,0.68rem)',
+                    fontSize: 'clamp(0.8rem,1.2vw,0.98rem)',
                     letterSpacing: '0.1em',
                     textTransform: 'uppercase',
-                    fontWeight: 500,
+                    fontWeight: 700,
                     transition: 'color 0.2s',
                     whiteSpace: 'nowrap',
                   }}
                   onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = scrolled
-                      ? 'var(--primary)'
-                      : '#fff')
+                    (e.currentTarget.style.color = scrolled ? 'var(--primary)' : '#fff')
                   }
                   onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = scrolled
-                      ? 'var(--muted)'
-                      : 'rgba(255,255,255,0.9)')
+                    (e.currentTarget.style.color = scrolled ? 'var(--muted)' : 'rgba(255,255,255,0.9)')
                   }
                 >
                   {label}
@@ -145,14 +149,14 @@ export default function SchoolNavbar({
                 href={resolvedHeaderApply}
                 className="btn-green"
                 style={{
-                  fontSize: 'clamp(0.6rem,1.2vw,0.62rem)',
-                  padding:
-                    'clamp(0.4rem,0.8vw,0.5rem) clamp(0.8rem,1.5vw,1.2rem)',
+                  fontSize: 'clamp(0.7rem,1.2vw,0.82rem)',
+                  padding: 'clamp(0.4rem,0.8vw,0.5rem) clamp(0.8rem,1.5vw,1.2rem)',
                 }}
               >
                 Apply Now
               </a>
             </div>
+
             <button
               onClick={() => setOpen(true)}
               aria-label="Open menu"
@@ -168,9 +172,7 @@ export default function SchoolNavbar({
                 flexShrink: 0,
               }}
               onMouseEnter={(e) =>
-                (e.currentTarget.style.borderColor = scrolled
-                  ? 'var(--primary)'
-                  : '#fff')
+                (e.currentTarget.style.borderColor = scrolled ? 'var(--primary)' : '#fff')
               }
               onMouseLeave={(e) =>
                 (e.currentTarget.style.borderColor = scrolled
@@ -200,13 +202,12 @@ export default function SchoolNavbar({
                 style={{
                   width: 13,
                   height: 1.5,
-                  background: scrolled
-                    ? 'var(--secondary)'
-                    : 'rgba(255,255,255,0.7)',
+                  background: scrolled ? 'var(--secondary)' : 'rgba(255,255,255,0.7)',
                   display: 'block',
                 }}
               />
             </button>
+
             <style>{`@media(min-width:768px){.nav-quick{display:flex!important}}`}</style>
           </div>
         </div>

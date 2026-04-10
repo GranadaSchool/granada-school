@@ -40,6 +40,11 @@ const NAV_ITEMS = [
       },
       { label: 'Apply', href: '/granada-school/admissions/apply' },
       { label: 'Admissions Team', href: '/granada-school/admissions/team' },
+      { label: 'Fees', href: '/granada-school/admissions/fees' },
+      { label: 'Term Dates', href: '/granada-school/admissions/term-dates' },
+      { label: 'Uniform', href: '/granada-school/admissions/uniform' },
+      { label: 'School Lunches', href: '/granada-school/admissions/school-lunches' },
+      { label: 'School Transport', href: '/granada-school/admissions/school-transport' },
     ],
   },
   {
@@ -52,6 +57,7 @@ const NAV_ITEMS = [
       { label: 'CBC Curriculum', href: '/granada-school/academics/cbc' },
       { label: 'School Sections', href: '/granada-school/academics/sections' },
       { label: "Girls' Boarding", href: '/granada-school/academics/boarding' },
+      { label: "Career", href: '/granada-school/academics/careers' },
       { label: 'Apply', href: '/granada-school/academics/apply' },
     ],
   },
@@ -100,24 +106,24 @@ const NAV_ITEMS = [
   },
   {
     label: 'Parents',
-    href: '/granada-school#contact',
+    href: '/granada-school/contact',
     image: '/staffroom.jpeg',
     imageCaption: 'A Unique Blend of Partnership + Trust',
     children: [
-      { label: 'Parent Portal', href: '/granada-school#contact' },
-      { label: 'School Calendar', href: '/granada-school#contact' },
-      { label: 'Term Dates', href: '/granada-school#contact' },
+      { label: 'Parent Portal', href: '/granada-school/contact' },
+      { label: 'School Calendar', href: '/granada-school/contact' },
+      { label: 'Term Dates', href: '/granada-school/admissions/term-dates' },
     ],
   },
   {
     label: 'Support Us',
-    href: '/granada-school#contact',
+    href: '/granada-school/contact',
     image: '/art-room.jpeg',
     imageCaption: 'A Unique Blend of Giving + Impact',
     children: [
       { label: 'Bursaries & Scholarships', href: '/granada-school/admissions' },
-      { label: 'Donations', href: '/granada-school#contact' },
-      { label: 'Community Partnerships', href: '/granada-school#contact' },
+      { label: 'Donations', href: '/granada-school/contact' },
+      { label: 'Community Partnerships', href: '/granada-school/contact' },
     ],
   },
 ];
@@ -1160,7 +1166,7 @@ export default function ContactPage() {
         logoHref="/granada-school"
         navItems={NAV_ITEMS}
         quickLinks={[
-          { label: 'Parents', href: '/granada-school#contact' },
+          { label: 'Parents', href: '/granada-school/contact' },
           { label: 'Enquire', href: '/granada-school/contact' },
           { label: 'Contact us', href: '/granada-school/contact' },
         ]}

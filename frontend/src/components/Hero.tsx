@@ -493,7 +493,6 @@ export default function Hero() {
                         filter: 'brightness(1.7)',
                         fontWeight: 700,
                         marginBottom: '0.5rem',
-                        fontFamily: 'sans-serif',
                       }}
                     >
                       {value.tagline}
@@ -535,7 +534,6 @@ export default function Hero() {
                         lineHeight: 1.65,
                         color: 'rgba(255,255,255,0.65)',
                         maxWidth: '52ch',
-                        fontFamily: 'sans-serif',
                       }}
                     >
                       At Granada, {value.label.toLowerCase()} is not just a word
@@ -688,7 +686,6 @@ export default function Hero() {
                                 color: value.textColor,
                                 opacity: 0.7,
                                 fontWeight: 700,
-                                fontFamily: 'sans-serif',
                                 margin: '0 0 0.5rem',
                               }}
                             >
@@ -698,7 +695,6 @@ export default function Hero() {
                               style={{
                                 color: value.textColor,
                                 fontWeight: 400,
-                                fontFamily: 'sans-serif',
                                 fontSize: '24px',
                                 lineHeight: 1.3,
                                 margin: '0 0 0.4rem',
@@ -710,7 +706,6 @@ export default function Hero() {
                               style={{
                                 color: value.textColor,
                                 opacity: 0.65,
-                                fontFamily: 'sans-serif',
                                 fontSize: '24px',
                                 fontWeight: 400,
                                 margin: 0,
@@ -792,7 +787,6 @@ export default function Hero() {
                                   color: value.textColor,
                                   opacity: 0.7,
                                   fontWeight: 700,
-                                  fontFamily: 'sans-serif',
                                   margin: '0 0 0.5rem',
                                 }}
                               >
@@ -802,7 +796,6 @@ export default function Hero() {
                                 style={{
                                   color: value.textColor,
                                   fontWeight: 400,
-                                  fontFamily: 'sans-serif',
                                   fontSize: '24px',
                                   lineHeight: 1.3,
                                   margin: '0 0 0.4rem',
@@ -814,7 +807,6 @@ export default function Hero() {
                                 style={{
                                   color: value.textColor,
                                   opacity: 0.65,
-                                  fontFamily: 'sans-serif',
                                   fontSize: '24px',
                                   fontWeight: 400,
                                   margin: 0,
@@ -1125,9 +1117,9 @@ export default function Hero() {
                     </div>
                     <div style={{ flexShrink: 0, position: 'relative', backgroundColor: post.color, padding: '1.1rem 0.85rem 0.85rem' }}>
                       <div style={{ position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)', width: 0, height: 0, borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderBottom: `16px solid ${post.color}`, zIndex: 2 }} />
-                      <p style={{ fontSize: '0.44rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: post.textColor, fontWeight: 700, fontFamily: 'sans-serif', margin: '0 0 0.3rem' }}>{post.platform}</p>
-                      <p style={{ fontSize: '0.72rem', color: post.textColor, fontFamily: 'sans-serif', lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
-                      <p style={{ fontSize: '0.58rem', color: post.textColor, opacity: 0.65, fontFamily: 'sans-serif', margin: 0 }}>{post.date}</p>
+                      <p style={{ fontSize: '0.44rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: post.textColor, fontWeight: 700, margin: '0 0 0.3rem' }}>{post.platform}</p>
+                      <p style={{ fontSize: '0.72rem', color: post.textColor, lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
+                      <p style={{ fontSize: '0.58rem', color: post.textColor, opacity: 0.65, margin: 0 }}>{post.date}</p>
                     </div>
                   </div>
                 ))}
@@ -1170,9 +1162,9 @@ export default function Hero() {
                     </div>
                     <div style={{ flexShrink: 0, position: 'relative', backgroundColor: post.color, padding: '1.1rem 0.85rem 0.85rem' }}>
                       <div style={{ position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)', width: 0, height: 0, borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderBottom: `16px solid ${post.color}`, zIndex: 2 }} />
-                      <p style={{ fontSize: '0.6rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: post.textColor, fontWeight: 700, fontFamily: 'sans-serif', margin: '0 0 0.3rem' }}>{post.platform}</p>
-                      <p style={{ fontSize: '0.82rem', color: post.textColor, fontFamily: 'sans-serif', lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
-                      <p style={{ fontSize: '0.72rem', color: post.textColor, opacity: 0.65, fontFamily: 'sans-serif', margin: 0 }}>{post.date}</p>
+                      <p style={{ fontSize: '0.6rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: post.textColor, fontWeight: 700, margin: '0 0 0.3rem' }}>{post.platform}</p>
+                      <p style={{ fontSize: '0.82rem', color: post.textColor, lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
+                      <p style={{ fontSize: '0.72rem', color: post.textColor, opacity: 0.65, margin: 0 }}>{post.date}</p>
                     </div>
                   </div>
                 ))}
@@ -1188,7 +1180,7 @@ export default function Hero() {
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
               </button>
-              <span style={{ color: 'rgba(0,0,0,0.5)', fontSize: '0.65rem', fontFamily: 'sans-serif', letterSpacing: '0.1em' }}>
+              <span style={{ color: 'rgba(0,0,0,0.5)', fontSize: '0.65rem', letterSpacing: '0.1em' }}>
                 {mobileSocialIndex + 1} / {socialPosts.length}
               </span>
               <button

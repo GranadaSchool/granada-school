@@ -404,8 +404,8 @@ em {
   font-family: inherit;
 }
 .btn-green:hover {
-  background: #96ac0a;
-  border-color: #96ac0a;
+  background: var(--primary);
+  border-color: var(--primary);
 }
 
 /* ── Animations ──────────────────────────────────────────────────────── */
@@ -588,8 +588,8 @@ em {
   margin-right: auto;
 }
 .section-header-block .body-text {
-  text-align: center;
-  max-width: 640px;
+  text-align: start;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
 }

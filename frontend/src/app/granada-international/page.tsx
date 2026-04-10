@@ -303,7 +303,6 @@ function Hero() {
               color: 'var(--secondary)',
               fontWeight: 700,
               marginBottom: '1rem',
-              fontFamily: 'sans-serif',
             }}
           >
             Vipingo, Kenya &middot; Edexcel &amp; Cambridge
