@@ -146,6 +146,14 @@ function useInView(threshold = 0.15) {
 
 /* ── HERO ──────────────────────────────────────────────────────────────────── */
 function Hero() {
+  const navItems = NAV_ITEMS;
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const [displayIdx, setDisplayIdx] = useState<number | null>(null);
+  const [animKey, setAnimKey] = useState(0);
+  const prevIdxRef = useRef<number | null>(null);
+  const [prevDisplayIdx, setPrevDisplayIdx] = useState<number | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+
   const slides = [
     { bg: '/building.jpeg', label: 'Inspiring Excellence' },
     { bg: '/class.jpeg', label: 'CBE Curriculum' },
@@ -154,32 +162,44 @@ function Hero() {
   ];
   const [active, setActive] = useState(0);
   const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
     setLoaded(true);
-    const t = setInterval(
-      () => setActive((a) => (a + 1) % slides.length),
-      6500
-    );
+    const t = setInterval(() => setActive((a) => (a + 1) % slides.length), 6500);
     return () => clearInterval(t);
   }, []);
+
+  const handleNavClick = (idx: number) => {
+  if (selectedIdx === idx) {
+    prevIdxRef.current = idx;
+    setSelectedIdx(null);
+    setDisplayIdx(null);
+    setPrevDisplayIdx(null);
+  } else {
+    prevIdxRef.current = selectedIdx;
+    setPrevDisplayIdx(displayIdx);       // hold outgoing content
+    setIsAnimating(true);
+    setSelectedIdx(idx);
+    setDisplayIdx(idx);
+    setAnimKey((k) => k + 1);
+
+    // clear outgoing after animation completes
+    setTimeout(() => {
+      setPrevDisplayIdx(null);
+      setIsAnimating(false);
+    }, 320);
+  }
+};
+
   return (
-    <section
-      style={{
-        position: 'relative',
-        height: '100vh',
-        minHeight: 600,
-        overflow: 'hidden',
-      }}
-    >
+    <section style={{ position: 'relative', height: '100vh', minHeight: 600, overflow: 'hidden' }}>
       {slides.map((s, i) => (
         <div
           key={i}
           style={{
-            position: 'absolute',
-            inset: 0,
+            position: 'absolute', inset: 0,
             backgroundImage: `url(${s.bg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundSize: 'cover', backgroundPosition: 'center',
             opacity: i === active ? 1 : 0,
             transition: 'opacity 2s cubic-bezier(0.45, 0, 0.55, 1)',
             animation: 'kenBurns 14s ease-in-out infinite alternate',
@@ -187,79 +207,154 @@ function Hero() {
           }}
         />
       ))}
-      {/* Dark overlay for text legibility */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(105deg, rgba(13,12,13,0.75) 0%, rgba(13,12,13,0.38) 18%, transparent 100%)',
-          zIndex: 2,
-          pointerEvents: 'none',
-        }}
-      />
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 5,
-          height: '100%',
-          margin: '0 auto',
-          padding: '0 clamp(1rem,2vw,2rem)',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-        }}
-      >
-        <div
+
+      {/* Overlay */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        background: 'linear-gradient(105deg, rgba(13,12,13,0.75) 0%, rgba(13,12,13,0.38) 78%, transparent 100%)',
+        zIndex: 2, pointerEvents: 'none',
+      }} />
+
+      {/* ── Centered logo ── */}
+      <div style={{
+        position: 'absolute', top: 0, left: 0, right: 0,
+        display: 'flex', justifyContent: 'center', alignItems: 'center',
+        padding: 'clamp(1.2rem,3vh,2rem) 0',
+        zIndex: 10,
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {/* Swap this img for your actual logo */}
+          <Image
+                        src='/g-school-dark.svg'
+                        alt="Granada CBE"
+                        width={120}
+                        height={54}
+                        style={{ height: 'auto', width: 'clamp(180px,7vw,170px)', flexShrink: 0 }}
+                        priority
+                      />
+                  
+        </div>
+      </div>
+
+      {/* ── Nav + content ── */}
+      <div style={{
+        position: 'relative', zIndex: 15, height: '100%',
+
+        padding: '0 clamp(1.5rem,4vw,4rem)',
+        display: 'flex', alignItems: 'center',
+        opacity: loaded ? 1 : 0,
+        transform: loaded ? 'none' : 'translateY(20px)',
+        transition: 'all 1s ease 0.2s',
+      }}>
+
+        {/* Col 1: Main nav items */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, minWidth: 200 }}>
+          {navItems.map((item, idx) => (
+            <button
+              key={item.label}
+              onClick={() => handleNavClick(idx)}
+              style={{
+                display: 'flex', alignItems: 'center', gap: 10,
+                background: 'none', border: 'none',
+                color: selectedIdx === idx ? '#e2c215' : '#fff',
+                fontSize: 'clamp(0.85rem,1.1vw,1.1rem)',
+                fontWeight: 700,
+                letterSpacing: '0.07em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                padding: '0.6em 0',
+                textAlign: 'left',
+                fontFamily: 'inherit',
+                transform: selectedIdx === idx ? 'translateX(18px)' : 'translateX(0)',
+                transition: 'transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s',
+              }}
+              >
+                {/* Label + underline scoped to text width */}
+                <span style={{ position: 'relative', display: 'inline-block' }}>
+                  {item.label}
+                  <span style={{
+                    position: 'absolute', bottom: '-3px', left: 0,
+                    height: 2, borderRadius: 0,
+                    background: '#e2c215',
+                    width: selectedIdx === idx ? '100%' : '0%',
+                    transition: 'width 0.28s cubic-bezier(0.77,0,0.175,1)',
+                  }} />
+                </span>
+
+                {/* Arrow */}
+                <svg
+                  width="5" height="9" viewBox="0 0 5 9" fill="none"
+                  style={{ flexShrink: 0, opacity: selectedIdx === idx ? 1 : 0, transition: 'opacity 0.2s' }}
+                >
+                  <path d="M1 1l3 3.5L1 8" stroke="#e2c215" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
+          ))}
+        </div>
+
+        {/* Col 2: Children */}
+<div style={{
+          overflow: 'hidden',
+          width: selectedIdx !== null && (navItems[selectedIdx]?.children?.length ?? 0) > 0
+            ? 'clamp(200px,18vw,280px)'
+            : '0',
+          opacity: selectedIdx !== null ? 1 : 0,
+          marginLeft: selectedIdx !== null ? 'clamp(1.5rem,3vw,2.5rem)' : '0',
+          transition: 'width 1.78s cubic-bezier(0.77,0,0.175,1), opacity 0.3s, margin-left 0.78s',
+          flexShrink: 0,
+        }}>
+          <div 
+          key={animKey}
           style={{
-            maxWidth: 'clamp(1400px,52vw,620px)',
-            textAlign: 'start',
-            opacity: loaded ? 1 : 0,
-            transform: loaded ? 'none' : 'translateY(20px)',
-            transition: 'all 1s ease 0.2s',
-          }}
-        >
-          {/* <p
-            style={{
-              fontSize: 'clamp(0.55rem,0.8vw,0.62rem)',
-              letterSpacing: '0.28em',
-              textTransform: 'uppercase',
-              color: 'var(--secondary)',
-              fontWeight: 700,
-              marginBottom: '1rem',
-              marginTop: '4.5rem',
-            }}
-          >
-            Vipingo, Kenya &middot; CBE Curriculum
-          </p>
-          <h1
-            className="font-display"
-            style={{
-              fontSize: 'clamp(1.6rem, 3.5vw, 3.2rem)',
-              fontWeight: 700,
-              lineHeight: 1.08,
-              color: '#fff',
-              marginBottom: '1.25rem',
-              textShadow: '0 2px 24px rgba(0,0,0,0.4)',
-            }}
-          >
-            Where young women
-            <br />
-            discover who they&apos;re
-            <br />
-            <em style={{ color: 'var(--secondary)', fontStyle: 'normal' }}>
-              meant to be.
-            </em>
-          </h1> */}
-          {/* <div
-            style={{
-              width: 50,
-              height: 2,
-              background: 'var(--secondary)',
-              margin: '1.25rem auto',
-            }}
-          /> */}
-          
+            // width: 'clamp(200px,18vw,280px)',
+            // background: 'rgba(255,255,255,0.13)',
+            // borderRadius: 12,
+            padding: 'clamp(0.9rem,1.5vw,1.4rem)',
+            display: 'flex', flexDirection: 'column', gap: 10,
+            animation:`${
+              prevIdxRef.current === null || prevIdxRef.current < displayIdx
+              ? 'col2SlideIn'
+              : 'col2SlideInBack'
+            } 3s cubic-bezier(0.22, 1, 0.36, 1) both`
+          }}>
+            {/* Section label */}
+            <p style={{
+              fontSize: 'clamp(0.6rem,0.7vw,0.75rem)',
+              letterSpacing: '0.2em', textTransform: 'uppercase',
+              color: 'rgba(255,255,255,0.77)', fontWeight: 700,
+              marginBottom: 4,
+            }}>
+              {navItems[displayIdx]?.label}
+            </p>
+
+            {navItems[displayIdx]?.children?.map((child) => (
+              <a
+                key={child.label}
+                href={child.href}
+                style={{
+                  display: 'block',
+                  color: '#213558',
+                  background: 'rgba(255,255,255,0.88)',
+                  borderRadius: 6,
+                  padding: '0.6em 1em',
+                  fontWeight: 500,
+                  fontSize: 'clamp(0.78rem,0.95vw,1rem)',
+                  textDecoration: 'none',
+                  transition: 'background 0.18s, color 0.18s',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#e2c215';
+                  e.currentTarget.style.color = '#1a2535';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.88)';
+                  e.currentTarget.style.color = '#213558';
+                }}
+              >
+                {child.label}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -1046,7 +1141,7 @@ function AdmissionsCTA() {
 export default function Home() {
   return (
     <>
-      <SchoolNavbar
+      {/* <SchoolNavbar
         scrolledLogo="/g-school.svg"
         clearLogo="/g-school-dark.svg"
         logoAlt="Granada School"
@@ -1061,7 +1156,7 @@ export default function Home() {
         applyHref="/granada-school/contact?type=admissions"
         sideImage="/building.jpeg"
         sideImageAlt="Granada School"
-      />
+      /> */}
       <Hero />
       {/* <TaglineStrip />
       <Welcome />

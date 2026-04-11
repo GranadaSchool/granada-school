@@ -436,6 +436,22 @@ em {
   }
 }
 
+@keyframes col2SlideIn {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes col2SlideInBack {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes col2SlideOut {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-28px); }
+  }
+  @keyframes col2SlideOutBack {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(28px); }
+  }
 .animate-kenBurns {
   animation: kenBurns 10s ease-in-out infinite alternate;
 }
