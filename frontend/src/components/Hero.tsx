@@ -927,13 +927,13 @@ export default function Hero() {
                 display: 'flex',
                 alignItems: 'flex-start',
                 gap: '1rem',
-                marginBottom: 'clamp(0.75rem, 1.5vh, 1.25rem)',
+                marginBottom: 'var(--hero-h1-margin-bottom)',
               }}
             >
               <h1
                 style={{
                   flex: 1,
-                  fontSize: 'clamp(2.9rem, 1.6vw, 4rem)',
+                  fontSize: 'var(--hero-h1-size)',
                   fontWeight: 900,
                   lineHeight: '1.15',
                   color: 'white',
@@ -965,7 +965,7 @@ export default function Hero() {
               {/* CBE Pathway card */}
               <Card
                 className="relative w-full pt-0 flex flex-col justify-start gap-1"
-                style={{ background: '#e2c215', maxHeight: '27vh' }}
+                style={{ background: '#e2c215', maxHeight: 'var(--hero-card-cbe-max-height)' }}
               >
                 <div className="absolute inset-0 z-30 aspect-video" />
 
@@ -975,7 +975,7 @@ export default function Hero() {
                 >
                   <CardTitle
                     style={{
-                      fontSize: 'clamp(0.85rem, 1vw, 1.05rem)',
+                      fontSize: 'var(--hero-card-title-size)',
                       fontWeight: 700,
                       color: '#0b1b3b',
                     }}
@@ -985,7 +985,7 @@ export default function Hero() {
 
                   <CardDescription
                     style={{
-                      fontSize: '0.85rem',
+                      fontSize: 'var(--hero-card-desc-size)',
                       color: '#0b1b3b',
                       opacity: 0.95,
                       lineHeight: 1.5,
@@ -1000,7 +1000,7 @@ export default function Hero() {
                 <CardFooter >
                   <Button
                     className="w-full"
-                    style={{ backgroundColor: '#0b1b3b', color: '#e2c215' }}
+                    style={{ backgroundColor: '#0b1b3b', color: '#e2c215', fontSize:'var(--hero-card-desc-size)' }}
                   >
                     <Link
                       href="/granada-school"
@@ -1015,7 +1015,7 @@ export default function Hero() {
               {/* International Pathway card */}
               <Card
                 className="relative w-full pt-0 flex flex-col justify-start gap-1"
-                style={{ background: '#A6D6C9', maxHeight: '26vh' }}
+                style={{ background: '#A6D6C9', maxHeight: 'var(--hero-card-max-height)' }}
               >
                 <div className="absolute inset-0 z-30 aspect-video" />
 
@@ -1025,7 +1025,7 @@ export default function Hero() {
                 >
                   <CardTitle
                     style={{
-                      fontSize: 'clamp(0.85rem, 1vw, 1.05rem)',
+                      fontSize: 'var(--hero-card-title-size)',
                       fontWeight: 700,
                       color: '#0b1b3b',
                     }}
@@ -1035,7 +1035,7 @@ export default function Hero() {
 
                   <CardDescription
                     style={{
-                      fontSize: '0.85rem',
+                      fontSize: 'var(--hero-card-desc-size)',
                       color: '#0b1b3b',
                       opacity: 0.75,
                       lineHeight: 1.5,
@@ -1049,7 +1049,7 @@ export default function Hero() {
                 <CardFooter>
                   <Button
                     className="w-full"
-                    style={{ backgroundColor: '#0b1b3b', color: '#A6D6C9' }}
+                    style={{ backgroundColor: '#0b1b3b', color: '#A6D6C9', fontSize: 'var(--hero-card-desc-size)' }}
                   >
                     <Link
                       href="/granada-international"

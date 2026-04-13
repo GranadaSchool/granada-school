@@ -162,6 +162,7 @@ function Hero() {
   ];
   const [active, setActive] = useState(0);
   const [loaded, setLoaded] = useState(false);
+  const [mobileCol, setMobileCol] = useState<1 | 2>(1);
 
   useEffect(() => {
     setLoaded(true);
@@ -174,13 +175,14 @@ function Hero() {
     prevIdxRef.current = idx;
     setSelectedIdx(null);
     setDisplayIdx(null);
-    setPrevDisplayIdx(null);
+    setMobileCol(1);
   } else {
     prevIdxRef.current = selectedIdx;
     setPrevDisplayIdx(displayIdx);       // hold outgoing content
     setIsAnimating(true);
     setSelectedIdx(idx);
     setDisplayIdx(idx);
+    setMobileCol(2);
     setAnimKey((k) => k + 1);
 
     // clear outgoing after animation completes
@@ -211,7 +213,7 @@ function Hero() {
       {/* Overlay */}
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'linear-gradient(105deg, rgba(13,12,13,0.75) 0%, rgba(13,12,13,0.38) 78%, transparent 100%)',
+        background: 'linear-gradient(105deg, rgba(13,12,13,0.85) 0%, rgba(13,12,13,0.6) 45%, rgba(13,12,13,0.38) 70%, transparent 100%)',
         zIndex: 2, pointerEvents: 'none',
       }} />
 
@@ -222,141 +224,285 @@ function Hero() {
         padding: 'clamp(1.2rem,3vh,2rem) 0',
         zIndex: 10,
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-          {/* Swap this img for your actual logo */}
-          <Image
+        <Image
                         src='/g-school-dark.svg'
                         alt="Granada CBE"
                         width={120}
                         height={54}
-                        style={{ height: 'auto', width: 'clamp(180px,7vw,170px)', flexShrink: 0 }}
+                        style={{ height: 'auto', width: 'clamp(180px,7vw,190px)', flexShrink: 0 }}
                         priority
                       />
-                  
-        </div>
       </div>
 
       {/* ── Nav + content ── */}
-      <div style={{
-        position: 'relative', zIndex: 15, height: '100%',
+     <div style={{
+  position: 'relative', zIndex: 15,
+  height: '70vh',
+  padding: '0 clamp(1.5rem,4vw,4rem)',
+  display: 'flex',
+  alignItems: 'center', 
+  opacity: loaded ? 1 : 0,
+  transform: loaded ? 'none' : 'translateY(30px)',
+  transition: 'all 1s ease 0.2s',
+  marginTop: 'clamp(7.5rem,10vh,8rem)',
+  overflowX: 'hidden'
+}}>
+  {/* ── Mobile: one col at a time ── */}
+  <div className="hero-nav-mobile" style={{ width: '100%', display: 'none' }}>
 
-        padding: '0 clamp(1.5rem,4vw,4rem)',
-        display: 'flex', alignItems: 'center',
-        opacity: loaded ? 1 : 0,
-        transform: loaded ? 'none' : 'translateY(20px)',
-        transition: 'all 1s ease 0.2s',
-      }}>
-
-        {/* Col 1: Main nav items */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 14, minWidth: 200 }}>
-          {navItems.map((item, idx) => (
-            <button
-              key={item.label}
-              onClick={() => handleNavClick(idx)}
-              style={{
-                display: 'flex', alignItems: 'center', gap: 10,
-                background: 'none', border: 'none',
-                color: selectedIdx === idx ? '#e2c215' : '#fff',
-                fontSize: 'clamp(0.85rem,1.1vw,1.1rem)',
-                fontWeight: 700,
-                letterSpacing: '0.07em',
-                textTransform: 'uppercase',
-                cursor: 'pointer',
-                padding: '0.6em 0',
-                textAlign: 'left',
-                fontFamily: 'inherit',
-                transform: selectedIdx === idx ? 'translateX(18px)' : 'translateX(0)',
-                transition: 'transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s',
-              }}
-              >
-                {/* Label + underline scoped to text width */}
-                <span style={{ position: 'relative', display: 'inline-block' }}>
-                  {item.label}
-                  <span style={{
-                    position: 'absolute', bottom: '-3px', left: 0,
-                    height: 2, borderRadius: 0,
-                    background: '#e2c215',
-                    width: selectedIdx === idx ? '100%' : '0%',
-                    transition: 'width 0.28s cubic-bezier(0.77,0,0.175,1)',
-                  }} />
-                </span>
-
-                {/* Arrow */}
-                <svg
-                  width="5" height="9" viewBox="0 0 5 9" fill="none"
-                  style={{ flexShrink: 0, opacity: selectedIdx === idx ? 1 : 0, transition: 'opacity 0.2s' }}
-                >
-                  <path d="M1 1l3 3.5L1 8" stroke="#e2c215" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-          ))}
-        </div>
-
-        {/* Col 2: Children */}
-<div style={{
-          overflow: 'hidden',
-          width: selectedIdx !== null && (navItems[selectedIdx]?.children?.length ?? 0) > 0
-            ? 'clamp(200px,18vw,280px)'
-            : '0',
-          opacity: selectedIdx !== null ? 1 : 0,
-          marginLeft: selectedIdx !== null ? 'clamp(1.5rem,3vw,2.5rem)' : '0',
-          transition: 'width 1.78s cubic-bezier(0.77,0,0.175,1), opacity 0.3s, margin-left 0.78s',
-          flexShrink: 0,
-        }}>
-          <div 
-          key={animKey}
+    {/* Mobile Col 1 */}
+    <div
+      className="nav-col-scroll"
+      style={{
+        display: mobileCol === 1 ? 'flex' : 'none',
+        flexDirection: 'column', gap: 14,
+        overflowY: 'auto',
+        maxHeight: '55vh',
+        paddingBottom: '2rem',
+        animation: mobileCol === 1 ? 'slideInFromLeft 0.35s cubic-bezier(0.22,1,0.36,1) both' : 'none',
+      }}
+    >
+      {navItems.map((item, idx) => (
+        <button
+          key={item.label}
+          onClick={() => handleNavClick(idx)}
           style={{
-            // width: 'clamp(200px,18vw,280px)',
-            // background: 'rgba(255,255,255,0.13)',
-            // borderRadius: 12,
-            padding: 'clamp(0.9rem,1.5vw,1.4rem)',
-            display: 'flex', flexDirection: 'column', gap: 10,
-            animation:`${
-              prevIdxRef.current === null || prevIdxRef.current < displayIdx
-              ? 'col2SlideIn'
-              : 'col2SlideInBack'
-            } 3s cubic-bezier(0.22, 1, 0.36, 1) both`
-          }}>
-            {/* Section label */}
-            <p style={{
-              fontSize: 'clamp(0.6rem,0.7vw,0.75rem)',
-              letterSpacing: '0.2em', textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.77)', fontWeight: 700,
-              marginBottom: 4,
-            }}>
-              {navItems[displayIdx]?.label}
-            </p>
+            display: 'flex', alignItems: 'center', gap: 10,
+            background: 'none', border: 'none',
+            color: selectedIdx === idx ? '#e2c215' : '#fff',
+            fontSize: 'clamp(1rem,4vw,1.3rem)',
+            fontWeight: 700,
+            letterSpacing: '0.07em',
+            textTransform: 'uppercase',
+            cursor: 'pointer',
+            padding: '0.7em 0',
+            textAlign: 'left',
+            fontFamily: 'inherit',
+            flexShrink: 0,
+          }}
+        >
+          <span style={{ position: 'relative', display: 'inline-block' }}>
+            {item.label}
+            <span style={{
+              position: 'absolute', bottom: '-3px', left: 0,
+              height: 2, background: '#e2c215',
+              width: selectedIdx === idx ? '100%' : '0%',
+              transition: 'width 0.28s cubic-bezier(0.77,0,0.175,1)',
+            }} />
+          </span>
+          <svg width="32" height="9" viewBox="0 0 32 9" fill="none" style={{ flexShrink: 0 }}>
+            <line x1="0" y1="4.5" x2="26" y2="4.5" stroke="#e2c215" strokeWidth="1.5" strokeLinecap="round" />
+            <path d="M22 1l4 3.5L22 8" stroke="#e2c215" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      ))}
+    </div>
 
-            {navItems[displayIdx]?.children?.map((child) => (
-              <a
-                key={child.label}
-                href={child.href}
-                style={{
-                  display: 'block',
-                  color: '#213558',
-                  background: 'rgba(255,255,255,0.88)',
-                  borderRadius: 6,
-                  padding: '0.6em 1em',
-                  fontWeight: 500,
-                  fontSize: 'clamp(0.78rem,0.95vw,1rem)',
-                  textDecoration: 'none',
-                  transition: 'background 0.18s, color 0.18s',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = '#e2c215';
-                  e.currentTarget.style.color = '#1a2535';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.88)';
-                  e.currentTarget.style.color = '#213558';
-                }}
-              >
-                {child.label}
-              </a>
-            ))}
-          </div>
-        </div>
+    {/* Mobile Col 2 */}
+    <div
+      style={{
+        display: mobileCol === 2 ? 'flex' : 'none',
+        flexDirection: 'column',
+        animation: mobileCol === 2 ? 'slideInFromRight 0.35s cubic-bezier(0.22,1,0.36,1) both' : 'none',
+      }}
+    >
+      {/* Back button */}
+      <button
+        onClick={() => {
+          prevIdxRef.current = selectedIdx;
+          setSelectedIdx(null);
+          setDisplayIdx(null);
+          setMobileCol(1);
+        }}
+        style={{
+          display: 'flex', alignItems: 'center', gap: 8,
+          background: 'none', border: 'none',
+          color: '#e2c215', cursor: 'pointer',
+          padding: '0 0 1rem 0',
+          fontFamily: 'inherit',
+          fontSize: 'clamp(0.75rem,3vw,0.9rem)',
+          fontWeight: 600,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          flexShrink: 0,
+        }}
+      >
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <path d="M7 1L3 5L7 9" stroke="#e2c215" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+        Back
+      </button>
+
+      <div className="nav-col-scroll" style={{ overflowY: 'auto', maxHeight: '50vh', display: 'flex', flexDirection: 'column', gap: 8 }}>
+        {displayIdx !== null && navItems[displayIdx]?.children?.map((child) => (
+          <a
+            key={child.label}
+            href={child.href}
+            style={{
+              display: 'block',
+              color: '#ffffff',
+              padding: '0.65em 0',
+              fontWeight: 500,
+              fontSize: 'clamp(0.9rem,3.5vw,1.1rem)',
+              textDecoration: 'none',
+              borderBottom: '1px solid rgba(255,255,255,0.08)',
+              transition: 'color 0.18s',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = '#e2c215'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = '#ffffff'; }}
+          >
+            {child.label}
+          </a>
+        ))}
       </div>
+    </div>
+  </div>
+  {/* ── Desktop: two cols side by side ── */}
+  <div className="hero-nav-desktop" style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+     {/* Col 1: Main nav items */}
+  <div
+    className="nav-col-scroll"
+    style={{
+      display: 'flex', flexDirection: 'column', gap: 14, minWidth: 400,
+      overflowY: 'auto', 
+      maxHeight: '60vh',
+      paddingTop: '2rem',
+      paddingBottom: '2rem',
+      alignSelf: 'stretch',
+  overflowX: 'hidden'
+
+    }}
+  >
+    {navItems.map((item, idx) => (
+      <button
+        key={item.label}
+        onClick={() => handleNavClick(idx)}
+        style={{
+          display: 'flex', alignItems: 'center', gap: 10,
+          background: 'none', border: 'none',
+          color: selectedIdx === idx ? '#e2c215' : '#fff',
+          fontSize: 'clamp(0.85rem,1.1vw,1.1rem)',
+          fontWeight: 700,
+          letterSpacing: '0.07em',
+          textTransform: 'uppercase',
+          cursor: 'pointer',
+          padding: '0.6em 0',
+          textAlign: 'left',
+          fontFamily: 'inherit',
+          flexShrink: 0,               // ← prevent buttons compressing when col scrolls
+          transform: selectedIdx === idx ? 'translateX(18px)' : 'translateX(0)',
+          transition: 'transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s',
+        }}
+      >
+        <span style={{ position: 'relative', display: 'inline-block' }}>
+          {item.label}
+          <span style={{
+            position: 'absolute', bottom: '-3px', left: 0,
+            height: 2, borderRadius: 0,
+            background: '#e2c215',
+            width: selectedIdx === idx ? '100%' : '0%',
+            transition: 'width 0.28s cubic-bezier(0.77,0,0.175,1)',
+          }} />
+        </span>
+        <svg
+  width="44" height="9" viewBox="0 0 44 9" fill="none"
+  style={{ flexShrink: 0, opacity: 1, transition: 'opacity 0.2s' }}
+  >
+    {/* Shaft */}
+    <line x1="0" y1="4.5" x2="38" y2="4.5" stroke={selectedIdx === idx ? '#e2c215' : '#fff'} strokeWidth="1.5" strokeLinecap="round" />
+    {/* Arrowhead */}
+    <path d="M34 1l4 3.5L34 8" stroke={selectedIdx === idx ? '#e2c215' : '#fff'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+      </button>
+    ))}
+  </div>
+
+  {/* Col 2: Children */}
+  <div style={{
+    overflowY: 'auto', 
+      maxHeight: '60vh',
+      overflowX: 'hidden',
+    width: selectedIdx !== null && (navItems[selectedIdx]?.children?.length ?? 0) > 0
+      ? 'clamp(400px,20vw,580px)'
+      : '0',
+    opacity: selectedIdx !== null ? 1 : 0,
+    marginLeft: selectedIdx !== null ? 'clamp(1.5rem,3vw,2.5rem)' : '0',
+    transition: 'width 1.78s cubic-bezier(0.77,0,0.175,1), opacity 0.3s, margin-left 0.78s',
+    flexShrink: 0,
+    alignSelf: 'stretch',
+    display: 'flex', flexDirection: 'column',
+  }}>
+    {/* Back button — always at top */}
+  <button
+    onClick={() => {
+      prevIdxRef.current = selectedIdx;
+      setSelectedIdx(null);
+      setDisplayIdx(null);
+    }}
+    style={{
+      display: 'flex', alignItems: 'center', gap: 8,
+      background: 'none', border: 'none',
+      color: '#e2c215', cursor: 'pointer',
+      padding: 'clamp(0.9rem,1.5vw,1.4rem)',
+      paddingBottom: '0.5rem',
+      fontFamily: 'inherit',
+      fontSize: 'clamp(0.7rem,0.85vw,0.85rem)',
+      fontWeight: 600,
+      letterSpacing: '0.08em',
+      textTransform: 'uppercase',
+      flexShrink: 0,
+      transition: 'opacity 0.2s',
+    }}
+    onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.7'; }}
+    onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
+  >
+    {/* Left arrowhead */}
+    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+      <path d="M7 1L3 5L7 9" stroke="#e2c215" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+    Back
+  </button>
+    <div
+      className="nav-col-scroll"
+      key={animKey}
+      style={{
+        flex: 1,
+        overflowY: 'auto',             // ← individually scrollable
+        padding: 'clamp(0.9rem,1.5vw,1.4rem)',
+        display: 'flex', flexDirection: 'column', gap: 10,
+        animation: `${
+          prevIdxRef.current === null || prevIdxRef.current < displayIdx
+            ? 'col2SlideIn'
+            : 'col2SlideInBack'
+        } 3s cubic-bezier(0.22, 1, 0.36, 1) both`,
+      }}
+    >
+      {navItems[displayIdx]?.children?.map((child) => (
+        <a
+          key={child.label}
+          href={child.href}
+          style={{
+            display: 'block',
+            color: '#ffffff',
+            padding: '0.6em 1em',
+            fontWeight: 500,
+            fontSize: 'clamp(0.78rem,0.95vw,1rem)',
+            textDecoration: 'none',
+            flexShrink: 0,             // ← prevent links compressing when col scrolls
+            transition: 'color 0.18s',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#e2c215'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#ffffff'; }}
+        >
+          {child.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+   
+  
+</div>
     </section>
   );
 }
