@@ -255,8 +255,7 @@ const socialPosts = [
   {
     platform: 'Facebook',
     image: '/child-blue.png',
-    caption:
-      'Science Fair 2025: Young inventors showcase their projects.',
+    caption: 'Science Fair 2025: Young inventors showcase their projects.',
     date: '18 Mar 2025',
     color: '#dbe5f5',
     textColor: '#213558',
@@ -940,14 +939,30 @@ export default function Hero() {
                   margin: 0,
                 }}
               >
-                Two Schools. One standard of Excellence. Discover the right Granada pathway for your child.
+                Two Schools. One standard of Excellence. Discover the right
+                Granada pathway for your child.
               </h1>
               <button
                 onClick={() => setMenuOpen(false)}
-                style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '0.25rem', flexShrink: 0 }}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '0.25rem',
+                  flexShrink: 0,
+                }}
                 aria-label="Close Menu"
               >
-                <svg width="22" height="22" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                <svg
+                  width="22"
+                  height="22"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  viewBox="0 0 24 24"
+                >
                   <path d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -965,7 +980,10 @@ export default function Hero() {
               {/* CBE Pathway card */}
               <Card
                 className="relative w-full pt-0 flex flex-col justify-start gap-1"
-                style={{ background: '#e2c215', maxHeight: 'var(--hero-card-cbe-max-height)' }}
+                style={{
+                  background: '#e2c215',
+                  maxHeight: 'var(--hero-card-cbe-max-height)',
+                }}
               >
                 <div className="absolute inset-0 z-30 aspect-video" />
 
@@ -991,16 +1009,20 @@ export default function Hero() {
                       lineHeight: 1.5,
                     }}
                   >
-                    Comprehensive national curriculumn designed to foster academic
-                    excellence, with quality boarding facilities for girls in both junior
-                    and senior schools.
+                    Comprehensive national curriculumn designed to foster
+                    academic excellence, with quality boarding facilities for
+                    girls in both junior and senior schools.
                   </CardDescription>
                 </CardHeader>
 
-                <CardFooter >
+                <CardFooter>
                   <Button
                     className="w-full"
-                    style={{ backgroundColor: '#0b1b3b', color: '#e2c215', fontSize:'var(--hero-card-desc-size)' }}
+                    style={{
+                      backgroundColor: '#0b1b3b',
+                      color: '#e2c215',
+                      fontSize: 'var(--hero-card-desc-size)',
+                    }}
                   >
                     <Link
                       href="/granada-school"
@@ -1015,7 +1037,10 @@ export default function Hero() {
               {/* International Pathway card */}
               <Card
                 className="relative w-full pt-0 flex flex-col justify-start gap-1"
-                style={{ background: '#A6D6C9', maxHeight: 'var(--hero-card-max-height)' }}
+                style={{
+                  background: '#A6D6C9',
+                  maxHeight: 'var(--hero-card-max-height)',
+                }}
               >
                 <div className="absolute inset-0 z-30 aspect-video" />
 
@@ -1041,15 +1066,20 @@ export default function Hero() {
                       lineHeight: 1.5,
                     }}
                   >
-                    An international curriculum (Cambridge &amp; Edexcel) offering a strong
-                    foundation and globally recognised qualifications
+                    An international curriculum (Cambridge &amp; Edexcel)
+                    offering a strong foundation and globally recognised
+                    qualifications
                   </CardDescription>
                 </CardHeader>
 
                 <CardFooter>
                   <Button
                     className="w-full"
-                    style={{ backgroundColor: '#0b1b3b', color: '#A6D6C9', fontSize: 'var(--hero-card-desc-size)' }}
+                    style={{
+                      backgroundColor: '#0b1b3b',
+                      color: '#A6D6C9',
+                      fontSize: 'var(--hero-card-desc-size)',
+                    }}
                   >
                     <Link
                       href="/granada-international"
@@ -1066,17 +1096,46 @@ export default function Hero() {
           {/* Footer — desktop only (sticky inside right column) */}
           <div
             className="hidden md:block"
-            style={{ flexShrink: 0, backgroundColor: 'white', padding: '0.35rem clamp(2rem,5vw,3.5rem)' }}
+            style={{
+              flexShrink: 0,
+              backgroundColor: 'white',
+              padding: '0.35rem clamp(2rem,5vw,3.5rem)',
+            }}
           >
-            <h1 style={{ fontWeight: 700, fontSize: '0.85rem', color: '#213558', paddingBottom: '0.45rem' }}>Address</h1>
-            <p style={{ fontSize: '0.65rem', color: '#213558', fontWeight: 400, margin: 0 }}>
+            <h1
+              style={{
+                fontWeight: 700,
+                fontSize: '0.85rem',
+                color: '#213558',
+                paddingBottom: '0.45rem',
+              }}
+            >
+              Address
+            </h1>
+            <p
+              style={{
+                fontSize: '0.65rem',
+                color: '#213558',
+                fontWeight: 400,
+                margin: 0,
+              }}
+            >
               Granada School, Vipingo, Kilifi <br />
               Off Mombasa-Malindi Highway <br />
             </p>
             <Link
               href="/granada-school/contact"
               onClick={() => setMenuOpen(false)}
-              style={{ display: 'flex', alignItems: 'center', textDecoration: 'underline', fontWeight: 700, fontSize: '0.85rem', color: '#213558', paddingBottom: '0.45rem', gap: '0.25rem' }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                textDecoration: 'underline',
+                fontWeight: 700,
+                fontSize: '0.85rem',
+                color: '#213558',
+                paddingBottom: '0.45rem',
+                gap: '0.25rem',
+              }}
             >
               Directions <ArrowRight size={16} />
             </Link>
@@ -1096,9 +1155,21 @@ export default function Hero() {
           {/* Desktop carousel: 2 visible at a time */}
           <div
             className="hidden md:flex"
-            style={{ flex: 1, minHeight: 0, overflow: 'hidden', flexDirection: 'column' }}
+            style={{
+              flex: 1,
+              minHeight: 0,
+              overflow: 'hidden',
+              flexDirection: 'column',
+            }}
           >
-            <div style={{ flex: 1, overflow: 'hidden', minHeight: 0, position: 'relative' }}>
+            <div
+              style={{
+                flex: 1,
+                overflow: 'hidden',
+                minHeight: 0,
+                position: 'relative',
+              }}
+            >
               <div
                 style={{
                   display: 'flex',
@@ -1111,29 +1182,137 @@ export default function Hero() {
                 }}
               >
                 {socialPosts.map((post, i) => (
-                  <div key={i} style={{ width: 'calc(25% - 0.75rem)', flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ flex: 1, position: 'relative', overflow: 'hidden', minHeight: 0 }}>
-                      <Image src={post.image} alt={post.caption} fill sizes="25vw" style={{ objectFit: 'cover', objectPosition: 'center' }} />
+                  <div
+                    key={i}
+                    style={{
+                      width: 'calc(25% - 0.75rem)',
+                      flexShrink: 0,
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <div
+                      style={{
+                        flex: 1,
+                        position: 'relative',
+                        overflow: 'hidden',
+                        minHeight: 0,
+                      }}
+                    >
+                      <Image
+                        src={post.image}
+                        alt={post.caption}
+                        fill
+                        sizes="25vw"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                      />
                     </div>
-                    <div style={{ flexShrink: 0, position: 'relative', backgroundColor: post.color, padding: '1.1rem 0.85rem 0.85rem' }}>
-                      <div style={{ position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)', width: 0, height: 0, borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderBottom: `16px solid ${post.color}`, zIndex: 2 }} />
-                      <p style={{ fontSize: '0.44rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: post.textColor, fontWeight: 700, margin: '0 0 0.3rem' }}>{post.platform}</p>
-                      <p style={{ fontSize: '0.72rem', color: post.textColor, lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
-                      <p style={{ fontSize: '0.58rem', color: post.textColor, opacity: 0.65, margin: 0 }}>{post.date}</p>
+                    <div
+                      style={{
+                        flexShrink: 0,
+                        position: 'relative',
+                        backgroundColor: post.color,
+                        padding: '1.1rem 0.85rem 0.85rem',
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '-16px',
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          width: 0,
+                          height: 0,
+                          borderLeft: '16px solid transparent',
+                          borderRight: '16px solid transparent',
+                          borderBottom: `16px solid ${post.color}`,
+                          zIndex: 2,
+                        }}
+                      />
+                      <p
+                        style={{
+                          fontSize: '0.44rem',
+                          letterSpacing: '0.16em',
+                          textTransform: 'uppercase',
+                          color: post.textColor,
+                          fontWeight: 700,
+                          margin: '0 0 0.3rem',
+                        }}
+                      >
+                        {post.platform}
+                      </p>
+                      <p
+                        style={
+                          {
+                            fontSize: '0.72rem',
+                            color: post.textColor,
+                            lineHeight: 1.4,
+                            margin: '0 0 0.2rem',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                          } as React.CSSProperties
+                        }
+                      >
+                        {post.caption}
+                      </p>
+                      <p
+                        style={{
+                          fontSize: '0.58rem',
+                          color: post.textColor,
+                          opacity: 0.65,
+                          margin: 0,
+                        }}
+                      >
+                        {post.date}
+                      </p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
             {/* Desktop arrow */}
-            <div style={{ flexShrink: 0, display: 'flex', justifyContent: 'flex-end', paddingTop: '0.6rem' }}>
+            <div
+              style={{
+                flexShrink: 0,
+                display: 'flex',
+                justifyContent: 'flex-end',
+                paddingTop: '0.6rem',
+              }}
+            >
               <button
                 onClick={() => setSocialPage((p) => (p === 0 ? 1 : 0))}
-                style={{ width: '2.25rem', height: '2.25rem', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.18)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}
-                aria-label={socialPage === 0 ? 'Next articles' : 'Previous articles'}
+                style={{
+                  width: '2.25rem',
+                  height: '2.25rem',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(0,0,0,0.18)',
+                  border: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                }}
+                aria-label={
+                  socialPage === 0 ? 'Next articles' : 'Previous articles'
+                }
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round">
-                  {socialPage === 0 ? <path d="M5 12h14M12 5l7 7-7 7" /> : <path d="M19 12H5M12 19l-7-7 7-7" />}
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  {socialPage === 0 ? (
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  ) : (
+                    <path d="M19 12H5M12 19l-7-7 7-7" />
+                  )}
                 </svg>
               </button>
             </div>
@@ -1142,9 +1321,21 @@ export default function Hero() {
           {/* Mobile carousel: 1 visible at a time */}
           <div
             className="flex md:hidden"
-            style={{ flex: 1, minHeight: 0, overflow: 'hidden', flexDirection: 'column' }}
+            style={{
+              flex: 1,
+              minHeight: 0,
+              overflow: 'hidden',
+              flexDirection: 'column',
+            }}
           >
-            <div style={{ flex: 1, overflow: 'hidden', minHeight: 0, position: 'relative' }}>
+            <div
+              style={{
+                flex: 1,
+                overflow: 'hidden',
+                minHeight: 0,
+                position: 'relative',
+              }}
+            >
               <div
                 style={{
                   display: 'flex',
@@ -1156,40 +1347,182 @@ export default function Hero() {
                 }}
               >
                 {socialPosts.map((post, i) => (
-                  <div key={i} style={{ width: `${100 / socialPosts.length}%`, flexShrink: 0, display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ flex: 1, position: 'relative', overflow: 'hidden', minHeight: 0 }}>
-                      <Image src={post.image} alt={post.caption} fill sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'center' }} />
+                  <div
+                    key={i}
+                    style={{
+                      width: `${100 / socialPosts.length}%`,
+                      flexShrink: 0,
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <div
+                      style={{
+                        flex: 1,
+                        position: 'relative',
+                        overflow: 'hidden',
+                        minHeight: 0,
+                      }}
+                    >
+                      <Image
+                        src={post.image}
+                        alt={post.caption}
+                        fill
+                        sizes="100vw"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                      />
                     </div>
-                    <div style={{ flexShrink: 0, position: 'relative', backgroundColor: post.color, padding: '1.1rem 0.85rem 0.85rem' }}>
-                      <div style={{ position: 'absolute', top: '-16px', left: '50%', transform: 'translateX(-50%)', width: 0, height: 0, borderLeft: '16px solid transparent', borderRight: '16px solid transparent', borderBottom: `16px solid ${post.color}`, zIndex: 2 }} />
-                      <p style={{ fontSize: '0.6rem', letterSpacing: '0.16em', textTransform: 'uppercase', color: post.textColor, fontWeight: 700, margin: '0 0 0.3rem' }}>{post.platform}</p>
-                      <p style={{ fontSize: '0.82rem', color: post.textColor, lineHeight: 1.4, margin: '0 0 0.2rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } as React.CSSProperties}>{post.caption}</p>
-                      <p style={{ fontSize: '0.72rem', color: post.textColor, opacity: 0.65, margin: 0 }}>{post.date}</p>
+                    <div
+                      style={{
+                        flexShrink: 0,
+                        position: 'relative',
+                        backgroundColor: post.color,
+                        padding: '1.1rem 0.85rem 0.85rem',
+                      }}
+                    >
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: '-16px',
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          width: 0,
+                          height: 0,
+                          borderLeft: '16px solid transparent',
+                          borderRight: '16px solid transparent',
+                          borderBottom: `16px solid ${post.color}`,
+                          zIndex: 2,
+                        }}
+                      />
+                      <p
+                        style={{
+                          fontSize: '0.6rem',
+                          letterSpacing: '0.16em',
+                          textTransform: 'uppercase',
+                          color: post.textColor,
+                          fontWeight: 700,
+                          margin: '0 0 0.3rem',
+                        }}
+                      >
+                        {post.platform}
+                      </p>
+                      <p
+                        style={
+                          {
+                            fontSize: '0.82rem',
+                            color: post.textColor,
+                            lineHeight: 1.4,
+                            margin: '0 0 0.2rem',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                          } as React.CSSProperties
+                        }
+                      >
+                        {post.caption}
+                      </p>
+                      <p
+                        style={{
+                          fontSize: '0.72rem',
+                          color: post.textColor,
+                          opacity: 0.65,
+                          margin: 0,
+                        }}
+                      >
+                        {post.date}
+                      </p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
             {/* Mobile left / right arrows */}
-            <div style={{ flexShrink: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.6rem' }}>
+            <div
+              style={{
+                flexShrink: 0,
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingTop: '0.6rem',
+              }}
+            >
               <button
                 onClick={() => setMobileSocialIndex((i) => Math.max(0, i - 1))}
                 disabled={mobileSocialIndex === 0}
-                style={{ width: '2.25rem', height: '2.25rem', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.18)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: mobileSocialIndex === 0 ? 'default' : 'pointer', opacity: mobileSocialIndex === 0 ? 0.35 : 1 }}
+                style={{
+                  width: '2.25rem',
+                  height: '2.25rem',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(0,0,0,0.18)',
+                  border: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: mobileSocialIndex === 0 ? 'default' : 'pointer',
+                  opacity: mobileSocialIndex === 0 ? 0.35 : 1,
+                }}
                 aria-label="Previous post"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M19 12H5M12 19l-7-7 7-7" />
+                </svg>
               </button>
-              <span style={{ color: 'rgba(0,0,0,0.5)', fontSize: '0.65rem', letterSpacing: '0.1em' }}>
+              <span
+                style={{
+                  color: 'rgba(0,0,0,0.5)',
+                  fontSize: '0.65rem',
+                  letterSpacing: '0.1em',
+                }}
+              >
                 {mobileSocialIndex + 1} / {socialPosts.length}
               </span>
               <button
-                onClick={() => setMobileSocialIndex((i) => Math.min(socialPosts.length - 1, i + 1))}
+                onClick={() =>
+                  setMobileSocialIndex((i) =>
+                    Math.min(socialPosts.length - 1, i + 1)
+                  )
+                }
                 disabled={mobileSocialIndex === socialPosts.length - 1}
-                style={{ width: '2.25rem', height: '2.25rem', borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.18)', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: mobileSocialIndex === socialPosts.length - 1 ? 'default' : 'pointer', opacity: mobileSocialIndex === socialPosts.length - 1 ? 0.35 : 1 }}
+                style={{
+                  width: '2.25rem',
+                  height: '2.25rem',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(0,0,0,0.18)',
+                  border: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor:
+                    mobileSocialIndex === socialPosts.length - 1
+                      ? 'default'
+                      : 'pointer',
+                  opacity:
+                    mobileSocialIndex === socialPosts.length - 1 ? 0.35 : 1,
+                }}
                 aria-label="Next post"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth={2.5}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </button>
             </div>
           </div>
@@ -1198,17 +1531,46 @@ export default function Hero() {
         {/* ── Footer — mobile only (sticky at bottom of column) ── */}
         <div
           className="md:hidden"
-          style={{ flexShrink: 0, backgroundColor: 'white', padding: '0.75rem clamp(1.5rem,5vw,3.5rem)' }}
+          style={{
+            flexShrink: 0,
+            backgroundColor: 'white',
+            padding: '0.75rem clamp(1.5rem,5vw,3.5rem)',
+          }}
         >
-          <h1 style={{ fontWeight: 700, fontSize: '0.85rem', color: '#213558', paddingBottom: '0.35rem' }}>Address</h1>
-          <p style={{ fontSize: '0.75rem', color: '#213558', fontWeight: 400, margin: 0 }}>
+          <h1
+            style={{
+              fontWeight: 700,
+              fontSize: '0.85rem',
+              color: '#213558',
+              paddingBottom: '0.35rem',
+            }}
+          >
+            Address
+          </h1>
+          <p
+            style={{
+              fontSize: '0.75rem',
+              color: '#213558',
+              fontWeight: 400,
+              margin: 0,
+            }}
+          >
             Granada School, Vipingo, Kilifi <br />
             Off Mombasa-Malindi Highway
           </p>
           <Link
             href="/granada-school/contact"
             onClick={() => setMenuOpen(false)}
-            style={{ display: 'flex', alignItems: 'center', textDecoration: 'underline', fontWeight: 700, fontSize: '0.85rem', color: '#213558', paddingTop: '0.35rem', gap: '0.25rem' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              textDecoration: 'underline',
+              fontWeight: 700,
+              fontSize: '0.85rem',
+              color: '#213558',
+              paddingTop: '0.35rem',
+              gap: '0.25rem',
+            }}
           >
             Directions <ArrowRight size={16} />
           </Link>

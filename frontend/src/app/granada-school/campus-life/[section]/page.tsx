@@ -43,8 +43,14 @@ const NAV_ITEMS = [
       { label: 'Fees', href: '/granada-school/admissions/fees' },
       { label: 'Term Dates', href: '/granada-school/admissions/term-dates' },
       { label: 'Uniform', href: '/granada-school/admissions/uniform' },
-      { label: 'School Lunches', href: '/granada-school/admissions/school-lunches' },
-      { label: 'School Transport', href: '/granada-school/admissions/school-transport' },
+      {
+        label: 'School Lunches',
+        href: '/granada-school/admissions/school-lunches',
+      },
+      {
+        label: 'School Transport',
+        href: '/granada-school/admissions/school-transport',
+      },
     ],
   },
   {
@@ -57,7 +63,7 @@ const NAV_ITEMS = [
       { label: 'CBC Curriculum', href: '/granada-school/academics/cbc' },
       { label: 'School Sections', href: '/granada-school/academics/sections' },
       { label: "Girls' Boarding", href: '/granada-school/academics/boarding' },
-      { label: "Career", href: '/granada-school/academics/careers' },
+      { label: 'Career', href: '/granada-school/academics/careers' },
       { label: 'Apply', href: '/granada-school/academics/apply' },
     ],
   },

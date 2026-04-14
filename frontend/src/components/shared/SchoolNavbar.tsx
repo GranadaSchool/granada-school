@@ -97,7 +97,11 @@ export default function SchoolNavbar({
               alt={logoAlt}
               width={120}
               height={54}
-              style={{ height: 'auto', width: 'clamp(180px,7vw,170px)', flexShrink: 0 }}
+              style={{
+                height: 'auto',
+                width: 'clamp(180px,7vw,170px)',
+                flexShrink: 0,
+              }}
               priority
             />
           </a>
@@ -136,10 +140,14 @@ export default function SchoolNavbar({
                     whiteSpace: 'nowrap',
                   }}
                   onMouseEnter={(e) =>
-                    (e.currentTarget.style.color = scrolled ? 'var(--primary)' : '#fff')
+                    (e.currentTarget.style.color = scrolled
+                      ? 'var(--primary)'
+                      : '#fff')
                   }
                   onMouseLeave={(e) =>
-                    (e.currentTarget.style.color = scrolled ? 'var(--muted)' : 'rgba(255,255,255,0.9)')
+                    (e.currentTarget.style.color = scrolled
+                      ? 'var(--muted)'
+                      : 'rgba(255,255,255,0.9)')
                   }
                 >
                   {label}
@@ -150,7 +158,8 @@ export default function SchoolNavbar({
                 className="btn-green"
                 style={{
                   fontSize: 'clamp(0.7rem,1.2vw,0.82rem)',
-                  padding: 'clamp(0.4rem,0.8vw,0.5rem) clamp(0.8rem,1.5vw,1.2rem)',
+                  padding:
+                    'clamp(0.4rem,0.8vw,0.5rem) clamp(0.8rem,1.5vw,1.2rem)',
                 }}
               >
                 Apply Now
@@ -172,7 +181,9 @@ export default function SchoolNavbar({
                 flexShrink: 0,
               }}
               onMouseEnter={(e) =>
-                (e.currentTarget.style.borderColor = scrolled ? 'var(--primary)' : '#fff')
+                (e.currentTarget.style.borderColor = scrolled
+                  ? 'var(--primary)'
+                  : '#fff')
               }
               onMouseLeave={(e) =>
                 (e.currentTarget.style.borderColor = scrolled
@@ -202,7 +213,9 @@ export default function SchoolNavbar({
                 style={{
                   width: 13,
                   height: 1.5,
-                  background: scrolled ? 'var(--secondary)' : 'rgba(255,255,255,0.7)',
+                  background: scrolled
+                    ? 'var(--secondary)'
+                    : 'rgba(255,255,255,0.7)',
                   display: 'block',
                 }}
               />

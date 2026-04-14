@@ -30,16 +30,28 @@ const NAV_ITEMS = [
     imageCaption: 'A Unique Blend of Ambition + Opportunity',
     children: [
       { label: 'Introduction', href: '/granada-school/admissions/intro' },
-      { label: 'Why Choose Granada', href: '/granada-school/admissions/why-choose' },
+      {
+        label: 'Why Choose Granada',
+        href: '/granada-school/admissions/why-choose',
+      },
       { label: 'Boarding Life', href: '/granada-school/admissions/boarding' },
-      { label: 'Admissions Process', href: '/granada-school/admissions/process' },
+      {
+        label: 'Admissions Process',
+        href: '/granada-school/admissions/process',
+      },
       { label: 'Apply', href: '/granada-school/admissions/apply' },
       { label: 'Admissions Team', href: '/granada-school/admissions/team' },
       { label: 'Fees', href: '/granada-school/admissions/fees' },
       { label: 'Term Dates', href: '/granada-school/admissions/term-dates' },
       { label: 'Uniform', href: '/granada-school/admissions/uniform' },
-      { label: 'School Lunches', href: '/granada-school/admissions/school-lunches' },
-      { label: 'School Transport', href: '/granada-school/admissions/school-transport' },
+      {
+        label: 'School Lunches',
+        href: '/granada-school/admissions/school-lunches',
+      },
+      {
+        label: 'School Transport',
+        href: '/granada-school/admissions/school-transport',
+      },
     ],
   },
   {
@@ -52,7 +64,7 @@ const NAV_ITEMS = [
       { label: 'CBC Curriculum', href: '/granada-school/academics/cbc' },
       { label: 'School Sections', href: '/granada-school/academics/sections' },
       { label: "Girls' Boarding", href: '/granada-school/academics/boarding' },
-      { label: "Career", href: '/granada-school/academics/careers' },
+      { label: 'Career', href: '/granada-school/academics/careers' },
       { label: 'Apply', href: '/granada-school/academics/apply' },
     ],
   },
@@ -488,7 +500,7 @@ function Intro() {
             opacity: vis ? 1 : 0,
             transform: vis ? 'none' : 'translateX(-30px)',
             transition: 'all 0.9s ease',
-            marginBottom: 'clamp(1.5rem,3vw,2.5rem)'
+            marginBottom: 'clamp(1.5rem,3vw,2.5rem)',
           }}
         >
           <p className="label-tag">About Our Admissions</p>
@@ -755,7 +767,8 @@ function WhyChoose() {
           </h2>
           <div className="divider" style={{ margin: '1.25rem auto' }} />
           <p className="body-text">
-            Everything we do is intentionally designed to nurture every learner's full potential — academically, socially, and spiritually.
+            Everything we do is intentionally designed to nurture every
+            learner's full potential — academically, socially, and spiritually.
           </p>
         </div>
 
@@ -2401,23 +2414,80 @@ function Fees() {
   const S = '#e2c215';
   const T = '#e79b0b';
 
-  const headers = ['', 'Tuition (per term)', 'Boarding (per term)', 'Lunch (per term)', 'Total per Term'];
+  const headers = [
+    '',
+    'Tuition (per term)',
+    'Boarding (per term)',
+    'Lunch (per term)',
+    'Total per Term',
+  ];
 
   const juniorRows = [
-    { grade: 'Grade 7', tuition: 'KES 78,000', boarding: 'KES 38,500', lunch: 'KES 14,000', total: 'KES 130,500' },
-    { grade: 'Grade 8', tuition: 'KES 78,000', boarding: 'KES 38,500', lunch: 'KES 14,000', total: 'KES 130,500' },
-    { grade: 'Grade 9', tuition: 'KES 82,000', boarding: 'KES 40,000', lunch: 'KES 14,000', total: 'KES 136,000' },
+    {
+      grade: 'Grade 7',
+      tuition: 'KES 78,000',
+      boarding: 'KES 38,500',
+      lunch: 'KES 14,000',
+      total: 'KES 130,500',
+    },
+    {
+      grade: 'Grade 8',
+      tuition: 'KES 78,000',
+      boarding: 'KES 38,500',
+      lunch: 'KES 14,000',
+      total: 'KES 130,500',
+    },
+    {
+      grade: 'Grade 9',
+      tuition: 'KES 82,000',
+      boarding: 'KES 40,000',
+      lunch: 'KES 14,000',
+      total: 'KES 136,000',
+    },
   ];
   const seniorRows = [
-    { grade: 'Grade 10', tuition: 'KES 88,000', boarding: 'KES 43,500', lunch: 'KES 15,500', total: 'KES 147,000' },
-    { grade: 'Grade 11', tuition: 'KES 88,000', boarding: 'KES 43,500', lunch: 'KES 15,500', total: 'KES 147,000' },
-    { grade: 'Grade 12', tuition: 'KES 94,000', boarding: 'KES 45,000', lunch: 'KES 15,500', total: 'KES 154,500' },
+    {
+      grade: 'Grade 10',
+      tuition: 'KES 88,000',
+      boarding: 'KES 43,500',
+      lunch: 'KES 15,500',
+      total: 'KES 147,000',
+    },
+    {
+      grade: 'Grade 11',
+      tuition: 'KES 88,000',
+      boarding: 'KES 43,500',
+      lunch: 'KES 15,500',
+      total: 'KES 147,000',
+    },
+    {
+      grade: 'Grade 12',
+      tuition: 'KES 94,000',
+      boarding: 'KES 45,000',
+      lunch: 'KES 15,500',
+      total: 'KES 154,500',
+    },
   ];
 
   const lunchTerms = [
-    { term: 'Term 1 (Jan – Apr)', days: 90, juniorPerTerm: 'KES 14,000', seniorPerTerm: 'KES 15,500' },
-    { term: 'Term 2 (May – Jul)', days: 80, juniorPerTerm: 'KES 12,500', seniorPerTerm: 'KES 13,800' },
-    { term: 'Term 3 (Sep – Nov)', days: 70, juniorPerTerm: 'KES 10,850', seniorPerTerm: 'KES 12,000' },
+    {
+      term: 'Term 1 (Jan – Apr)',
+      days: 90,
+      juniorPerTerm: 'KES 14,000',
+      seniorPerTerm: 'KES 15,500',
+    },
+    {
+      term: 'Term 2 (May – Jul)',
+      days: 80,
+      juniorPerTerm: 'KES 12,500',
+      seniorPerTerm: 'KES 13,800',
+    },
+    {
+      term: 'Term 3 (Sep – Nov)',
+      days: 70,
+      juniorPerTerm: 'KES 10,850',
+      seniorPerTerm: 'KES 12,000',
+    },
   ];
 
   const thStyle: React.CSSProperties = {
@@ -2457,34 +2527,76 @@ function Fees() {
           transition: 'all 0.9s ease',
         }}
       >
-        <div className="section-header-block" style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}>
+        <div
+          className="section-header-block"
+          style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}
+        >
           <p className="label-tag">2025 / 2026 Academic Year</p>
           <h2 className="section-heading">School Fees</h2>
           <div className="divider" />
           <p className="body-text" style={{ marginTop: '0.75rem' }}>
-            All fees are quoted per term in Kenyan Shillings (KES) and are reviewed annually.
-            A non-refundable registration fee of <strong>KES 5,000</strong> applies to all new students.
-            Payment is due in full before the start of each term.
+            All fees are quoted per term in Kenyan Shillings (KES) and are
+            reviewed annually. A non-refundable registration fee of{' '}
+            <strong>KES 5,000</strong> applies to all new students. Payment is
+            due in full before the start of each term.
           </p>
         </div>
 
         {/* JUNIOR SCHOOL TABLE */}
         <div style={{ marginBottom: 'clamp(2rem,3vw,3rem)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <div style={{ width: 4, height: 28, background: S, flexShrink: 0 }} />
-            <h3 style={{ fontSize: 'clamp(0.82rem,1.1vw,0.95rem)', fontWeight: 700, color: P, margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{ width: 4, height: 28, background: S, flexShrink: 0 }}
+            />
+            <h3
+              style={{
+                fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                fontWeight: 700,
+                color: P,
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
               Junior School — Grades 7–9
             </h3>
           </div>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 560 }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 560,
+              }}
+            >
               <thead>
-                <tr>{headers.map((h, i) => <th key={i} style={{ ...thStyle, width: i === 0 ? '18%' : undefined }}>{h}</th>)}</tr>
+                <tr>
+                  {headers.map((h, i) => (
+                    <th
+                      key={i}
+                      style={{ ...thStyle, width: i === 0 ? '18%' : undefined }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
               </thead>
               <tbody>
                 {juniorRows.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}>
-                    <td style={{ ...tdStyle, fontWeight: 600, color: P }}>{row.grade}</td>
+                  <tr
+                    key={i}
+                    style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}
+                  >
+                    <td style={{ ...tdStyle, fontWeight: 600, color: P }}>
+                      {row.grade}
+                    </td>
                     <td style={tdStyle}>{row.tuition}</td>
                     <td style={tdStyle}>{row.boarding}</td>
                     <td style={tdStyle}>{row.lunch}</td>
@@ -2498,25 +2610,71 @@ function Fees() {
 
         {/* SENIOR SCHOOL TABLE */}
         <div style={{ marginBottom: 'clamp(2rem,3vw,3rem)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <div style={{ width: 4, height: 28, background: S, flexShrink: 0 }} />
-            <h3 style={{ fontSize: 'clamp(0.82rem,1.1vw,0.95rem)', fontWeight: 700, color: P, margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{ width: 4, height: 28, background: S, flexShrink: 0 }}
+            />
+            <h3
+              style={{
+                fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                fontWeight: 700,
+                color: P,
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
               Senior School — Grades 10–12
             </h3>
           </div>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 560 }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 560,
+              }}
+            >
               <thead>
-                <tr>{headers.map((h, i) => <th key={i} style={{ ...thStyle, background: S, width: i === 0 ? '18%' : undefined }}>{h}</th>)}</tr>
+                <tr>
+                  {headers.map((h, i) => (
+                    <th
+                      key={i}
+                      style={{
+                        ...thStyle,
+                        background: S,
+                        width: i === 0 ? '18%' : undefined,
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
               </thead>
               <tbody>
                 {seniorRows.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}>
-                    <td style={{ ...tdStyle, fontWeight: 600, color: '#936c51' }}>{row.grade}</td>
+                  <tr
+                    key={i}
+                    style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}
+                  >
+                    <td
+                      style={{ ...tdStyle, fontWeight: 600, color: '#936c51' }}
+                    >
+                      {row.grade}
+                    </td>
                     <td style={tdStyle}>{row.tuition}</td>
                     <td style={tdStyle}>{row.boarding}</td>
                     <td style={tdStyle}>{row.lunch}</td>
-                    <td style={{ ...totalTdStyle, color: '#936c51' }}>{row.total}</td>
+                    <td style={{ ...totalTdStyle, color: '#936c51' }}>
+                      {row.total}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -2526,25 +2684,63 @@ function Fees() {
 
         {/* SCHOOL LUNCHES BREAKDOWN */}
         <div style={{ marginBottom: 'clamp(2rem,3vw,3rem)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <div style={{ width: 4, height: 28, background: T, flexShrink: 0 }} />
-            <h3 style={{ fontSize: 'clamp(0.82rem,1.1vw,0.95rem)', fontWeight: 700, color: P, margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{ width: 4, height: 28, background: T, flexShrink: 0 }}
+            />
+            <h3
+              style={{
+                fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                fontWeight: 700,
+                color: P,
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
               School Lunches — Term Breakdown
             </h3>
           </div>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 480 }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 480,
+              }}
+            >
               <thead>
                 <tr>
-                  {['Term', 'School Days', 'Junior (Gr 7–9)', 'Senior (Gr 10–12)'].map((h, i) => (
-                    <th key={i} style={{ ...thStyle, background: T }}>{h}</th>
+                  {[
+                    'Term',
+                    'School Days',
+                    'Junior (Gr 7–9)',
+                    'Senior (Gr 10–12)',
+                  ].map((h, i) => (
+                    <th key={i} style={{ ...thStyle, background: T }}>
+                      {h}
+                    </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {lunchTerms.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}>
-                    <td style={{ ...tdStyle, fontWeight: 600, color: '#4a6428' }}>{row.term}</td>
+                  <tr
+                    key={i}
+                    style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}
+                  >
+                    <td
+                      style={{ ...tdStyle, fontWeight: 600, color: '#4a6428' }}
+                    >
+                      {row.term}
+                    </td>
                     <td style={tdStyle}>{row.days} days</td>
                     <td style={tdStyle}>{row.juniorPerTerm}</td>
                     <td style={tdStyle}>{row.seniorPerTerm}</td>
@@ -2556,8 +2752,24 @@ function Fees() {
         </div>
 
         {/* NOTES */}
-        <div style={{ background: '#fff', border: `1px solid ${S}55`, padding: 'clamp(1.2rem,2vw,1.8rem)', marginTop: '0.5rem' }}>
-          <p style={{ fontSize: 'clamp(0.95rem,0.78vw,0.64rem)', letterSpacing: '0.18em', textTransform: 'uppercase', color: S, fontWeight: 700, marginBottom: '0.75rem' }}>
+        <div
+          style={{
+            background: '#fff',
+            border: `1px solid ${S}55`,
+            padding: 'clamp(1.2rem,2vw,1.8rem)',
+            marginTop: '0.5rem',
+          }}
+        >
+          <p
+            style={{
+              fontSize: 'clamp(0.95rem,0.78vw,0.64rem)',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: S,
+              fontWeight: 700,
+              marginBottom: '0.75rem',
+            }}
+          >
             Notes &amp; Payment Terms
           </p>
           {[
@@ -2567,13 +2779,41 @@ function Fees() {
             'Sibling discounts of 10% are available from the second child onwards.',
             'Financial assistance and bursary applications are reviewed termly — contact the Admissions Office.',
           ].map((note, i) => (
-            <div key={i} style={{ display: 'flex', gap: '0.6rem', marginBottom: '0.5rem', alignItems: 'flex-start' }}>
-              <div style={{ width: 5, height: 5, borderRadius: '50%', background: P, flexShrink: 0, marginTop: '0.55rem' }} />
-              <p style={{ fontSize: 'clamp(0.85rem,0.85vw,0.72rem)', color: '#555', lineHeight: 1.65, margin: 0, }}>{note}</p>
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                gap: '0.6rem',
+                marginBottom: '0.5rem',
+                alignItems: 'flex-start',
+              }}
+            >
+              <div
+                style={{
+                  width: 5,
+                  height: 5,
+                  borderRadius: '50%',
+                  background: P,
+                  flexShrink: 0,
+                  marginTop: '0.55rem',
+                }}
+              />
+              <p
+                style={{
+                  fontSize: 'clamp(0.85rem,0.85vw,0.72rem)',
+                  color: '#555',
+                  lineHeight: 1.65,
+                  margin: 0,
+                }}
+              >
+                {note}
+              </p>
             </div>
           ))}
           <div style={{ marginTop: '1.2rem' }}>
-            <a href="/granada-school/contact?type=fees" className="btn-solid">Request Full Fee Schedule</a>
+            <a href="/granada-school/contact?type=fees" className="btn-solid">
+              Request Full Fee Schedule
+            </a>
           </div>
         </div>
       </div>
@@ -2592,17 +2832,53 @@ function TermDates() {
     {
       year: '2025 / 2026',
       terms: [
-        { name: 'Term 1', open: '6 January 2026', close: '3 April 2026', halfTerm: '16–20 February 2026', exams: '23–27 March 2026' },
-        { name: 'Term 2', open: '5 May 2026', close: '18 July 2026', halfTerm: '1–5 June 2026', exams: '6–10 July 2026' },
-        { name: 'Term 3', open: '1 September 2026', close: '21 November 2026', halfTerm: '12–16 October 2026', exams: '9–13 November 2026' },
+        {
+          name: 'Term 1',
+          open: '6 January 2026',
+          close: '3 April 2026',
+          halfTerm: '16–20 February 2026',
+          exams: '23–27 March 2026',
+        },
+        {
+          name: 'Term 2',
+          open: '5 May 2026',
+          close: '18 July 2026',
+          halfTerm: '1–5 June 2026',
+          exams: '6–10 July 2026',
+        },
+        {
+          name: 'Term 3',
+          open: '1 September 2026',
+          close: '21 November 2026',
+          halfTerm: '12–16 October 2026',
+          exams: '9–13 November 2026',
+        },
       ],
     },
     {
       year: '2026 / 2027',
       terms: [
-        { name: 'Term 1', open: '5 January 2027', close: '26 March 2027', halfTerm: '9–13 February 2027', exams: '16–20 March 2027' },
-        { name: 'Term 2', open: '4 May 2027', close: '16 July 2027', halfTerm: '31 May – 4 June 2027', exams: '5–9 July 2027' },
-        { name: 'Term 3', open: '7 September 2027', close: '20 November 2027', halfTerm: '18–22 October 2027', exams: '8–12 November 2027' },
+        {
+          name: 'Term 1',
+          open: '5 January 2027',
+          close: '26 March 2027',
+          halfTerm: '9–13 February 2027',
+          exams: '16–20 March 2027',
+        },
+        {
+          name: 'Term 2',
+          open: '4 May 2027',
+          close: '16 July 2027',
+          halfTerm: '31 May – 4 June 2027',
+          exams: '5–9 July 2027',
+        },
+        {
+          name: 'Term 3',
+          open: '7 September 2027',
+          close: '20 November 2027',
+          halfTerm: '18–22 October 2027',
+          exams: '8–12 November 2027',
+        },
       ],
     },
   ];
@@ -2623,29 +2899,80 @@ function TermDates() {
           transition: 'all 0.9s ease',
         }}
       >
-        <div className="section-header-block" style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}>
+        <div
+          className="section-header-block"
+          style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}
+        >
           <p className="label-tag">Academic Calendar</p>
           <h2 className="section-heading">Term Dates</h2>
           <div className="divider" />
           <p className="body-text" style={{ marginTop: '0.75rem' }}>
-            Granada School follows the Kenya national academic calendar with three terms per year.
-            Boarders arrive one day before the official opening date. All dates are subject to change — parents will be notified of any amendments.
+            Granada School follows the Kenya national academic calendar with
+            three terms per year. Boarders arrive one day before the official
+            opening date. All dates are subject to change — parents will be
+            notified of any amendments.
           </p>
         </div>
 
         {years.map((yr, yi) => (
           <div key={yi} style={{ marginBottom: 'clamp(2rem,3.5vw,3.5rem)' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
-              <div style={{ width: 4, height: 28, background: S, flexShrink: 0 }} />
-              <h3 style={{ fontSize: 'clamp(0.82rem,1.1vw,0.95rem)', fontWeight: 700, color: P, margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                marginBottom: '1.25rem',
+              }}
+            >
+              <div
+                style={{ width: 4, height: 28, background: S, flexShrink: 0 }}
+              />
+              <h3
+                style={{
+                  fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                  fontWeight: 700,
+                  color: P,
+                  margin: 0,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                }}
+              >
                 Academic Year {yr.year}
               </h3>
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: '1rem' }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))',
+                gap: '1rem',
+              }}
+            >
               {yr.terms.map((term, ti) => (
-                <div key={ti} style={{ background: '#fff', border: '1px solid #e8e6e3', overflow: 'hidden' }}>
-                  <div style={{ background: termColors[ti], padding: '0.85rem 1.2rem' }}>
-                    <p style={{ color: '#fff', fontWeight: 700, fontSize: 'clamp(0.85rem,1vw,0.88rem)', margin: 0, letterSpacing: '0.04em' }}>{term.name}</p>
+                <div
+                  key={ti}
+                  style={{
+                    background: '#fff',
+                    border: '1px solid #e8e6e3',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <div
+                    style={{
+                      background: termColors[ti],
+                      padding: '0.85rem 1.2rem',
+                    }}
+                  >
+                    <p
+                      style={{
+                        color: '#fff',
+                        fontWeight: 700,
+                        fontSize: 'clamp(0.85rem,1vw,0.88rem)',
+                        margin: 0,
+                        letterSpacing: '0.04em',
+                      }}
+                    >
+                      {term.name}
+                    </p>
                   </div>
                   <div style={{ padding: '1rem 1.2rem' }}>
                     {[
@@ -2654,9 +2981,41 @@ function TermDates() {
                       { label: 'Examinations', value: term.exams },
                       { label: 'School Closes', value: term.close },
                     ].map((item, k) => (
-                      <div key={k} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', padding: '0.4rem 0', borderBottom: k < 3 ? '1px solid #f0eee9' : 'none', gap: '0.5rem' }}>
-                        <p style={{ fontSize: 'clamp(0.63em,0.75vw,0.64rem)', color: '#888', textTransform: 'uppercase', letterSpacing: '0.1em', fontWeight: 600, margin: 0, flexShrink: 0 }}>{item.label}</p>
-                        <p style={{ fontSize: 'clamp(0.62rem,0.85vw,0.72rem)', color: '#333', fontWeight: 500, margin: 0, textAlign: 'right' }}>{item.value}</p>
+                      <div
+                        key={k}
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'flex-start',
+                          padding: '0.4rem 0',
+                          borderBottom: k < 3 ? '1px solid #f0eee9' : 'none',
+                          gap: '0.5rem',
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 'clamp(0.63em,0.75vw,0.64rem)',
+                            color: '#888',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.1em',
+                            fontWeight: 600,
+                            margin: 0,
+                            flexShrink: 0,
+                          }}
+                        >
+                          {item.label}
+                        </p>
+                        <p
+                          style={{
+                            fontSize: 'clamp(0.62rem,0.85vw,0.72rem)',
+                            color: '#333',
+                            fontWeight: 500,
+                            margin: 0,
+                            textAlign: 'right',
+                          }}
+                        >
+                          {item.value}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -2666,16 +3025,60 @@ function TermDates() {
           </div>
         ))}
 
-        <div style={{ background: `${P}08`, border: `1px solid ${P}22`, padding: 'clamp(1.2rem,2vw,1.8rem)', marginTop: '0.5rem' }}>
-          <p style={{ fontSize: 'clamp(0.95rem,0.98vw,1.44rem)', letterSpacing: '0.18em', textTransform: 'uppercase', color: P, fontWeight: 700, marginBottom: '0.6rem' }}>Important Reminders</p>
+        <div
+          style={{
+            background: `${P}08`,
+            border: `1px solid ${P}22`,
+            padding: 'clamp(1.2rem,2vw,1.8rem)',
+            marginTop: '0.5rem',
+          }}
+        >
+          <p
+            style={{
+              fontSize: 'clamp(0.95rem,0.98vw,1.44rem)',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: P,
+              fontWeight: 700,
+              marginBottom: '0.6rem',
+            }}
+          >
+            Important Reminders
+          </p>
           {[
             'Boarders must arrive by 5:00 pm on the day before school opens to settle in.',
             'Collection on closing days is from 3:00 pm onwards. The school is not responsible for students after 7:00 pm.',
             'No early departures within the last week of term without prior written approval from the Principal.',
           ].map((note, i) => (
-            <div key={i} style={{ display: 'flex', gap: '0.6rem', marginBottom: '0.45rem', alignItems: 'flex-start' }}>
-              <div style={{ width: 5, height: 5, borderRadius: '50%', background: S, flexShrink: 0, marginTop: '0.55rem' }} />
-              <p style={{ fontSize: 'clamp(0.85rem,0.85vw,0.72rem)', color: '#555', lineHeight: 1.65, margin: 0, }}>{note}</p>
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                gap: '0.6rem',
+                marginBottom: '0.45rem',
+                alignItems: 'flex-start',
+              }}
+            >
+              <div
+                style={{
+                  width: 5,
+                  height: 5,
+                  borderRadius: '50%',
+                  background: S,
+                  flexShrink: 0,
+                  marginTop: '0.55rem',
+                }}
+              />
+              <p
+                style={{
+                  fontSize: 'clamp(0.85rem,0.85vw,0.72rem)',
+                  color: '#555',
+                  lineHeight: 1.65,
+                  margin: 0,
+                }}
+              >
+                {note}
+              </p>
             </div>
           ))}
         </div>
@@ -2756,28 +3159,91 @@ function Uniform() {
           transition: 'all 0.9s ease',
         }}
       >
-        <div className="section-header-block" style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}>
+        <div
+          className="section-header-block"
+          style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}
+        >
           <p className="label-tag">Dress Code &amp; Preparation</p>
           <h2 className="section-heading">Uniform &amp; School Kit</h2>
           <div className="divider" />
           <p className="body-text" style={{ marginTop: '0.75rem' }}>
-            Granada School's uniform reflects our values of pride, discipline, and belonging.
-            All items must be purchased from our approved supplier or the school shop.
-            Please ensure all items are clearly labelled before the first day of term.
+            Granada School's uniform reflects our values of pride, discipline,
+            and belonging. All items must be purchased from our approved
+            supplier or the school shop. Please ensure all items are clearly
+            labelled before the first day of term.
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: '1.25rem', marginBottom: 'clamp(1.5rem,2.5vw,2.5rem)' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+            gap: '1.25rem',
+            marginBottom: 'clamp(1.5rem,2.5vw,2.5rem)',
+          }}
+        >
           {categories.map((cat, ci) => (
-            <div key={ci} style={{ background: '#fff', border: '1px solid #e8e6e3', overflow: 'hidden' }}>
+            <div
+              key={ci}
+              style={{
+                background: '#fff',
+                border: '1px solid #e8e6e3',
+                overflow: 'hidden',
+              }}
+            >
               <div style={{ background: cat.color, padding: '0.85rem 1.2rem' }}>
-                <p style={{ color: '#fff', fontWeight: 700, fontSize: 'clamp(0.82rem,0.95vw,0.82rem)', margin: 0, letterSpacing: '0.06em', textTransform: 'uppercase' }}>{cat.title}</p>
+                <p
+                  style={{
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: 'clamp(0.82rem,0.95vw,0.82rem)',
+                    margin: 0,
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {cat.title}
+                </p>
               </div>
-              <ul style={{ padding: '1rem 1.2rem', margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+              <ul
+                style={{
+                  padding: '1rem 1.2rem',
+                  margin: 0,
+                  listStyle: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.45rem',
+                }}
+              >
                 {cat.items.map((item, ii) => (
-                  <li key={ii} style={{ display: 'flex', gap: '0.55rem', alignItems: 'flex-start' }}>
-                    <div style={{ width: 5, height: 5, borderRadius: '50%', background: cat.color, flexShrink: 0, marginTop: '0.58rem' }} />
-                    <p style={{ fontSize: 'clamp(0.82rem,0.85vw,0.72rem)', color: '#444', lineHeight: 1.6, margin: 0 }}>{item}</p>
+                  <li
+                    key={ii}
+                    style={{
+                      display: 'flex',
+                      gap: '0.55rem',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 5,
+                        height: 5,
+                        borderRadius: '50%',
+                        background: cat.color,
+                        flexShrink: 0,
+                        marginTop: '0.58rem',
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: 'clamp(0.82rem,0.85vw,0.72rem)',
+                        color: '#444',
+                        lineHeight: 1.6,
+                        margin: 0,
+                      }}
+                    >
+                      {item}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -2785,13 +3251,42 @@ function Uniform() {
           ))}
         </div>
 
-        <div style={{ background: `${S}18`, border: `1px solid ${S}66`, padding: 'clamp(1.2rem,2vw,1.8rem)' }}>
-          <p style={{ fontSize: 'clamp(0.95rem,0.78vw,0.64rem)', letterSpacing: '0.18em', textTransform: 'uppercase', color: S, fontWeight: 700, marginBottom: '0.6rem' }}>Where to Purchase</p>
-          <p style={{ fontSize: 'clamp(0.82rem,0.85vw,0.72rem)', color: '#555', lineHeight: 1.7, marginBottom: '1rem' }}>
-            Full uniform sets are available from the <strong>Granada School Shop</strong> on campus, open on school days from 7:00 am – 5:00 pm.
-            Items can also be ordered in advance through the school office. Replacement items are available throughout the term.
+        <div
+          style={{
+            background: `${S}18`,
+            border: `1px solid ${S}66`,
+            padding: 'clamp(1.2rem,2vw,1.8rem)',
+          }}
+        >
+          <p
+            style={{
+              fontSize: 'clamp(0.95rem,0.78vw,0.64rem)',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: S,
+              fontWeight: 700,
+              marginBottom: '0.6rem',
+            }}
+          >
+            Where to Purchase
           </p>
-          <a href="/granada-school/contact" className="btn-outline">Contact the School Shop</a>
+          <p
+            style={{
+              fontSize: 'clamp(0.82rem,0.85vw,0.72rem)',
+              color: '#555',
+              lineHeight: 1.7,
+              marginBottom: '1rem',
+            }}
+          >
+            Full uniform sets are available from the{' '}
+            <strong>Granada School Shop</strong> on campus, open on school days
+            from 7:00 am – 5:00 pm. Items can also be ordered in advance through
+            the school office. Replacement items are available throughout the
+            term.
+          </p>
+          <a href="/granada-school/contact" className="btn-outline">
+            Contact the School Shop
+          </a>
         </div>
       </div>
     </section>
@@ -2805,16 +3300,54 @@ function SchoolLunches() {
   const S = '#e2c215';
 
   const menu = [
-    { day: 'Monday', junior: 'Ugali, beef stew & steamed vegetables', senior: 'Rice, chicken curry & kachumbari salad' },
-    { day: 'Tuesday', junior: 'Pasta bolognese & green salad', senior: 'Pilau rice, lentil soup & chapati' },
-    { day: 'Wednesday', junior: 'Githeri (maize & beans) & coleslaw', senior: 'Fried rice, grilled fish & mixed salad' },
-    { day: 'Thursday', junior: 'Rice & bean stew with fresh fruit', senior: 'Ugali, fried chicken & sukuma wiki' },
-    { day: 'Friday', junior: 'Chapati, minced meat & fresh juice', senior: 'Pasta, mixed veg sauce & seasonal fruit' },
+    {
+      day: 'Monday',
+      junior: 'Ugali, beef stew & steamed vegetables',
+      senior: 'Rice, chicken curry & kachumbari salad',
+    },
+    {
+      day: 'Tuesday',
+      junior: 'Pasta bolognese & green salad',
+      senior: 'Pilau rice, lentil soup & chapati',
+    },
+    {
+      day: 'Wednesday',
+      junior: 'Githeri (maize & beans) & coleslaw',
+      senior: 'Fried rice, grilled fish & mixed salad',
+    },
+    {
+      day: 'Thursday',
+      junior: 'Rice & bean stew with fresh fruit',
+      senior: 'Ugali, fried chicken & sukuma wiki',
+    },
+    {
+      day: 'Friday',
+      junior: 'Chapati, minced meat & fresh juice',
+      senior: 'Pasta, mixed veg sauce & seasonal fruit',
+    },
   ];
 
   const inclusions = [
-    { group: 'Junior School (Grades 7–9)', color: P, includes: ['Hot two-course lunch (main + dessert or fruit)', 'Fresh drinking water', 'Mid-morning break snack (fruit or mandazi)', 'Tea/porridge at breakfast for boarders'] },
-    { group: 'Senior School (Grades 10–12)', color: '#936c51', includes: ['Hot two-course lunch (main + salad or fruit)', 'Fresh drinking water', 'Choice of two main options on selected days', 'Tea/porridge at breakfast for boarders'] },
+    {
+      group: 'Junior School (Grades 7–9)',
+      color: P,
+      includes: [
+        'Hot two-course lunch (main + dessert or fruit)',
+        'Fresh drinking water',
+        'Mid-morning break snack (fruit or mandazi)',
+        'Tea/porridge at breakfast for boarders',
+      ],
+    },
+    {
+      group: 'Senior School (Grades 10–12)',
+      color: '#936c51',
+      includes: [
+        'Hot two-course lunch (main + salad or fruit)',
+        'Fresh drinking water',
+        'Choice of two main options on selected days',
+        'Tea/porridge at breakfast for boarders',
+      ],
+    },
   ];
 
   return (
@@ -2831,29 +3364,93 @@ function SchoolLunches() {
           transition: 'all 0.9s ease',
         }}
       >
-        <div className="section-header-block" style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}>
+        <div
+          className="section-header-block"
+          style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}
+        >
           <p className="label-tag">Nutrition &amp; Wellbeing</p>
           <h2 className="section-heading">School Lunches</h2>
           <div className="divider" />
           <p className="body-text" style={{ marginTop: '0.75rem' }}>
-            We believe nourished learners are engaged learners. Our school kitchen provides balanced, freshly prepared meals every day,
-            drawing on locally sourced produce and rotating menus designed by a qualified nutritionist.
-            All meals are inclusive of the boarding fee for boarders; day scholars subscribe per term.
+            We believe nourished learners are engaged learners. Our school
+            kitchen provides balanced, freshly prepared meals every day, drawing
+            on locally sourced produce and rotating menus designed by a
+            qualified nutritionist. All meals are inclusive of the boarding fee
+            for boarders; day scholars subscribe per term.
           </p>
         </div>
 
         {/* What's included */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: '1.25rem', marginBottom: 'clamp(2rem,3vw,3rem)' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+            gap: '1.25rem',
+            marginBottom: 'clamp(2rem,3vw,3rem)',
+          }}
+        >
           {inclusions.map((inc, ii) => (
-            <div key={ii} style={{ background: '#fff', border: '1px solid #e8e6e3', overflow: 'hidden' }}>
+            <div
+              key={ii}
+              style={{
+                background: '#fff',
+                border: '1px solid #e8e6e3',
+                overflow: 'hidden',
+              }}
+            >
               <div style={{ background: inc.color, padding: '0.85rem 1.2rem' }}>
-                <p style={{ color: '#fff', fontWeight: 700, fontSize: 'clamp(0.82rem,0.95vw,0.82rem)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{inc.group}</p>
+                <p
+                  style={{
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: 'clamp(0.82rem,0.95vw,0.82rem)',
+                    margin: 0,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                  }}
+                >
+                  {inc.group}
+                </p>
               </div>
-              <ul style={{ padding: '1rem 1.2rem', margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+              <ul
+                style={{
+                  padding: '1rem 1.2rem',
+                  margin: 0,
+                  listStyle: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.45rem',
+                }}
+              >
                 {inc.includes.map((item, iii) => (
-                  <li key={iii} style={{ display: 'flex', gap: '0.55rem', alignItems: 'flex-start' }}>
-                    <div style={{ width: 5, height: 5, borderRadius: '50%', background: inc.color, flexShrink: 0, marginTop: '0.58rem' }} />
-                    <p style={{ fontSize: 'clamp(0.82rem,0.85vw,0.72rem)', color: '#444', lineHeight: 1.6, margin: 0 }}>{item}</p>
+                  <li
+                    key={iii}
+                    style={{
+                      display: 'flex',
+                      gap: '0.55rem',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 5,
+                        height: 5,
+                        borderRadius: '50%',
+                        background: inc.color,
+                        flexShrink: 0,
+                        marginTop: '0.58rem',
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: 'clamp(0.82rem,0.85vw,0.72rem)',
+                        color: '#444',
+                        lineHeight: 1.6,
+                        margin: 0,
+                      }}
+                    >
+                      {item}
+                    </p>
                   </li>
                 ))}
               </ul>
@@ -2863,25 +3460,97 @@ function SchoolLunches() {
 
         {/* Sample weekly menu */}
         <div style={{ marginBottom: 'clamp(1.5rem,2.5vw,2.5rem)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <div style={{ width: 4, height: 28, background: S, flexShrink: 0 }} />
-            <h3 style={{ fontSize: 'clamp(0.82rem,1.1vw,0.95rem)', fontWeight: 700, color: P, margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Sample Weekly Lunch Menu</h3>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{ width: 4, height: 28, background: S, flexShrink: 0 }}
+            />
+            <h3
+              style={{
+                fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                fontWeight: 700,
+                color: P,
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
+              Sample Weekly Lunch Menu
+            </h3>
           </div>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 480 }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 480,
+              }}
+            >
               <thead>
                 <tr>
                   {['Day', 'Lunch', 'Dinner'].map((h, i) => (
-                    <th key={i} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: 'clamp(0.82rem,0.72vw,0.62rem)', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 700, color: '#fff', background: P, whiteSpace: 'nowrap' }}>{h}</th>
+                    <th
+                      key={i}
+                      style={{
+                        padding: '0.75rem 1rem',
+                        textAlign: 'left',
+                        fontSize: 'clamp(0.82rem,0.72vw,0.62rem)',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        fontWeight: 700,
+                        color: '#fff',
+                        background: P,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {h}
+                    </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {menu.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}>
-                    <td style={{ padding: '0.7rem 1rem', fontSize: 'clamp(0.82rem,0.9vw,0.75rem)', color: P, fontWeight: 700, borderBottom: '1px solid #e8e6e3' }}>{row.day}</td>
-                    <td style={{ padding: '0.7rem 1rem', fontSize: 'clamp(0.82rem,0.9vw,0.75rem)', color: '#333', borderBottom: '1px solid #e8e6e3' }}>{row.junior}</td>
-                    <td style={{ padding: '0.7rem 1rem', fontSize: 'clamp(0.82rem,0.9vw,0.75rem)', color: '#333', borderBottom: '1px solid #e8e6e3' }}>{row.senior}</td>
+                  <tr
+                    key={i}
+                    style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}
+                  >
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.82rem,0.9vw,0.75rem)',
+                        color: P,
+                        fontWeight: 700,
+                        borderBottom: '1px solid #e8e6e3',
+                      }}
+                    >
+                      {row.day}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.82rem,0.9vw,0.75rem)',
+                        color: '#333',
+                        borderBottom: '1px solid #e8e6e3',
+                      }}
+                    >
+                      {row.junior}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.82rem,0.9vw,0.75rem)',
+                        color: '#333',
+                        borderBottom: '1px solid #e8e6e3',
+                      }}
+                    >
+                      {row.senior}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -2889,13 +3558,45 @@ function SchoolLunches() {
           </div>
         </div>
 
-        <div style={{ background: '#fff', border: `1px solid #e8e6e3`, padding: 'clamp(1.2rem,2vw,1.8rem)' }}>
-          <p style={{ fontSize: 'clamp(0.95rem,0.78vw,0.64rem)', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#4a6428', fontWeight: 700, marginBottom: '0.6rem' }}>Dietary &amp; Allergy Needs</p>
-          <p style={{ fontSize: 'clamp(0.92rem,0.85vw,0.72rem)', color: '#555', lineHeight: 1.7, marginBottom: '1rem' }}>
-            We cater for vegetarian, vegan, and medically indicated dietary requirements. Please declare any food allergies or dietary needs on the enrolment form.
-            Our kitchen staff are briefed on all student requirements at the start of each term. For severe allergies, written medical documentation is required.
+        <div
+          style={{
+            background: '#fff',
+            border: `1px solid #e8e6e3`,
+            padding: 'clamp(1.2rem,2vw,1.8rem)',
+          }}
+        >
+          <p
+            style={{
+              fontSize: 'clamp(0.95rem,0.78vw,0.64rem)',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: '#4a6428',
+              fontWeight: 700,
+              marginBottom: '0.6rem',
+            }}
+          >
+            Dietary &amp; Allergy Needs
           </p>
-          <a href="/granada-school/contact?type=lunches" className="btn-outline">Dietary Enquiries</a>
+          <p
+            style={{
+              fontSize: 'clamp(0.92rem,0.85vw,0.72rem)',
+              color: '#555',
+              lineHeight: 1.7,
+              marginBottom: '1rem',
+            }}
+          >
+            We cater for vegetarian, vegan, and medically indicated dietary
+            requirements. Please declare any food allergies or dietary needs on
+            the enrolment form. Our kitchen staff are briefed on all student
+            requirements at the start of each term. For severe allergies,
+            written medical documentation is required.
+          </p>
+          <a
+            href="/granada-school/contact?type=lunches"
+            className="btn-outline"
+          >
+            Dietary Enquiries
+          </a>
         </div>
       </div>
     </section>
@@ -2909,10 +3610,34 @@ function SchoolTransport() {
   const S = '#e2c215';
 
   const routes = [
-    { route: 'Route A — Mombasa CBD', stops: 'Nyali Bridge · Bamburi · Shanzu · Mtwapa · Vipingo Gate', departureAM: '5:30 am', departurePM: '4:30 pm', termFee: 'KES 18,500' },
-    { route: 'Route B — Kilifi Town', stops: 'Kilifi Bridge · Mnarani · Tezo · Bofa · Vipingo Gate', departureAM: '5:45 am', departurePM: '4:30 pm', termFee: 'KES 15,000' },
-    { route: 'Route C — Malindi', stops: 'Watamu · Gede · Malindi Bus Stage · Vipingo Gate', departureAM: '5:00 am', departurePM: '5:00 pm', termFee: 'KES 22,000' },
-    { route: 'Route D — Vipingo & Kikambala', stops: 'Kikambala · Mtondia · Vipingo Ridge · Vipingo Gate', departureAM: '6:15 am', departurePM: '4:15 pm', termFee: 'KES 9,500' },
+    {
+      route: 'Route A — Mombasa CBD',
+      stops: 'Nyali Bridge · Bamburi · Shanzu · Mtwapa · Vipingo Gate',
+      departureAM: '5:30 am',
+      departurePM: '4:30 pm',
+      termFee: 'KES 18,500',
+    },
+    {
+      route: 'Route B — Kilifi Town',
+      stops: 'Kilifi Bridge · Mnarani · Tezo · Bofa · Vipingo Gate',
+      departureAM: '5:45 am',
+      departurePM: '4:30 pm',
+      termFee: 'KES 15,000',
+    },
+    {
+      route: 'Route C — Malindi',
+      stops: 'Watamu · Gede · Malindi Bus Stage · Vipingo Gate',
+      departureAM: '5:00 am',
+      departurePM: '5:00 pm',
+      termFee: 'KES 22,000',
+    },
+    {
+      route: 'Route D — Vipingo & Kikambala',
+      stops: 'Kikambala · Mtondia · Vipingo Ridge · Vipingo Gate',
+      departureAM: '6:15 am',
+      departurePM: '4:15 pm',
+      termFee: 'KES 9,500',
+    },
   ];
 
   return (
@@ -2929,40 +3654,145 @@ function SchoolTransport() {
           transition: 'all 0.9s ease',
         }}
       >
-        <div className="section-header-block" style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}>
+        <div
+          className="section-header-block"
+          style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}
+        >
           <p className="label-tag">Getting to Granada</p>
           <h2 className="section-heading">School Transport</h2>
           <div className="divider" />
           <p className="body-text" style={{ marginTop: '0.75rem' }}>
-            Granada School operates a fleet of licensed, GPS-tracked school buses serving key routes along the Mombasa–Malindi corridor.
-            All vehicles are maintained to school safety standards and supervised by a trained bus prefect.
-            Transport is available to day scholars; boarders are welcome to use the service for exeat weekends.
+            Granada School operates a fleet of licensed, GPS-tracked school
+            buses serving key routes along the Mombasa–Malindi corridor. All
+            vehicles are maintained to school safety standards and supervised by
+            a trained bus prefect. Transport is available to day scholars;
+            boarders are welcome to use the service for exeat weekends.
           </p>
         </div>
 
         {/* Routes table */}
         <div style={{ marginBottom: 'clamp(2rem,3vw,3rem)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1rem' }}>
-            <div style={{ width: 4, height: 28, background: S, flexShrink: 0 }} />
-            <h3 style={{ fontSize: 'clamp(0.82rem,1.1vw,0.95rem)', fontWeight: 700, color: P, margin: 0, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Bus Routes &amp; Fees</h3>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{ width: 4, height: 28, background: S, flexShrink: 0 }}
+            />
+            <h3
+              style={{
+                fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                fontWeight: 700,
+                color: P,
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
+              Bus Routes &amp; Fees
+            </h3>
           </div>
           <div style={{ overflowX: 'auto' }}>
-            <table style={{ width: '100%', borderCollapse: 'collapse', minWidth: 580 }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 580,
+              }}
+            >
               <thead>
                 <tr>
-                  {['Route', 'Key Stops', 'Morning Pick-up', 'Afternoon Drop', 'Fee per Term'].map((h, i) => (
-                    <th key={i} style={{ padding: '0.75rem 1rem', textAlign: 'left', fontSize: 'clamp(0.72rem,0.72vw,0.62rem)', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 700, color: '#fff', background: P, whiteSpace: 'nowrap' }}>{h}</th>
+                  {[
+                    'Route',
+                    'Key Stops',
+                    'Morning Pick-up',
+                    'Afternoon Drop',
+                    'Fee per Term',
+                  ].map((h, i) => (
+                    <th
+                      key={i}
+                      style={{
+                        padding: '0.75rem 1rem',
+                        textAlign: 'left',
+                        fontSize: 'clamp(0.72rem,0.72vw,0.62rem)',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        fontWeight: 700,
+                        color: '#fff',
+                        background: P,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {h}
+                    </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {routes.map((row, i) => (
-                  <tr key={i} style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}>
-                    <td style={{ padding: '0.7rem 1rem', fontSize: 'clamp(0.65rem,0.9vw,0.75rem)', color: P, fontWeight: 700, borderBottom: '1px solid #e8e6e3', whiteSpace: 'nowrap' }}>{row.route}</td>
-                    <td style={{ padding: '0.7rem 1rem', fontSize: 'clamp(0.6rem,0.82vw,0.7rem)', color: '#555', borderBottom: '1px solid #e8e6e3',}}>{row.stops}</td>
-                    <td style={{ padding: '0.7rem 1rem', fontSize: 'clamp(0.65rem,0.9vw,0.75rem)', color: '#333', borderBottom: '1px solid #e8e6e3', whiteSpace: 'nowrap' }}>{row.departureAM}</td>
-                    <td style={{ padding: '0.7rem 1rem', fontSize: 'clamp(0.65rem,0.9vw,0.75rem)', color: '#333', borderBottom: '1px solid #e8e6e3', whiteSpace: 'nowrap' }}>{row.departurePM}</td>
-                    <td style={{ padding: '0.7rem 1rem', fontSize: 'clamp(0.65rem,0.9vw,0.75rem)', color: P, fontWeight: 700, borderBottom: '1px solid #e8e6e3', }}>{row.termFee}</td>
+                  <tr
+                    key={i}
+                    style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}
+                  >
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.65rem,0.9vw,0.75rem)',
+                        color: P,
+                        fontWeight: 700,
+                        borderBottom: '1px solid #e8e6e3',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {row.route}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.6rem,0.82vw,0.7rem)',
+                        color: '#555',
+                        borderBottom: '1px solid #e8e6e3',
+                      }}
+                    >
+                      {row.stops}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.65rem,0.9vw,0.75rem)',
+                        color: '#333',
+                        borderBottom: '1px solid #e8e6e3',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {row.departureAM}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.65rem,0.9vw,0.75rem)',
+                        color: '#333',
+                        borderBottom: '1px solid #e8e6e3',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {row.departurePM}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.65rem,0.9vw,0.75rem)',
+                        color: P,
+                        fontWeight: 700,
+                        borderBottom: '1px solid #e8e6e3',
+                      }}
+                    >
+                      {row.termFee}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -2971,37 +3801,134 @@ function SchoolTransport() {
         </div>
 
         {/* How to register + rules */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))', gap: '1.25rem' }}>
-          <div style={{ background: '#fff', border: '1px solid #e8e6e3', padding: 'clamp(1.2rem,2vw,1.8rem)' }}>
-            <p style={{ fontSize: 'clamp(0.85rem,0.78vw,0.64rem)', letterSpacing: '0.18em', textTransform: 'uppercase', color: P, fontWeight: 700, marginBottom: '0.75rem' }}>How to Register</p>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+            gap: '1.25rem',
+          }}
+        >
+          <div
+            style={{
+              background: '#fff',
+              border: '1px solid #e8e6e3',
+              padding: 'clamp(1.2rem,2vw,1.8rem)',
+            }}
+          >
+            <p
+              style={{
+                fontSize: 'clamp(0.85rem,0.78vw,0.64rem)',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: P,
+                fontWeight: 700,
+                marginBottom: '0.75rem',
+              }}
+            >
+              How to Register
+            </p>
             {[
               'Complete the Transport Registration Form available from the school office or website.',
               'Submit proof of home address and term payment.',
               'Registration closes two weeks before the start of each term.',
               'Route changes must be requested in writing at least one week in advance.',
             ].map((item, i) => (
-              <div key={i} style={{ display: 'flex', gap: '0.55rem', marginBottom: '0.5rem', alignItems: 'flex-start' }}>
-                <div style={{ width: 5, height: 5, borderRadius: '50%', background: S, flexShrink: 0, marginTop: '0.58rem' }} />
-                <p style={{ fontSize: 'clamp(0.82rem,0.85vw,0.72rem)', color: '#555', lineHeight: 1.65, margin: 0 }}>{item}</p>
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  gap: '0.55rem',
+                  marginBottom: '0.5rem',
+                  alignItems: 'flex-start',
+                }}
+              >
+                <div
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: '50%',
+                    background: S,
+                    flexShrink: 0,
+                    marginTop: '0.58rem',
+                  }}
+                />
+                <p
+                  style={{
+                    fontSize: 'clamp(0.82rem,0.85vw,0.72rem)',
+                    color: '#555',
+                    lineHeight: 1.65,
+                    margin: 0,
+                  }}
+                >
+                  {item}
+                </p>
               </div>
             ))}
             <div style={{ marginTop: '1.2rem' }}>
-              <a href="/granada-school/contact?type=transport" className="btn-solid">Register for Transport</a>
+              <a
+                href="/granada-school/contact?type=transport"
+                className="btn-solid"
+              >
+                Register for Transport
+              </a>
             </div>
           </div>
 
-          <div style={{ background: '#fff', border: '1px solid #e8e6e3', padding: 'clamp(1.2rem,2vw,1.8rem)' }}>
-            <p style={{ fontSize: 'clamp(0.85rem,0.78vw,0.64rem)', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#936c51', fontWeight: 700, marginBottom: '0.75rem' }}>Bus Rules &amp; Safety</p>
+          <div
+            style={{
+              background: '#fff',
+              border: '1px solid #e8e6e3',
+              padding: 'clamp(1.2rem,2vw,1.8rem)',
+            }}
+          >
+            <p
+              style={{
+                fontSize: 'clamp(0.85rem,0.78vw,0.64rem)',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: '#936c51',
+                fontWeight: 700,
+                marginBottom: '0.75rem',
+              }}
+            >
+              Bus Rules &amp; Safety
+            </p>
             {[
               'Full school uniform must be worn while travelling on the school bus.',
               'Students must be at the designated stop 5 minutes before departure — the bus will not wait.',
               'No eating, drinking (other than water), or loud music on the bus.',
-              'Any damage to the bus will be charged to the responsible student\'s account.',
+              "Any damage to the bus will be charged to the responsible student's account.",
               'Parents will be notified by SMS of any significant delays.',
             ].map((item, i) => (
-              <div key={i} style={{ display: 'flex', gap: '0.55rem', marginBottom: '0.5rem', alignItems: 'flex-start' }}>
-                <div style={{ width: 5, height: 5, borderRadius: '50%', background: '#936c51', flexShrink: 0, marginTop: '0.58rem' }} />
-                <p style={{ fontSize: 'clamp(0.82rem,0.85vw,0.72rem)', color: '#555', lineHeight: 1.65, margin: 0 }}>{item}</p>
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  gap: '0.55rem',
+                  marginBottom: '0.5rem',
+                  alignItems: 'flex-start',
+                }}
+              >
+                <div
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: '50%',
+                    background: '#936c51',
+                    flexShrink: 0,
+                    marginTop: '0.58rem',
+                  }}
+                />
+                <p
+                  style={{
+                    fontSize: 'clamp(0.82rem,0.85vw,0.72rem)',
+                    color: '#555',
+                    lineHeight: 1.65,
+                    margin: 0,
+                  }}
+                >
+                  {item}
+                </p>
               </div>
             ))}
           </div>

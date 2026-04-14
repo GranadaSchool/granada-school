@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 
 import SchoolNavbar from '@/components/shared/SchoolNavbar';
 import SchoolFooter from '@/components/shared/SchoolFooter';
+import { AnimatePresence, motion } from 'framer-motion';
 
 /* ── NAV DATA ──────────────────────────────────────────────────────────────── */
 const NAV_ITEMS = [
@@ -42,8 +43,14 @@ const NAV_ITEMS = [
       { label: 'Fees', href: '/granada-school/admissions/fees' },
       { label: 'Term Dates', href: '/granada-school/admissions/term-dates' },
       { label: 'Uniform', href: '/granada-school/admissions/uniform' },
-      { label: 'School Lunches', href: '/granada-school/admissions/school-lunches' },
-      { label: 'School Transport', href: '/granada-school/admissions/school-transport' },
+      {
+        label: 'School Lunches',
+        href: '/granada-school/admissions/school-lunches',
+      },
+      {
+        label: 'School Transport',
+        href: '/granada-school/admissions/school-transport',
+      },
     ],
   },
   {
@@ -56,7 +63,7 @@ const NAV_ITEMS = [
       { label: 'CBC Curriculum', href: '/granada-school/academics/cbc' },
       { label: 'School Sections', href: '/granada-school/academics/sections' },
       { label: "Girls' Boarding", href: '/granada-school/academics/boarding' },
-      { label: "Career", href: '/granada-school/academics/careers' },
+      { label: 'Career', href: '/granada-school/academics/careers' },
       { label: 'Apply', href: '/granada-school/academics/apply' },
     ],
   },
@@ -127,6 +134,25 @@ const NAV_ITEMS = [
   },
 ];
 
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.06,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: 18 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.25 },
+  },
+};
+
 /* ── useInView ─────────────────────────────────────────────────────────────── */
 function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null);
@@ -146,13 +172,21 @@ function useInView(threshold = 0.15) {
 
 /* ── HERO ──────────────────────────────────────────────────────────────────── */
 function Hero() {
-  const navItems = NAV_ITEMS;
+  const navItems = Array.isArray(NAV_ITEMS) ? NAV_ITEMS : [];
+
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
   const [displayIdx, setDisplayIdx] = useState<number | null>(null);
-  const [animKey, setAnimKey] = useState(0);
+
+  const [active, setActive] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+
+  const [mobileCol, setMobileCol] = useState<1 | 2>(1);
+
   const prevIdxRef = useRef<number | null>(null);
-  const [prevDisplayIdx, setPrevDisplayIdx] = useState<number | null>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
+
+  // 👉 hover preselect (80ms delay)
+  const hoverTimer = useRef<NodeJS.Timeout | null>(null);
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
 
   const slides = [
     { bg: '/building.jpeg', label: 'Inspiring Excellence' },
@@ -160,68 +194,75 @@ function Hero() {
     { bg: '/sports.jpeg', label: 'Vipingo, Kenya' },
     { bg: '/dorm.jpeg', label: 'Values-Based Education' },
   ];
-  const [active, setActive] = useState(0);
-  const [loaded, setLoaded] = useState(false);
-  const [mobileCol, setMobileCol] = useState<1 | 2>(1);
-  const [col2Ready, setCol2Ready] = useState(false);
-  const col2TimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     setLoaded(true);
-    const t = setInterval(() => setActive((a) => (a + 1) % slides.length), 6500);
+    const t = setInterval(
+      () => setActive((a) => (a + 1) % slides.length),
+      6500
+    );
     return () => clearInterval(t);
   }, []);
 
-  useEffect(() => {
-  return () => {
-    if (col2TimerRef.current) clearTimeout(col2TimerRef.current);
-  };
-}, []);
-
   const handleNavClick = (idx: number) => {
-  if (selectedIdx === idx) {
-    prevIdxRef.current = idx;
-    setSelectedIdx(null);
-    setDisplayIdx(null);
-    setMobileCol(1);
-    setCol2Ready(false);
-    if (col2TimerRef.current) clearTimeout(col2TimerRef.current);
-  } else {
     prevIdxRef.current = selectedIdx;
-    const isFirstOpen = selectedIdx === null;
-    setPrevDisplayIdx(displayIdx);       // hold outgoing content
-    setIsAnimating(true);
-    setSelectedIdx(idx);
-    setDisplayIdx(idx);
-    setMobileCol(2);
-    setAnimKey((k) => k + 1);
 
-    // clear outgoing after animation completes
-    setTimeout(() => {
-      setPrevDisplayIdx(null);
-      setIsAnimating(false);
-    }, 320);
-
-    if (isFirstOpen) {
-      // wait for width transition before animating content in
-      setCol2Ready(false);
-      col2TimerRef.current = setTimeout(() => setCol2Ready(true), 800);
-    } else {
-      // col2 already open, animate content immediately
-      setCol2Ready(true);
+    if (selectedIdx === idx) {
+      setSelectedIdx(null);
+      setDisplayIdx(null);
+      setMobileCol(1);
+      return;
     }
-  }
-};
+
+    setSelectedIdx(idx);
+
+    // 🚀 FIX: prevents col2 flicker/pulse bug
+    setDisplayIdx((prev) => {
+      setTimeout(() => {
+        setDisplayIdx(idx);
+      }, 80);
+      return prev;
+    });
+
+    setMobileCol(2);
+  };
+
+  // 👉 direction-aware animation
+  const getDirection = (idx: number | null) => {
+    if (prevIdxRef.current === null || idx === null) return 1;
+    return idx > prevIdxRef.current ? 1 : -1;
+  };
+
+  const childVariants = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 6 },
+    show: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -6 },
+  };
 
   return (
-    <section style={{ position: 'relative', height: '100vh', minHeight: 600, overflow: 'hidden' }}>
+    <section
+      style={{ position: 'relative', height: '100vh', overflow: 'hidden' }}
+    >
+      {/* --- BACKGROUND SLIDES (UNCHANGED) --- */}
       {slides.map((s, i) => (
         <div
           key={i}
           style={{
-            position: 'absolute', inset: 0,
+            position: 'absolute',
+            inset: 0,
             backgroundImage: `url(${s.bg})`,
-            backgroundSize: 'cover', backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             opacity: i === active ? 1 : 0,
             transition: 'opacity 2s cubic-bezier(0.45, 0, 0.55, 1)',
             animation: 'kenBurns 14s ease-in-out infinite alternate',
@@ -230,300 +271,423 @@ function Hero() {
         />
       ))}
 
-      {/* Overlay */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'linear-gradient(105deg, rgba(13,12,13,0.85) 0%, rgba(13,12,13,0.6) 45%, rgba(13,12,13,0.38) 70%, transparent 100%)',
-        zIndex: 2, pointerEvents: 'none',
-      }} />
+      {/* --- OVERLAY (UNCHANGED) --- */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(105deg, rgba(13,12,13,0.85) 0%, rgba(13,12,13,0.6) 45%, rgba(13,12,13,0.38) 70%, transparent 100%)',
+          zIndex: 2,
+          pointerEvents: 'none',
+        }}
+      />
 
-      {/* ── Centered logo ── */}
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0,
-        display: 'flex', justifyContent: 'center', alignItems: 'center',
-        padding: 'clamp(1.2rem,3vh,2rem) 0',
-        zIndex: 10,
-      }}>
+      {/* --- LOGO (UNCHANGED) --- */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          padding: 'clamp(1.2rem,3vh,2rem) 0',
+          zIndex: 10,
+        }}
+      >
         <Image
-                        src='/g-school-dark.svg'
-                        alt="Granada CBE"
-                        width={120}
-                        height={54}
-                        style={{ height: 'auto', width: 'clamp(180px,7vw,190px)', flexShrink: 0 }}
-                        priority
-                      />
-      </div>
-
-      {/* ── Nav + content ── */}
-     <div style={{
-  position: 'relative', zIndex: 15,
-  height: '70vh',
-  padding: '0 clamp(1.5rem,4vw,4rem)',
-  display: 'flex',
-  alignItems: 'center', 
-  opacity: loaded ? 1 : 0,
-  transform: loaded ? 'none' : 'translateY(30px)',
-  transition: 'all 1s ease 0.2s',
-  marginTop: 'clamp(7.5rem,10vh,8rem)',
-  overflowX: 'hidden'
-}}>
-  {/* ── Mobile: one col at a time ── */}
-  <div className="hero-nav-mobile" style={{ width: '100%', display: 'none' }}>
-
-    {/* Mobile Col 1 */}
-    <div
-      className="nav-col-scroll"
-      style={{
-        display: mobileCol === 1 ? 'flex' : 'none',
-        flexDirection: 'column', gap: 14,
-        overflowY: 'auto',
-        maxHeight: '55vh',
-        paddingBottom: '2rem',
-        animation: mobileCol === 1 ? 'slideInFromLeft 0.35s cubic-bezier(0.22,1,0.36,1) both' : 'none',
-      }}
-    >
-      {navItems.map((item, idx) => (
-        <button
-          key={item.label}
-          onClick={() => handleNavClick(idx)}
+          src="/g-school-dark.svg"
+          alt="Granada CBE"
+          width={120}
+          height={54}
           style={{
-            display: 'flex', alignItems: 'center', gap: 10,
-            background: 'none', border: 'none',
-            color: selectedIdx === idx ? '#e2c215' : '#fff',
-            fontSize: 'clamp(1rem,4vw,1.3rem)',
-            fontWeight: 700,
-            letterSpacing: '0.07em',
-            textTransform: 'uppercase',
-            cursor: 'pointer',
-            padding: '0.7em 0',
-            textAlign: 'left',
-            fontFamily: 'inherit',
+            height: 'auto',
+            width: 'clamp(180px,7vw,190px)',
             flexShrink: 0,
           }}
-        >
-          <span style={{ position: 'relative', display: 'inline-block' }}>
-            {item.label}
-            <span style={{
-              position: 'absolute', bottom: '-3px', left: 0,
-              height: 2, background: '#e2c215',
-              width: selectedIdx === idx ? '100%' : '0%',
-              transition: 'width 0.28s cubic-bezier(0.77,0,0.175,1)',
-            }} />
-          </span>
-          <svg width="32" height="9" viewBox="0 0 32 9" fill="none" style={{ flexShrink: 0 }}>
-            <line x1="0" y1="4.5" x2="26" y2="4.5" stroke="#e2c215" strokeWidth="1.5" strokeLinecap="round" />
-            <path d="M22 1l4 3.5L22 8" stroke="#e2c215" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-      ))}
-    </div>
-
-    {/* Mobile Col 2 */}
-    <div
-      style={{
-        display: mobileCol === 2 ? 'flex' : 'none',
-        flexDirection: 'column',
-        animation: mobileCol === 2 ? 'slideInFromRight 0.35s cubic-bezier(0.22,1,0.36,1) both' : 'none',
-      }}
-    >
-      {/* Back button */}
-      <button
-        onClick={() => {
-          prevIdxRef.current = selectedIdx;
-          setSelectedIdx(null);
-          setDisplayIdx(null);
-          setMobileCol(1);
-        }}
-        style={{
-          display: 'flex', alignItems: 'center', gap: 8,
-          background: 'none', border: 'none',
-          color: '#e2c215', cursor: 'pointer',
-          padding: '0 0 1rem 0',
-          fontFamily: 'inherit',
-          fontSize: 'clamp(0.75rem,3vw,0.9rem)',
-          fontWeight: 600,
-          letterSpacing: '0.08em',
-          textTransform: 'uppercase',
-          flexShrink: 0,
-        }}
-      >
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-          <path d="M7 1L3 5L7 9" stroke="#e2c215" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
-        Back
-      </button>
-
-      <div className="nav-col-scroll" style={{ overflowY: 'auto', maxHeight: '50vh', display: 'flex', flexDirection: 'column', gap: 8 }}>
-        {displayIdx !== null && navItems[displayIdx]?.children?.map((child) => (
-          <a
-            key={child.label}
-            href={child.href}
-            style={{
-              display: 'block',
-              color: '#ffffff',
-              padding: '0.65em 0',
-              fontWeight: 500,
-              fontSize: 'clamp(0.9rem,3.5vw,1.1rem)',
-              textDecoration: 'none',
-              borderBottom: '1px solid rgba(255,255,255,0.08)',
-              transition: 'color 0.18s',
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.color = '#e2c215'; }}
-            onMouseLeave={(e) => { e.currentTarget.style.color = '#ffffff'; }}
-          >
-            {child.label}
-          </a>
-        ))}
+          priority
+        />
       </div>
-    </div>
-  </div>
-  {/* ── Desktop: two cols side by side ── */}
-  <div className="hero-nav-desktop" style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-     {/* Col 1: Main nav items */}
-  <div
-    className="nav-col-scroll"
-    style={{
-      display: 'flex', flexDirection: 'column', gap: 14, minWidth: 400,
-      overflowY: 'auto', 
-      maxHeight: '60vh',
-      paddingTop: '2rem',
-      paddingBottom: '2rem',
-      alignSelf: 'stretch',
-  overflowX: 'hidden'
 
-    }}
-  >
-    {navItems.map((item, idx) => (
-      <button
-        key={item.label}
-        onClick={() => handleNavClick(idx)}
+      {/* ================= NAV ================= */}
+      <div
         style={{
-          display: 'flex', alignItems: 'center', gap: 10,
-          background: 'none', border: 'none',
-          color: selectedIdx === idx ? '#e2c215' : '#fff',
-          fontSize: 'clamp(0.85rem,1.1vw,1.1rem)',
-          fontWeight: 700,
-          letterSpacing: '0.07em',
-          textTransform: 'uppercase',
-          cursor: 'pointer',
-          padding: '0.6em 0',
-          textAlign: 'left',
-          fontFamily: 'inherit',
-          flexShrink: 0,               // ← prevent buttons compressing when col scrolls
-          transform: selectedIdx === idx ? 'translateX(18px)' : 'translateX(0)',
-          transition: 'transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s',
+          position: 'relative',
+          zIndex: 15,
+          height: '70vh',
+          padding: '0 clamp(1.5rem,4vw,4rem)',
+          display: 'flex',
+          alignItems: 'center',
+          opacity: loaded ? 1 : 0,
+          transform: loaded ? 'none' : 'translateY(30px)',
+          transition: 'all 1s ease 0.2s',
+          marginTop: 'clamp(7.5rem,10vh,8rem)',
+          overflowX: 'hidden',
         }}
       >
-        <span style={{ position: 'relative', display: 'inline-block' }}>
-          {item.label}
-          <span style={{
-            position: 'absolute', bottom: '-3px', left: 0,
-            height: 2, borderRadius: 0,
-            background: '#e2c215',
-            width: selectedIdx === idx ? '100%' : '0%',
-            transition: 'width 0.28s cubic-bezier(0.77,0,0.175,1)',
-          }} />
-        </span>
-        <svg
-  width="44" height="9" viewBox="0 0 44 9" fill="none"
-  style={{ flexShrink: 0, opacity: 1, transition: 'opacity 0.2s' }}
-  >
-    {/* Shaft */}
-    <line x1="0" y1="4.5" x2="38" y2="4.5" stroke={selectedIdx === idx ? '#e2c215' : '#fff'} strokeWidth="1.5" strokeLinecap="round" />
-    {/* Arrowhead */}
-    <path d="M34 1l4 3.5L34 8" stroke={selectedIdx === idx ? '#e2c215' : '#fff'} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-      </button>
-    ))}
-  </div>
-
-  {/* Col 2: Children */}
-  <div style={{
-    overflowY: 'auto', 
-      maxHeight: '60vh',
-      overflowX: 'hidden',
-    width: selectedIdx !== null && (navItems[selectedIdx]?.children?.length ?? 0) > 0
-      ? 'clamp(400px,20vw,580px)'
-      : '0',
-    opacity: selectedIdx !== null ? 1 : 0,
-    marginLeft: selectedIdx !== null ? 'clamp(1.5rem,3vw,2.5rem)' : '0',
-    transition: 'width 1.78s cubic-bezier(0.77,0,0.175,1), opacity 0.3s, margin-left 0.78s',
-    flexShrink: 0,
-    alignSelf: 'stretch',
-    display: 'flex', flexDirection: 'column',
-  }}>
-    {/* Back button — always at top */}
-  <button
-    onClick={() => {
-      prevIdxRef.current = selectedIdx;
-      setSelectedIdx(null);
-      setDisplayIdx(null);
-    }}
-    style={{
-      display: 'flex', alignItems: 'center', gap: 8,
-      background: 'none', border: 'none',
-      color: '#e2c215', cursor: 'pointer',
-      padding: 'clamp(0.9rem,1.5vw,1.4rem)',
-      paddingBottom: '0.5rem',
-      fontFamily: 'inherit',
-      fontSize: 'clamp(0.7rem,0.85vw,0.85rem)',
-      fontWeight: 600,
-      letterSpacing: '0.08em',
-      textTransform: 'uppercase',
-      flexShrink: 0,
-      transition: 'opacity 0.2s',
-    }}
-    onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.7'; }}
-    onMouseLeave={(e) => { e.currentTarget.style.opacity = '1'; }}
-  >
-    {/* Left arrowhead */}
-    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-      <path d="M7 1L3 5L7 9" stroke="#e2c215" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-    Back
-  </button>
-    <div
-      className="nav-col-scroll"
-      key={animKey}
-      style={{
-        flex: 1,
-        overflowY: 'auto',             // ← individually scrollable
-        padding: 'clamp(0.9rem,1.5vw,1.4rem)',
-        display: 'flex', flexDirection: 'column', gap: 10,
-        opacity: col2Ready ? 1 : 0,
-        animation: col2Ready ? `${
-      prevIdxRef.current === null || prevIdxRef.current < displayIdx
-        ? 'col2SlideIn' : 'col2SlideInBack'
-    } 0.35s cubic-bezier(0.22, 1, 0.36, 1) both` : 'none',
-          
-      }}
-    >
-      {navItems[displayIdx]?.children?.map((child) => (
-        <a
-          key={child.label}
-          href={child.href}
-          style={{
-            display: 'block',
-            color: '#ffffff',
-            padding: '0.6em 1em',
-            fontWeight: 500,
-            fontSize: 'clamp(0.78rem,0.95vw,1rem)',
-            textDecoration: 'none',
-            flexShrink: 0,             // ← prevent links compressing when col scrolls
-            transition: 'color 0.18s',
-          }}
-          onMouseEnter={(e) => { e.currentTarget.style.color = '#e2c215'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.color = '#ffffff'; }}
+        <div
+          className="hero-nav-desktop"
+          style={{ display: 'flex', alignItems: 'center', width: '100%' }}
         >
-          {child.label}
-        </a>
-      ))}
-    </div>
-  </div>
-</div>
-   
-  
-</div>
+          {/* ================= COL 1 ================= */}
+          <div
+            className="nav-col-scroll"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 14,
+              minWidth: 400,
+              overflowY: 'auto',
+              maxHeight: '60vh',
+              paddingTop: '2rem',
+              paddingBottom: '2rem',
+              alignSelf: 'stretch',
+              overflowX: 'hidden',
+            }}
+          >
+            {navItems.map((item, idx) => {
+              const active = selectedIdx === idx;
+              const hovered = hoverIdx === idx;
+
+              return (
+                <motion.button
+                  key={item.label}
+                  onHoverStart={() => {
+                    hoverTimer.current = setTimeout(() => setHoverIdx(idx), 80);
+                  }}
+                  onHoverEnd={() => {
+                    if (hoverTimer.current) clearTimeout(hoverTimer.current);
+                    setHoverIdx(null);
+                  }}
+                  onClick={() => handleNavClick(idx)}
+                  animate={{
+                    x: active ? 18 : hovered ? 8 : 0,
+                  }}
+                  transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    background: 'none',
+                    border: 'none',
+                    color: selectedIdx === idx ? '#e2c215' : '#fff',
+                    fontSize: 'clamp(0.85rem,1.1vw,1.1rem)',
+                    fontWeight: 700,
+                    letterSpacing: '0.07em',
+                    textTransform: 'uppercase',
+                    cursor: 'pointer',
+                    padding: '0.6em 0',
+                    textAlign: 'left',
+                    fontFamily: 'inherit',
+                    flexShrink: 0,
+                  }}
+                >
+                  <span
+                    style={{ position: 'relative', display: 'inline-block' }}
+                  >
+                    {item.label}
+                    <motion.span
+                      layoutId="underline"
+                      style={{
+                        position: 'absolute',
+                        left: 0,
+                        bottom: -3,
+                        height: 2,
+                        width: '100%',
+                        background: '#e2c215',
+                        borderRadius: 0,
+                      }}
+                      initial={false}
+                      animate={{ scaleX: active ? 1 : 0 }}
+                    />
+                  </span>
+
+                  {/* ARROW (UNCHANGED LOOK) */}
+                  <svg
+                    width="44"
+                    height="9"
+                    viewBox="0 0 44 9"
+                    fill="none"
+                    style={{
+                      flexShrink: 0,
+                      opacity: 1,
+                      transition: 'opacity 0.2s',
+                    }}
+                  >
+                    {/* Shaft */}
+                    <line
+                      x1="0"
+                      y1="4.5"
+                      x2="38"
+                      y2="4.5"
+                      stroke={selectedIdx === idx ? '#e2c215' : '#fff'}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                    {/* Arrowhead */}
+                    <path
+                      d="M34 1l4 3.5L34 8"
+                      stroke={selectedIdx === idx ? '#e2c215' : '#fff'}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* ================= COL 2 ================= */}
+          <div
+            className="nav-col-scroll"
+            style={{
+              overflowY: 'auto',
+              maxHeight: '60vh',
+              overflowX: 'hidden',
+              width:
+                selectedIdx !== null &&
+                (navItems[selectedIdx]?.children?.length ?? 0) > 0
+                  ? 'clamp(400px,20vw,580px)'
+                  : '0',
+              opacity: selectedIdx !== null ? 1 : 0,
+              marginLeft:
+                selectedIdx !== null ? 'clamp(1.5rem,3vw,2.5rem)' : '0',
+              transition:
+                'width 1.78s cubic-bezier(0.77,0,0.175,1), opacity 0.3s, margin-left 0.78s',
+              flexShrink: 0,
+              alignSelf: 'stretch',
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            <AnimatePresence mode="wait">
+              {selectedIdx !== null && displayIdx !== null && (
+                <motion.div
+                  key={displayIdx}
+                  custom={getDirection(displayIdx)}
+                  variants={childVariants}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                  style={{ display: 'flex', flexDirection: 'column' }}
+                >
+                  {/* BACK BUTTON (UNCHANGED STYLE) */}
+                  <button
+                    onClick={() => {
+                      prevIdxRef.current = selectedIdx;
+                      setSelectedIdx(null);
+                      setDisplayIdx(null);
+                    }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 8,
+                      background: 'none',
+                      border: 'none',
+                      color: '#e2c215',
+                      cursor: 'pointer',
+                      padding: 'clamp(0.9rem,1.5vw,1.4rem)',
+                      paddingBottom: '0.5rem',
+                      fontFamily: 'inherit',
+                      fontSize: 'clamp(0.7rem,0.85vw,0.85rem)',
+                      fontWeight: 600,
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                      flexShrink: 0,
+                      transition: 'opacity 0.2s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.opacity = '0.7';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.opacity = '1';
+                    }}
+                  >
+                    {/* Left arrowhead */}
+                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                      <path
+                        d="M7 1L3 5L7 9"
+                        stroke="#e2c215"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                    Back
+                  </button>
+
+                  {navItems[displayIdx]?.children?.map((child, i) => (
+                    <motion.a
+                      key={child.label}
+                      href={child.href}
+                      variants={itemVariants}
+                      style={{
+                        padding: '0.6rem 1rem',
+                        color: '#fff',
+                        textDecoration: 'none',
+                      }}
+                    >
+                      {child.label}
+                    </motion.a>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+        {/* ================= MOBILE ================= */}
+        <div
+          className="hero-nav-mobile"
+          style={{ width: '100%', display: 'none' }}
+        >
+          {/* COL 1 */}
+          <AnimatePresence mode="wait">
+            {mobileCol === 1 && (
+              <motion.div
+                key="col1"
+                initial={{ x: -40, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: -40, opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className="nav-col-scroll"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 14,
+                  maxHeight: '60vh',
+                  overflowY: 'auto',
+                }}
+              >
+                {navItems.map((item, idx) => (
+                  <motion.button
+                    key={item.label}
+                    onHoverStart={() => {
+                      hoverTimer.current = setTimeout(
+                        () => setHoverIdx(idx),
+                        80
+                      );
+                    }}
+                    onHoverEnd={() => {
+                      if (hoverTimer.current) clearTimeout(hoverTimer.current);
+                      setHoverIdx(null);
+                    }}
+                    onClick={() => handleNavClick(idx)}
+                    transition={{ type: 'spring', stiffness: 260, damping: 22 }}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 10,
+                      background: 'none',
+                      border: 'none',
+                      color: selectedIdx === idx ? '#e2c215' : '#fff',
+                      fontSize: 'clamp(0.85rem,1.1vw,1.1rem)',
+                      fontWeight: 700,
+                      letterSpacing: '0.07em',
+                      textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      padding: '0.6em 0',
+                      textAlign: 'left',
+                      fontFamily: 'inherit',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <span
+                      style={{ position: 'relative', display: 'inline-block' }}
+                    >
+                      {item.label}
+                      <motion.span
+                        layoutId="underline"
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          bottom: -3,
+                          height: 2,
+                          width: '100%',
+                          background: '#e2c215',
+                          borderRadius: 0,
+                        }}
+                        initial={false}
+                        animate={{ scaleX: active ? 1 : 0 }}
+                      />
+                    </span>
+
+                    {/* ARROW (UNCHANGED LOOK) */}
+                    <svg
+                      width="44"
+                      height="9"
+                      viewBox="0 0 44 9"
+                      fill="none"
+                      style={{
+                        flexShrink: 0,
+                        opacity: 1,
+                        transition: 'opacity 0.2s',
+                      }}
+                    >
+                      {/* Shaft */}
+                      <line
+                        x1="0"
+                        y1="4.5"
+                        x2="38"
+                        y2="4.5"
+                        stroke={selectedIdx === idx ? '#e2c215' : '#fff'}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                      {/* Arrowhead */}
+                      <path
+                        d="M34 1l4 3.5L34 8"
+                        stroke={selectedIdx === idx ? '#e2c215' : '#fff'}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </motion.button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* COL 2 */}
+          <AnimatePresence mode="wait">
+            {mobileCol === 2 && (
+              <motion.div
+                key="col2"
+                initial={{ x: 40, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: 40, opacity: 0 }}
+                transition={{ duration: 0.35 }}
+                className="nav-col-scroll"
+                style={{ overflowY: 'auto', maxHeight: '60vh' }}
+              >
+                <button
+                  onClick={() => setMobileCol(1)}
+                  style={{ color: '#e2c215' }}
+                >
+                  ← Back
+                </button>
+
+                {navItems[selectedIdx!]?.children?.map((child) => (
+                  <a
+                    key={child.label}
+                    href={child.href}
+                    style={{
+                      display: 'block',
+                      padding: '0.6rem 0',
+                      color: '#fff',
+                    }}
+                  >
+                    {child.label}
+                  </a>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
     </section>
   );
 }

@@ -1,6 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { AnimatePresence, motion } from 'framer-motion';
 
 export interface NavChild {
   label: string;
@@ -25,6 +26,25 @@ interface Props {
   sideImageAlt: string;
 }
 
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.05,
+      delayChildren: 0.08,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, x: 20 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.25 },
+  },
+};
+
 export default function SchoolSideNav({
   open,
   onClose,
@@ -39,7 +59,64 @@ export default function SchoolSideNav({
   const [search, setSearch] = useState('');
   const [sf, setSf] = useState(false);
   const router = useRouter();
+  const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const [displayIdx, setDisplayIdx] = useState<number | null>(null);
+  const [animKey, setAnimKey] = useState(0);
+  const prevIdxRef = useRef<number | null>(null);
+  const [loaded, setLoaded] = useState(false);
+  const [mobileCol, setMobileCol] = useState<1 | 2>(1);
+  const [col2Ready, setCol2Ready] = useState(false);
+  const col2TimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [prevDisplayIdx, setPrevDisplayIdx] = useState<number | null>(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [direction, setDirection] = useState(1);
+  const [mobileView, setMobileView] = useState<'col1' | 'col2'>('col1');
+  const [isMobile, setIsMobile] = useState(false);
 
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const activeIdx = hoveredIdx !== null ? hoveredIdx : selectedIdx;
+
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleNavClick = (idx: number) => {
+    if (selectedIdx === idx) {
+      setSelectedIdx(null);
+      setMobileView('col1');
+      return;
+    }
+
+    if (selectedIdx !== null) {
+      setDirection(idx > selectedIdx ? 1 : -1);
+    }
+
+    setSelectedIdx(idx);
+    if (isMobile) {
+      setMobileView('col2');
+    }
+  };
+
+  const handleMouseEnter = (idx: number) => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+
+    hoverTimeoutRef.current = setTimeout(() => {
+      if (activeIdx !== null) {
+        setDirection(idx > activeIdx ? 1 : -1);
+      }
+      setHoveredIdx(idx);
+    }, 80);
+  };
+
+  const handleMouseLeave = () => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    setHoveredIdx(null);
+  };
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => {
@@ -50,6 +127,12 @@ export default function SchoolSideNav({
   useEffect(() => {
     if (open) setActive(0);
   }, [open]);
+
+  useEffect(() => {
+    return () => {
+      if (col2TimerRef.current) clearTimeout(col2TimerRef.current);
+    };
+  }, []);
 
   const cur = navItems[active];
   const sr = search.trim()
@@ -260,267 +343,238 @@ export default function SchoolSideNav({
         </div>
 
         {/* Body */}
-        <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
-          {/* Col 1 — primary nav list */}
-          <div
+        <div
+          style={{
+            display: 'flex',
+            flex: 1,
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          {/* =========================
+          COL 1
+      ========================== */}
+          <motion.div
+            className="nav-col-scroll"
+            animate={{
+              x: isMobile ? (mobileView === 'col2' ? '-100%' : '0%') : 0,
+            }}
+            transition={{ duration: 0.35 }}
             style={{
-              width: 'clamp(400px,55vw,550px)',
-              fontWeight: 500,
-              flexShrink: 0,
-              borderRight: '1px solid rgba(255,255,255,0.1)',
+              width: isMobile ? '100%' : 'clamp(400px,55vw,550px)',
+              height: '100%',
               overflowY: 'auto',
-              padding: 'clamp(1rem,2vw,1.5rem) 0',
+              flexShrink: 0,
+              position: isMobile ? 'absolute' : 'relative',
+              left: 0,
+              top: 0,
+              bottom: 0,
               background: 'rgba(0,0,0,0.2)',
-              minHeight: 0,
-              display: 'flex',
-              flexDirection: 'column',
             }}
           >
-            <div style={{ flex: 1 }}>
-              {navItems.map((item, i) => (
+            {navItems.map((item, idx) => {
+              const isActive = activeIdx === idx;
+
+              return (
                 <button
                   key={item.label}
-                  onMouseEnter={() => setActive(i)}
-                  onClick={() => {
-                    setActive(i);
-                    const dest = item.children?.[0]?.href ?? item.href;
-                    onClose();
-                    router.push(dest);
-                  }}
+                  onClick={() => handleNavClick(idx)}
+                  onMouseEnter={() => handleMouseEnter(idx)}
+                  onMouseLeave={handleMouseLeave}
+                  onTouchStart={() => handleMouseEnter(idx)} // ✅ mobile hover simulation
                   style={{
+                    position: 'relative',
+                    width: '100%',
+                    padding: '1rem 1.5rem',
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    overflow: 'hidden',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    width: '100%',
-                    background:
-                      active === i ? 'rgba(255,255,255,0.15)' : 'transparent',
-                    border: 'none',
-                    borderLeft:
-                      active === i ? `3px solid ${S}` : '3px solid transparent',
-                    padding:
-                      'clamp(0.65rem,1.5vw,0.85rem) clamp(1.1rem,2vw,1.5rem) clamp(0.65rem,1.5vw,0.85rem) clamp(1rem,2vw,1.35rem)',
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    transition: 'all 0.2s',
-                    gap: '0.5rem',
                   }}
                 >
+                  {/* =======================
+          ACTIVE / HOVER HIGHLIGHT
+      ======================== */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeNavBg"
+                      style={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: 'rgba(255,255,255,0.12)',
+                        borderLeft: `3px solid #e2c215`,
+                      }}
+                    />
+                  )}
+
+                  {/* =======================
+          LABEL
+      ======================== */}
                   <span
                     style={{
-                      fontSize: 'clamp(1.1rem,1.3vw,1.5rem)',
+                      position: 'relative',
+                      zIndex: 1,
+                      display: 'inline-block',
+                      color: isActive ? '#e2c215' : '#fff',
                       fontWeight: 700,
-                      letterSpacing: '0.06em',
                       textTransform: 'uppercase',
-                      color: active === i ? S : '#fff',
-                      transition: 'color 0.2s',
-                      fontFamily: 'inherit',
-                      overflow: 'hidden',
-                      textOverflow: 'ellipsis',
-                      whiteSpace: 'nowrap',
+                      letterSpacing: '0.05em',
+                      transform: isActive
+                        ? 'translateX(10px)'
+                        : 'translateX(0)',
+                      transition:
+                        'transform 0.25s cubic-bezier(0.34,1.56,0.64,1), color 0.2s',
                     }}
                   >
                     {item.label}
+
+                    {/* underline */}
+                    <span
+                      style={{
+                        position: 'absolute',
+                        bottom: '-4px',
+                        left: 0,
+                        height: '2px',
+                        width: isActive ? '100%' : '0%',
+                        background: '#e2c215',
+                        transition: 'width 0.3s ease',
+                      }}
+                    />
                   </span>
+
+                  {/* =======================
+          ARROW (YOUR SVG)
+      ======================== */}
                   <svg
-                    width="5"
+                    width="44"
                     height="9"
-                    viewBox="0 0 5 9"
+                    viewBox="0 0 44 9"
                     fill="none"
-                    style={{ flexShrink: 0, opacity: active === i ? 1 : 0.3 }}
+                    style={{
+                      flexShrink: 0,
+                      opacity: isActive ? 1 : 0.7,
+                      transition: 'opacity 0.2s',
+                    }}
                   >
+                    {/* Shaft */}
+                    <line
+                      x1="0"
+                      y1="4.5"
+                      x2="38"
+                      y2="4.5"
+                      stroke={isActive ? '#e2c215' : '#fff'}
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                    {/* Arrowhead */}
                     <path
-                      d="M1 1l3 3.5L1 8"
-                      stroke={active === i ? S : '#fff'}
-                      strokeWidth="1.3"
+                      d="M34 1l4 3.5L34 8"
+                      stroke={isActive ? '#e2c215' : '#fff'}
+                      strokeWidth="1.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     />
                   </svg>
                 </button>
-              ))}
-            </div>
-            {/* Contact Us link at bottom */}
-            <a
-              href={enquireHref}
-              onClick={onClose}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                padding:
-                  'clamp(0.65rem,1.5vw,0.85rem) clamp(1.1rem,2vw,1.5rem) clamp(0.65rem,1.5vw,0.85rem) clamp(1rem,2vw,1.35rem)',
-                borderTop: '1px solid rgba(255,255,255,0.12)',
-                borderLeft: '3px solid transparent',
-                textDecoration: 'none',
-                gap: '0.5rem',
-                background: 'transparent',
-                transition: 'all 0.2s',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-                e.currentTarget.style.borderLeftColor = S;
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent';
-                e.currentTarget.style.borderLeftColor = 'transparent';
-              }}
-            >
-              <span
-                style={{
-                  fontSize: 'clamp(1.25rem,1.2vw,0.8rem)',
-                  fontWeight: 500,
-                  letterSpacing: '0.06em',
-                  textTransform: 'uppercase',
-                  color: S,
-                  fontFamily: 'inherit',
-                }}
-              >
-                Contact Us
-              </span>
-              <svg
-                width="5"
-                height="9"
-                viewBox="0 0 5 9"
-                fill="none"
-                style={{ flexShrink: 0, opacity: 0.7 }}
-              >
-                <path
-                  d="M1 1l3 3.5L1 8"
-                  stroke={S}
-                  strokeWidth="1.3"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
+              );
+            })}
+          </motion.div>
 
-          {/* Col 2 + Col 3 */}
-          <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
-            {/* Col 2 — children links */}
-            <div
+          {/* =========================
+          COL 2 (FIXED MOBILE)
+      ========================== */}
+          <motion.div
+            className="nav-col-scroll"
+            animate={{
+              x: isMobile ? (mobileView === 'col1' ? '100%' : '0%') : 0,
+            }}
+            transition={{ duration: 0.35 }}
+            style={{
+              width: '100%',
+              height: '100vh',
+              minHeight: 0,
+              overflowY: 'auto',
+              overflowX: 'hidden',
+
+              flexShrink: 0,
+
+              position: isMobile ? 'absolute' : 'relative',
+              top: 0,
+              left: 0,
+
+              background: '#213558',
+
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
+            {/* BACK BUTTON (desktop + mobile) */}
+            <button
+              onClick={() => {
+                setSelectedIdx(null);
+                setMobileView('col1');
+              }}
               style={{
-                flex: 1,
-                display: 'flex',
-                flexDirection: 'column',
-                borderRight: '1px solid rgba(255,255,255,0.1)',
-                overflow: 'hidden',
-                background: '#213558',
+                background: 'none',
+                border: 'none',
+                color: S,
+                padding: '1rem',
+                cursor: 'pointer',
+                textAlign: 'left',
+                flexShrink: 0,
               }}
             >
-              <div
-                style={{
-                  padding: 'clamp(1rem,2vw,1.5rem) clamp(1rem,2vw,1.5rem) 0',
-                  flexShrink: 0,
-                  borderBottom: '1px solid rgba(255,255,255,0.1)',
-                }}
-              >
-                <p
-                  style={{
-                    fontSize: 'clamp(0.95rem,1rem,0.6rem)',
-                    letterSpacing: '0.22em',
-                    textTransform: 'uppercase',
-                    color: '#fff',
-                    fontWeight: 700,
-                  }}
+              ← Back
+            </button>
+
+            {/* CONTENT */}
+            <AnimatePresence mode="wait">
+              {activeIdx !== null && (
+                <motion.div
+                  key={activeIdx}
+                  initial={{ opacity: 0, x: 40 * direction }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 * direction }}
+                  transition={{ duration: 0.35 }}
+                  style={{ flex: 1 }}
                 >
-                  {cur.label}
-                </p>
-              </div>
-              <div
-                style={{
-                  flex: 1,
-                  overflowY: 'auto',
-                  padding:
-                    'clamp(0.85rem,1.5vw,1.25rem) clamp(1rem,2vw,1.5rem)',
-                }}
-              >
-                <div
-                  style={{ display: 'flex', flexDirection: 'column', gap: '0' }}
-                >
-                  {cur.children?.map((child, i) => (
-                    <a
-                      key={i}
-                      href={child.href}
-                      onClick={onClose}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 'clamp(0.4rem,0.8vw,0.6rem)',
-                        padding: 'clamp(0.4rem,0.8vw,0.55rem) 0',
-                        color: '#fff',
-                        textDecoration: 'none',
-                        fontSize: 'clamp(0.9rem,1.2vw,0.8rem)',
-                        borderBottom: '1px solid rgba(255,255,255,0.1)',
-                        transition: 'color 0.2s',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.color = S;
-                        const d = e.currentTarget.querySelector(
-                          '.dot'
-                        ) as HTMLElement;
-                        if (d) d.style.background = S;
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.color = '#fff';
-                        const d = e.currentTarget.querySelector(
-                          '.dot'
-                        ) as HTMLElement;
-                        if (d) d.style.background = 'transparent';
-                      }}
-                    >
-                      <span
-                        className="dot"
+                  <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="show"
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    {navItems[activeIdx]?.children?.map((child) => (
+                      <motion.a
+                        key={child.label}
+                        href={child.href}
+                        variants={itemVariants}
                         style={{
-                          width: 5,
-                          height: 5,
-                          border: `1px solid ${S}`,
-                          flexShrink: 0,
-                          transition: 'background 0.2s',
-                          background: 'transparent',
+                          display: 'block',
+                          padding: '0.75rem 1rem',
+                          color: '#fff',
+                          textDecoration: 'none',
+                          borderBottom: '1px solid rgba(255,255,255,0.12)',
                         }}
-                      />
-                      {child.label}
-                    </a>
-                  ))}
-                </div>
-                <div
-                  className="section-blue"
-                  style={{
-                    display: 'flex',
-                    gap: 'clamp(0.4rem,0.8vw,0.6rem)',
-                    marginTop: 'clamp(1rem,1.5vw,1.5rem)',
-                    flexWrap: 'wrap',
-                  }}
-                >
-                  <a
-                    href={enquireHref}
-                    onClick={onClose}
-                    className="btn-solid"
-                    style={{
-                      fontSize: 'clamp(0.95rem,1rem,0.6rem)',
-                      padding:
-                        'clamp(0.3rem,0.6vw,0.45rem) clamp(0.8rem,1.5vw,1.2rem)',
-                    }}
-                  >
-                    Enquire
-                  </a>
-                  <a
-                    href={applyHref}
-                    onClick={onClose}
-                    className="btn-outline"
-                    style={{
-                      fontSize: 'clamp(0.95rem,1rem,0.6rem)',
-                      padding:
-                        'clamp(0.3rem,0.6vw,0.45rem) clamp(0.8rem,1.5vw,1.2rem)',
-                    }}
-                  >
-                    Apply Now
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+                        whileHover={{ x: 6 }}
+                        transition={{ type: 'spring', stiffness: 300 }}
+                        onClick={onClose}
+                      >
+                        {child.label}
+                      </motion.a>
+                    ))}
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </div>
 
         {/* Footer bar */}
