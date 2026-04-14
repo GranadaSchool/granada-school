@@ -237,8 +237,8 @@ function Hero() {
     hidden: {},
     show: {
       transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.1,
+        staggerChildren: 0.25,
+        delayChildren: 0.4,
       },
     },
   };
