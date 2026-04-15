@@ -144,7 +144,7 @@ const containerVariants = {
     x: 0,
     transition: {
       duration: 0.95,
-      ease: [0.22, 1, 0.36, 1],
+      ease: [0.22, 1, 0.36, 1] as const,
     },
   },
   exit: {
