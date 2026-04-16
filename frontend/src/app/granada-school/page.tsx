@@ -350,7 +350,7 @@ function Hero() {
               display: 'flex',
               flexDirection: 'column',
               gap: 14,
-              minWidth: 400,
+              minWidth: 700,
               overflowY: 'auto',
               maxHeight: '60vh',
               paddingTop: '2rem',
@@ -364,208 +364,164 @@ function Hero() {
               const hovered = hoverIdx === idx;
 
               return (
-                <motion.button
-                  key={item.label}
-                  onHoverStart={() => {
-                    hoverTimer.current = setTimeout(() => setHoverIdx(idx), 80);
-                  }}
-                  onHoverEnd={() => {
-                    if (hoverTimer.current) clearTimeout(hoverTimer.current);
-                    setHoverIdx(null);
-                  }}
-                  onClick={() => handleNavClick(idx)}
-                  animate={{
-                    x: active ? 28 : hovered ? 5 : 0,
-                  }}
-                  transition={{ type: 'spring', stiffness: 260, damping: 22 }}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 10,
-                    background: 'none',
-                    border: 'none',
-                    color: selectedIdx === idx ? '#e2c215' : '#fff',
-                    fontSize: 'clamp(0.85rem,1.1vw,1.1rem)',
-                    fontWeight: 700,
-                    letterSpacing: '0.07em',
-                    textTransform: 'uppercase',
-                    cursor: 'pointer',
-                    padding: '0.6em 0',
-                    textAlign: 'left',
-                    fontFamily: 'inherit',
-                    flexShrink: 0,
-                  }}
-                >
-                  <span
-                    style={{ position: 'relative', display: 'inline-block' }}
-                  >
-                    {item.label}
-                    <motion.span
-                      layoutId="underline"
-                      style={{
-                        position: 'absolute',
-                        left: 0,
-                        bottom: -3,
-                        height: 2,
-                        width: '100%',
-                        background: '#e2c215',
-                        borderRadius: 0,
-                      }}
-                      initial={false}
-                      animate={{ scaleX: active ? 1 : 0 }}
-                    />
-                  </span>
-
-                  <motion.svg width="24" height="24" viewBox="0 0 28 28">
-  {/* circle */}
-  <motion.circle
-    cx="14"
-    cy="14"
-    r="12"
-    animate={{
-      fill: selectedIdx === idx ? "#e2c215" : "#ffffff",
-    }}
-    transition={{ duration: 0.2 }}
-  />
-
-  {/* LINE 1 */}
-  <motion.line
-    x1="8.5"
-    y1="14"
-    x2="19.5"
-    y2="14"
-    stroke="#0b1b3b"
-    strokeWidth="2"
-    strokeLinecap="round"
-    animate={{
-      rotate: selectedIdx === idx ? 45 : 0,
-    }}
-    style={{
-      originX: "50%",
-      originY: "50%",
-    }}
-    transition={{ duration: 0.25 }}
-  />
-
-  {/* LINE 2 */}
-  <motion.line
-    x1="14"
-    y1="8.5"
-    x2="14"
-    y2="19.5"
-    stroke="#0b1b3b"
-    strokeWidth="2"
-    strokeLinecap="round"
-    animate={{
-      rotate: selectedIdx === idx ? 45 : 0,
-    }}
-    style={{
-      originX: "50%",
-      originY: "50%",
-    }}
-    transition={{ duration: 0.25 }}
-  />
-</motion.svg>
-                </motion.button>
-              );
-            })}
-          </div>
-
-          {/* ================= COL 2 ================= */}
-          <div
-            className="nav-col-scroll"
-            style={{
-              overflowY: 'auto',
-              maxHeight: '60vh',
-              overflowX: 'hidden',
-              width:
-                selectedIdx !== null &&
-                (navItems[selectedIdx]?.children?.length ?? 0) > 0
-                  ? 'clamp(400px,20vw,580px)'
-                  : '0',
-              opacity: selectedIdx !== null ? 1 : 0,
-              marginLeft:
-                selectedIdx !== null ? 'clamp(1.5rem,3vw,2.5rem)' : '0',
-              transition:
-                'width 1.78s cubic-bezier(0.77,0,0.175,1), opacity 0.3s, margin-left 0.78s',
-              flexShrink: 0,
-              alignSelf: 'stretch',
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <AnimatePresence mode="wait">
-              {selectedIdx !== null && displayIdx !== null && (
-                <motion.div
-                  key={displayIdx}
-                  custom={getDirection(displayIdx)}
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="show"
-                  exit="exit"
-                  style={{ display: 'flex', flexDirection: 'column' }}
-                >
-                  {/* BACK BUTTON (UNCHANGED STYLE) */}
-                  <button
-                    onClick={() => {
-                      prevIdxRef.current = selectedIdx;
-                      setSelectedIdx(null);
-                      setDisplayIdx(null);
+                <div key={item.label}>
+                  <motion.button
+                    onHoverStart={() => {
+                      hoverTimer.current = setTimeout(
+                        () => setHoverIdx(idx),
+                        80
+                      );
                     }}
+                    onHoverEnd={() => {
+                      if (hoverTimer.current) clearTimeout(hoverTimer.current);
+                      setHoverIdx(null);
+                    }}
+                    onClick={() => handleNavClick(idx)}
+                    animate={{
+                      x: active ? 28 : hovered ? 5 : 0,
+                    }}
+                    transition={{ type: 'spring', stiffness: 260, damping: 22 }}
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: 8,
+                      gap: 10,
                       background: 'none',
                       border: 'none',
-                      color: '#e2c215',
-                      cursor: 'pointer',
-                      padding: 'clamp(0.9rem,1.5vw,1.4rem)',
-                      paddingBottom: '0.5rem',
-                      fontFamily: 'inherit',
-                      fontSize: 'clamp(0.7rem,0.85vw,0.85rem)',
-                      fontWeight: 600,
-                      letterSpacing: '0.08em',
+                      color: selectedIdx === idx ? '#e2c215' : '#fff',
+                      fontSize: 'clamp(1.85rem,1.8vw,2.1rem)',
+                      fontWeight: 700,
+                      letterSpacing: '0.07em',
                       textTransform: 'uppercase',
+                      cursor: 'pointer',
+                      padding: '0.15em 0',
+                      textAlign: 'left',
+                      fontFamily: 'inherit',
                       flexShrink: 0,
-                      transition: 'opacity 0.2s',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.opacity = '0.7';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.opacity = '1';
                     }}
                   >
-                    {/* Left arrowhead */}
-                    <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                      <path
-                        d="M7 1L3 5L7 9"
-                        stroke="#e2c215"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    Back
-                  </button>
-
-                  {navItems[displayIdx]?.children?.map((child, i) => (
-                    <motion.a
-                      key={child.label}
-                      href={child.href}
-                      style={{
-                        padding: '0.6rem 1rem',
-                        color: '#fff',
-                        textDecoration: 'none',
-                      }}
+                    <span
+                      style={{ position: 'relative', display: 'inline-block' }}
                     >
-                      {child.label}
-                    </motion.a>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+                      {item.label}
+                      <motion.span
+                        layoutId="underline"
+                        style={{
+                          position: 'absolute',
+                          left: 0,
+                          bottom: -3,
+                          height: 2,
+                          width: '100%',
+                          background: '#e2c215',
+                          borderRadius: 0,
+                        }}
+                        initial={false}
+                        animate={{ scaleX: active ? 1 : 0 }}
+                      />
+                    </span>
+
+                    <motion.svg width="24" height="24" viewBox="0 0 28 28">
+                      {/* circle */}
+                      <motion.circle
+                        cx="14"
+                        cy="14"
+                        r="12"
+                        animate={{
+                          fill: selectedIdx === idx ? '#e2c215' : '#ffffff',
+                        }}
+                        transition={{ duration: 0.2 }}
+                      />
+
+                      {/* LINE 1 */}
+                      <motion.line
+                        x1="8.5"
+                        y1="14"
+                        x2="19.5"
+                        y2="14"
+                        stroke="#0b1b3b"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        animate={{
+                          rotate: selectedIdx === idx ? 45 : 0,
+                        }}
+                        style={{
+                          originX: '50%',
+                          originY: '50%',
+                        }}
+                        transition={{ duration: 0.25 }}
+                      />
+
+                      {/* LINE 2 */}
+                      <motion.line
+                        x1="14"
+                        y1="8.5"
+                        x2="14"
+                        y2="19.5"
+                        stroke="#0b1b3b"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        animate={{
+                          rotate: selectedIdx === idx ? 45 : 0,
+                        }}
+                        style={{
+                          originX: '50%',
+                          originY: '50%',
+                        }}
+                        transition={{ duration: 0.25 }}
+                      />
+                    </motion.svg>
+                  </motion.button>
+
+                  <AnimatePresence>
+                    {selectedIdx === idx && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{
+                          duration: 0.35,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                        style={{
+                          overflow: 'hidden',
+                          paddingLeft: '2.5rem',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: 2,
+                        }}
+                      >
+                        {item.children?.map((child) => (
+                          <a
+                            key={child.label}
+                            href={child.href}
+                            style={{
+                              padding: '0.4rem 0.5rem',
+                              color: '#ccc',
+                              textDecoration: 'none',
+                              fontSize: 'clamp(1rem,1vw,2rem)',
+                              fontWeight: 500,
+                              letterSpacing: '0.04em',
+                              transition: 'color 0.2s',
+                            }}
+                            onMouseEnter={(e) => {
+                              (
+                                e.currentTarget as HTMLAnchorElement
+                              ).style.color = '#e2c215';
+                            }}
+                            onMouseLeave={(e) => {
+                              (
+                                e.currentTarget as HTMLAnchorElement
+                              ).style.color = '#ccc';
+                            }}
+                          >
+                            {child.label}
+                          </a>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
           </div>
         </div>
         {/* ================= MOBILE ================= */}
