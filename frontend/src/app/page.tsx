@@ -1,9 +1,5 @@
-import Hero from '@/components/Hero';
+import { redirect } from 'next/navigation';
 
 export default function Home() {
-  return (
-    <main className="w-full h-screen">
-      <Hero />
-    </main>
-  );
+  redirect('/granada-school');
 }

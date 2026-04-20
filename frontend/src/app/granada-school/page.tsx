@@ -388,7 +388,7 @@ function Hero() {
                       background: 'none',
                       border: 'none',
                       color: selectedIdx === idx ? '#e2c215' : '#fff',
-                      fontSize: 'clamp(1.85rem,1.8vw,2.1rem)',
+                      fontSize: 'clamp(1.95rem,1.8vw,2.1rem)',
                       fontWeight: 700,
                       letterSpacing: '0.07em',
                       textTransform: 'uppercase',
