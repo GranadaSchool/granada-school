@@ -1,0 +1,2209 @@
+﻿'use client';
+import Image from 'next/image';
+import { useState, useEffect, useRef } from 'react';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
+
+/* ── NAV DATA ──────────────────────────────────────────────────────────────── */
+import { SchoolNavbar } from '@granada/ui';
+import { SchoolFooter } from '@granada/ui';
+
+const NAV_ITEMS = [
+  {
+    label: 'About Us',
+    href: '/about',
+    image: '/building.jpeg',
+    imageCaption: 'A Unique Blend of Discovery + Purpose',
+    children: [
+      { label: "Principal's Welcome", href: '/about/welcome' },
+      { label: 'Vision & Mission', href: '/about/vision' },
+      { label: 'Core Values', href: '/about/values' },
+      { label: 'Our Story', href: '/about/history' },
+      { label: 'Boarding', href: '/about/boarding' },
+      { label: 'Staff & Leadership', href: '/about/staff' },
+    ],
+  },
+  {
+    label: 'Admissions',
+    href: '/admissions',
+    image: '/dorm.jpeg',
+    imageCaption: 'A Unique Blend of Ambition + Opportunity',
+    children: [
+      { label: 'Introduction', href: '/admissions/intro' },
+      {
+        label: 'Why Choose Granada',
+        href: '/admissions/why-choose',
+      },
+      { label: 'Boarding Life', href: '/admissions/boarding' },
+      {
+        label: 'Admissions Process',
+        href: '/admissions/process',
+      },
+      { label: 'Apply', href: '/admissions/apply' },
+      { label: 'Admissions Team', href: '/admissions/team' },
+      { label: 'Fees', href: '/admissions/fees' },
+      { label: 'Term Dates', href: '/admissions/term-dates' },
+      { label: 'Uniform', href: '/admissions/uniform' },
+      {
+        label: 'School Lunches',
+        href: '/admissions/school-lunches',
+      },
+      {
+        label: 'School Transport',
+        href: '/admissions/school-transport',
+      },
+    ],
+  },
+  {
+    label: 'Academic',
+    href: '/academics',
+    image: '/class.jpeg',
+    imageCaption: 'A Unique Blend of Knowledge + Excellence',
+    children: [
+      { label: 'Overview', href: '/academics/overview' },
+      { label: 'CBC Curriculum', href: '/academics/cbc' },
+      { label: 'School Sections', href: '/academics/sections' },
+      { label: "Girls' Boarding", href: '/academics/boarding' },
+      { label: 'Career', href: '/academics/careers' },
+      { label: 'Apply', href: '/academics/apply' },
+    ],
+  },
+  {
+    label: 'Campus Life',
+    href: '/campus-life',
+    image: '/sports.jpeg',
+    imageCaption: 'A Unique Blend of Growth + Community',
+    children: [
+      { label: 'Facilities', href: '/campus-life/facilities' },
+      {
+        label: 'Co-Curricular Activities',
+        href: '/campus-life/cocurricular',
+      },
+    ],
+  },
+  {
+    label: 'Pastoral & Wellbeing',
+    href: '/wellbeing',
+    image: '/sports2.jpeg',
+    imageCaption: 'A Unique Blend of Care + Belonging',
+    children: [
+      {
+        label: 'Wellbeing Approach',
+        href: '/wellbeing/approach',
+      },
+      { label: 'Counselling', href: '/wellbeing/counselling' },
+      {
+        label: 'Character Education',
+        href: '/wellbeing/character',
+      },
+      { label: 'Global Citizenship', href: '/wellbeing/global' },
+    ],
+  },
+  {
+    label: 'Latest News',
+    href: '/news',
+    image: '/building2.jpeg',
+    imageCaption: 'A Unique Blend of Stories + Achievements',
+    children: [
+      { label: 'Featured Story', href: '/news/featured' },
+      { label: 'All News', href: '/news/all-news' },
+      { label: 'Events', href: '/news/events' },
+      { label: 'Newsletters', href: '/news/newsletters' },
+    ],
+  },
+  {
+    label: 'Parents',
+    href: '/contact',
+    image: '/staffroom.jpeg',
+    imageCaption: 'A Unique Blend of Partnership + Trust',
+    children: [
+      { label: 'Parent Portal', href: '/contact' },
+      { label: 'School Calendar', href: '/contact' },
+      { label: 'Term Dates', href: '/admissions/term-dates' },
+    ],
+  },
+  {
+    label: 'Support Us',
+    href: '/contact',
+    image: '/art-room.jpeg',
+    imageCaption: 'A Unique Blend of Giving + Impact',
+    children: [
+      { label: 'Bursaries & Scholarships', href: '/admissions' },
+      { label: 'Donations', href: '/contact' },
+      { label: 'Community Partnerships', href: '/contact' },
+    ],
+  },
+];
+
+/* ── useInView ─────────────────────────────────────────────────────────────── */
+function useInView(threshold = 0.12) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [vis, setVis] = useState(false);
+  useEffect(() => {
+    const o = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) setVis(true);
+      },
+      { threshold }
+    );
+    if (ref.current) o.observe(ref.current);
+    return () => o.disconnect();
+  }, []);
+  return { ref, vis };
+}
+
+/* ── PAGE HERO ──────────────────────────────────────────────────────────────── */
+/* ── SECTION DATA ──────────────────────────────────────────────────────────────────── */
+const PAGE_SECTIONS = [
+  { label: 'Overview', id: 'overview' },
+  { label: 'CBC Curriculum', id: 'cbc' },
+  { label: 'School Sections', id: 'sections' },
+  { label: "Girls' Boarding", id: 'boarding' },
+  { label: 'Careers', id: 'careers' },
+  { label: 'Apply', id: 'apply' },
+];
+/* ── CAREERS ─────────────────────────────────────────────────────────────── */
+function Careers() {
+  const { ref, vis } = useInView(0.08);
+  return (
+    <section
+      className="section-cream"
+      id="careers"
+      ref={ref}
+      style={{
+        paddingTop: 'clamp(3rem,6vw,5rem)',
+        paddingBottom: 'clamp(3rem,6vw,5rem)',
+        scrollMarginTop: '100px',
+      }}
+    >
+      <div
+        style={{
+          margin: '0 auto',
+          padding: '0 clamp(1rem,2vw,2rem)',
+          // maxWidth: 1100,
+        }}
+      >
+        <div
+          className="section-header-block"
+          style={{
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(20px)',
+            transition: 'all 0.8s ease',
+          }}
+        >
+          <p className="label-tag">Careers & University Guidance</p>
+          <h2 className="section-heading">
+            Empowering <em>Futures</em>
+          </h2>
+          <div className="divider" />
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: 'clamp(2rem,3vw,3rem)',
+            alignItems: 'flex-start',
+            opacity: vis ? 1 : 0,
+            transition: 'all 0.9s ease 0.1s',
+          }}
+        >
+          <div style={{ flex: 1 }}>
+            <p className="body-text" style={{ marginBottom: '1.2rem' }}>
+              At Granada School, we believe that preparing students for life
+              beyond school is as important as academic achievement. Our Careers
+              and University Guidance programme is designed to help every
+              learner discover their strengths, explore opportunities, and make
+              informed decisions about their future.
+            </p>
+          </div>
+          <div
+            style={{
+              flex: '0 1 340px',
+              alignSelf: 'flex-start',
+              position: 'relative',
+            }}
+          >
+            <div
+              className="img-hover"
+              style={{
+                width: '100%',
+                height: 0,
+                paddingBottom: '66%',
+                position: 'relative',
+                overflow: 'hidden',
+                borderRadius: 12,
+                boxShadow: '0 4px 32px rgba(33,53,88,0.10)',
+              }}
+            >
+              <img
+                src="/art-room.jpeg"
+                alt="Career guidance at Granada School"
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background:
+                    'linear-gradient(to top,rgba(33,53,88,0.18),transparent 60%)',
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style={{
+          margin: '0 auto',
+          padding: 'clamp(1rem,2vw,2rem)',
+        }}
+      >
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: 'clamp(2rem,3vw,3rem)',
+            marginBottom: '2.5rem',
+          }}
+        >
+          <div>
+            <h3
+              className="font-display"
+              style={{
+                fontSize: 'clamp(1.1rem,1.8vw,1.4rem)',
+                color: 'var(--primary)',
+                fontWeight: 700,
+                marginBottom: '0.7rem',
+              }}
+            >
+              Personalised Careers Support
+            </h3>
+            <p className="body-text" style={{ marginBottom: '0.8rem' }}>
+              Our dedicated Careers team provides one-to-one guidance, aptitude
+              assessments, and workshops to help students identify their
+              interests and talents. We support learners in exploring a wide
+              range of career pathways, from STEM and business to the arts,
+              social sciences, and entrepreneurship.
+            </p>
+            <ul
+              style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem',
+              }}
+            >
+              <li
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: 'var(--body-text)',
+                  fontSize: 'clamp(0.85rem,1vw,0.92rem)',
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    background: 'var(--secondary)',
+                    flexShrink: 0,
+                  }}
+                />
+                Individual careers interviews
+              </li>
+              <li
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: 'var(--body-text)',
+                  fontSize: 'clamp(0.85rem,1vw,0.92rem)',
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    background: 'var(--secondary)',
+                    flexShrink: 0,
+                  }}
+                />
+                Aptitude and interest profiling
+              </li>
+              <li
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: 'var(--body-text)',
+                  fontSize: 'clamp(0.85rem,1vw,0.92rem)',
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    background: 'var(--secondary)',
+                    flexShrink: 0,
+                  }}
+                />
+                Career talks and alumni panels
+              </li>
+              <li
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: 'var(--body-text)',
+                  fontSize: 'clamp(0.85rem,1vw,0.92rem)',
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    background: 'var(--secondary)',
+                    flexShrink: 0,
+                  }}
+                />
+                Work experience placements
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3
+              className="font-display"
+              style={{
+                fontSize: 'clamp(1.1rem,1.8vw,1.4rem)',
+                color: 'var(--primary)',
+                fontWeight: 600,
+                marginBottom: '0.7rem',
+              }}
+            >
+              University & Global Pathways
+            </h3>
+            <p className="body-text" style={{ marginBottom: '0.8rem' }}>
+              We offer comprehensive support for university applications in
+              Kenya and abroad, including guidance on course selection, personal
+              statements, and interview preparation. Our team stays up to date
+              with global admissions trends and scholarship opportunities.
+            </p>
+            <ul
+              style={{
+                listStyle: 'none',
+                padding: 0,
+                margin: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.5rem',
+              }}
+            >
+              <li
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: 'var(--body-text)',
+                  fontSize: 'clamp(0.85rem,1vw,0.92rem)',
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    background: 'var(--secondary)',
+                    flexShrink: 0,
+                  }}
+                />
+                University application workshops
+              </li>
+              <li
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: 'var(--body-text)',
+                  fontSize: 'clamp(0.85rem,1vw,0.92rem)',
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    background: 'var(--secondary)',
+                    flexShrink: 0,
+                  }}
+                />
+                Personal statement and essay support
+              </li>
+              <li
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: 'var(--body-text)',
+                  fontSize: 'clamp(0.85rem,1vw,0.92rem)',
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    background: 'var(--secondary)',
+                    flexShrink: 0,
+                  }}
+                />
+                Interview and admissions test prep
+              </li>
+              <li
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.6rem',
+                  color: 'var(--body-text)',
+                  fontSize: 'clamp(0.85rem,1vw,0.92rem)',
+                }}
+              >
+                <span
+                  style={{
+                    width: 6,
+                    height: 6,
+                    background: 'var(--secondary)',
+                    flexShrink: 0,
+                  }}
+                />
+                Scholarship and financial aid advice
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          style={{
+            marginBottom: '2.5rem',
+            opacity: vis ? 1 : 0,
+            transition: 'all 0.9s ease 0.2s',
+          }}
+        >
+          <h3
+            className="font-display"
+            style={{
+              fontSize: 'clamp(1.05rem,1.6vw,1.2rem)',
+              color: 'var(--primary)',
+              fontWeight: 600,
+              marginBottom: '0.7rem',
+            }}
+          >
+            Employer & Industry Links
+          </h3>
+          <p className="body-text">
+            Granada School partners with local and international employers,
+            universities, and organisations to provide students with real-world
+            insights and opportunities. Our annual Careers Fair, guest speakers,
+            and alumni network help learners build valuable connections for
+            their future.
+          </p>
+        </div>
+        <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+          <a href="/contact?type=careers" className="btn-solid">
+            Careers Enquiry
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+const BASE_PATH = '/academics';
+
+function PageHero() {
+  const params = useParams();
+  const activeSection = params.section as string;
+  const sectionLabel =
+    PAGE_SECTIONS.find((s) => s.id === activeSection)?.label || 'Overview';
+
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => setLoaded(true), []);
+  return (
+    <section
+      style={{
+        position: 'relative',
+        height: '100vh',
+        minHeight: 600,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(95deg, rgba(13,12,13,0.85) 0%, rgba(13,12,13,0.38) 45%, transparent 100%)',
+          zIndex: 2,
+          pointerEvents: 'none',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url(/class.jpeg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          animation: 'kenBurns 16s ease-in-out infinite alternate',
+        }}
+      />
+      {/* Animated accent lines */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          width: 4,
+          background:
+            'linear-gradient(to bottom,transparent,var(--secondary),transparent)',
+          opacity: loaded ? 0.7 : 0,
+          transition: 'opacity 1.2s ease 0.8s',
+        }}
+      />
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 5,
+          height: '100%',
+          margin: '0 auto',
+          padding: '0 clamp(1rem,2vw,2rem)',
+          paddingTop: 'clamp(140px,16vw,165px)',
+          display: 'flex',
+          flexDirection: 'column',
+          paddingBottom: 'clamp(6rem,4vw,8rem)',
+        }}
+        className="hero-inner"
+      >
+        <div style={{ flex: 1 }} />
+        <div
+          style={{ display: 'flex', justifyContent: 'flex-end' }}
+          className="hero-content"
+        >
+          <div style={{ maxWidth: 'clamp(260px,45vw,520px)' }}>
+            <h1
+              className="font-display"
+              style={{
+                fontSize: 'clamp(1.375rem, 1.3rem + 0.375vw, 1.75rem)',
+                fontWeight: 600,
+                lineHeight: 1.3,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                color: '#fff',
+                textShadow: '0 2px 14px rgba(0,0,0,0.8)',
+                marginBottom: '0.9rem',
+                opacity: loaded ? 1 : 0,
+                transform: loaded ? 'translateY(0)' : 'translateY(22px)',
+                transition: 'all 0.8s ease 0.4s',
+              }}
+            >
+              <span style={{ color: '#e2c215' }}>A Unique</span>
+              <br />
+              <span style={{ color: '#e2c215' }}>Blend</span>
+              <br />
+              <span style={{ color: '#e2c215' }}>of </span>Knowledge
+              <br />
+              <span style={{ color: '#e2c215' }}>+ </span>Excellence
+            </h1>
+          </div>
+        </div>
+      </div>
+      <style>{`@keyframes kenBurns{from{transform:scale(1) translateX(0);} to{transform:scale(1.07) translateX(-1%);}}`}</style>
+    </section>
+  );
+}
+
+/* ── SECTION NAV ────────────────────────────────────────────────────────────── */
+function SectionNav() {
+  const params = useParams();
+  const activeSection = params.section as string;
+  const P = '#213558';
+  const S = '#e2c215';
+  return (
+    <aside
+      style={{
+        width: 'clamp(120px,12vw,180px)',
+        flexShrink: 0,
+        position: 'sticky',
+        top: 110,
+        alignSelf: 'flex-start',
+        display: 'none',
+        background: 'var(--body-bg)',
+        padding: '1.5rem 0',
+      }}
+      className="section-sidebar"
+    >
+      <p
+        style={{
+          fontFamily: "'Euclid Circular A',sans-serif",
+          fontSize: 'clamp(0.66rem,0.92vw,0.74rem)',
+          letterSpacing: '0.06em',
+          color: P,
+          fontWeight: 600,
+          marginBottom: '1.1rem',
+        }}
+      >
+        In this section
+      </p>
+      <nav
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0,
+          borderLeft: '1px solid #e8e6e3',
+        }}
+      >
+        {PAGE_SECTIONS.map((s, i) => (
+          <Link
+            key={i}
+            href={`${BASE_PATH}/${s.id}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              padding: '0.65rem 0 0.65rem 1rem',
+              color: activeSection === s.id ? P : '#5a5a5a',
+              background: 'none',
+              textDecoration: 'none',
+              borderLeft:
+                activeSection === s.id
+                  ? `2px solid ${P}`
+                  : '2px solid transparent',
+              fontSize: 'clamp(0.72rem,1vw,0.8rem)',
+              fontWeight: activeSection === s.id ? 700 : 400,
+              transition: 'all 0.2s',
+              fontFamily: 'inherit',
+              marginLeft: '-1px',
+            }}
+          >
+            {s.label}
+          </Link>
+        ))}
+      </nav>
+      <div
+        className="sidebar-where-next"
+        style={{
+          marginTop: '2.25rem',
+          border: '1px solid #e8e6e3',
+          padding: '1.4rem',
+          background: '#fff',
+        }}
+      >
+        <p
+          style={{
+            fontSize: 'clamp(0.55rem,0.78vw,0.62rem)',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: S,
+            fontWeight: 700,
+            marginBottom: '0.9rem',
+          }}
+        >
+          Where Next?
+        </p>
+        {[
+          { label: 'How to Apply', href: '/admissions' },
+          {
+            label: 'Visit Granada',
+            href: '/contact?type=visit',
+          },
+          { label: 'Enquire Now', href: '/contact' },
+        ].map((l, i) => (
+          <a
+            key={i}
+            href={l.href}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              color: '#5a5a5a',
+              textDecoration: 'none',
+              fontSize: 'clamp(0.72rem,1vw,0.8rem)',
+              padding: '0.45rem 0',
+              borderBottom: '1px solid #f0eee9',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = P)}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#5a5a5a')}
+          >
+            <ChevronRight size={12} strokeWidth={1.3} />
+            {l.label}
+          </a>
+        ))}
+      </div>
+      <style>{`.section-sidebar{display:block!important}`}</style>
+    </aside>
+  );
+}
+
+/* ── OVERVIEW ───────────────────────────────────────────────────────────────── */
+function Overview() {
+  const { ref, vis } = useInView(0.08);
+  const stats = [
+    { num: '1', label: 'Academic Pathway', sub: 'CBE Curriculum' },
+    { num: '4', label: 'School Sections', sub: 'Nursery to Senior' },
+    { num: '5', label: 'Core Values', sub: 'Guiding Every Lesson' },
+    { num: '∞', label: 'Possibilities', sub: 'For Every Learner' },
+  ];
+  return (
+    <section
+      className="section-cream"
+      id="overview"
+      ref={ref}
+      style={{
+        paddingTop: 'clamp(3rem,6vw,5rem)',
+        paddingBottom: 'clamp(3rem,6vw,5rem)',
+        scrollMarginTop: '100px',
+      }}
+    >
+      <div
+        style={{
+          margin: '0 auto',
+          padding: '0 clamp(1rem,2vw,2rem)',
+        }}
+      >
+        <p
+          className="font-display"
+          style={{
+            fontSize: 'clamp(1rem,1.8vw,1.5rem)',
+            color: 'var(--primary)',
+            lineHeight: 1.7,
+            marginBottom: 'clamp(1.5rem,2.5vw,2.5rem)',
+            borderLeft: '3px solid var(--secondary)',
+            paddingLeft: 'clamp(0.9rem,1.5vw,1.4rem)',
+            maxWidth: 820,
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(16px)',
+            transition: 'all 0.8s ease',
+          }}
+        >
+          At Granada School, academic excellence is achieved through a balanced
+          and engaging learning experience designed to develop critical
+          thinking, creativity, and problem-solving skills.
+        </p>
+        <div
+          className="section-header-block"
+          style={{
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(20px)',
+            transition: 'all 0.8s ease 0.1s',
+          }}
+        >
+          <p className="label-tag">Our Approach</p>
+          <h2 className="section-heading">
+            Learning That <em>Matters</em>
+          </h2>
+          <div className="divider" />
+        </div>
+        <div style={{ opacity: vis ? 1 : 0, transition: 'all 0.9s ease 0.1s' }}>
+          <div
+            className="section-float-img"
+            style={{
+              float: 'right',
+              margin: '0 0 1.2rem 1.5rem',
+              width: 'clamp(280px,38vw,420px)',
+              opacity: vis ? 1 : 0,
+              transform: vis ? 'none' : 'translateX(24px)',
+              transition: 'all 0.9s ease 0.2s',
+            }}
+          >
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: 1,
+                background: '#dddbd8',
+                marginBottom: 'clamp(1.2rem,2vw,1.5rem)',
+              }}
+            >
+              {stats.map((s, i) => (
+                <div
+                  key={i}
+                  style={{
+                    background: i === 1 ? 'var(--primary)' : '#fff',
+                    padding:
+                      'clamp(1.2rem,2vw,1.75rem) clamp(1rem,1.5vw,1.4rem)',
+                    textAlign: 'center',
+                    transition: 'transform 0.3s',
+                    cursor: 'default',
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform = 'translateY(-3px)')
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = 'none')
+                  }
+                >
+                  <div
+                    className="font-display"
+                    style={{
+                      fontSize: 'clamp(2rem,3.5vw,3rem)',
+                      fontWeight: 600,
+                      color: i === 1 ? 'var(--accent-light)' : 'var(--primary)',
+                      lineHeight: 1,
+                      marginBottom: '0.3rem',
+                    }}
+                  >
+                    {s.num}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 'clamp(0.6rem,0.8vw,0.72rem)',
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.12em',
+                      color: i === 1 ? '#fff' : 'var(--body-text)',
+                      marginBottom: '0.2rem',
+                    }}
+                  >
+                    {s.label}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 'clamp(0.55rem,0.7vw,0.62rem)',
+                      color: i === 1 ? 'rgba(255,255,255,0.7)' : 'var(--muted)',
+                      letterSpacing: '0.06em',
+                    }}
+                  >
+                    {s.sub}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div
+              style={{
+                overflow: 'hidden',
+                minHeight: 'clamp(200px,28vw,280px)',
+                height: '100%',
+              }}
+              className="img-hover"
+            >
+              <img
+                src="/class.jpeg"
+                alt="Students learning"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+          </div>
+          <p className="body-text" style={{ marginBottom: '1.1rem' }}>
+            Granada School offers the Competency Based Curriculum (CBC) —
+            Kenya’s national framework — ensuring every learner develops
+            practical competencies and finds the right route to reach their full
+            potential.
+          </p>
+          <p className="body-text" style={{ marginBottom: '1.1rem' }}>
+            The CBC at Granada focuses on developing practical competencies,
+            creativity, collaboration, and communication skills that prepare
+            learners for real-life challenges. Learners are supported in
+            discovering their strengths and talents through an interactive,
+            learner-centred approach.
+          </p>
+          <p className="body-text" style={{ marginBottom: '2rem' }}>
+            Through these pathways, Granada ensures that learners receive an
+            education that is both locally relevant and internationally
+            competitive — equipping them with the confidence and capability to
+            thrive wherever their journey leads.
+          </p>
+          <div
+            style={{
+              display: 'flex',
+              gap: '0.75rem',
+              flexWrap: 'wrap',
+              clear: 'both',
+            }}
+          >
+            <a
+              href="#cbc"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('cbc');
+                if (el) {
+                  window.scrollTo({
+                    top: el.getBoundingClientRect().top + window.scrollY - 100,
+                    behavior: 'smooth',
+                  });
+                }
+              }}
+              className="btn-solid"
+            >
+              CBC Curriculum
+            </a>
+            <a
+              href="#sections"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('sections');
+                if (el) {
+                  window.scrollTo({
+                    top: el.getBoundingClientRect().top + window.scrollY - 100,
+                    behavior: 'smooth',
+                  });
+                }
+              }}
+              className="btn-outline"
+            >
+              School Sections
+            </a>
+          </div>
+        </div>
+      </div>
+      <style>{`@media(min-width:768px){.section-sidebar{display:block!important}}`}</style>
+    </section>
+  );
+}
+
+/* ── CBC CURRICULUM ─────────────────────────────────────────────────────────── */
+function CBCCurriculum() {
+  const { ref, vis } = useInView(0.08);
+  const pillars = [
+    {
+      icon: '💡',
+      title: 'Critical Thinking',
+      desc: 'Learners are taught to analyse, question, and reason through real-world problems rather than simply memorise facts.',
+      color: 'var(--primary)',
+    },
+    {
+      icon: '🎨',
+      title: 'Creativity & Innovation',
+      desc: 'CBC nurtures creative expression across all subjects, encouraging learners to find inventive solutions and think beyond boundaries.',
+      color: 'var(--secondary)',
+    },
+    {
+      icon: '🤝',
+      title: 'Collaboration',
+      desc: 'Group tasks and project-based learning build strong teamwork, communication, and interpersonal skills from the earliest years.',
+      color: 'var(--accent-warm)',
+    },
+    {
+      icon: '🌍',
+      title: 'Communication',
+      desc: 'Strong emphasis on oral, written, and digital communication prepares learners to confidently express ideas in any setting.',
+      color: 'var(--accent-green)',
+    },
+    {
+      icon: '🧩',
+      title: 'Problem Solving',
+      desc: 'Real-life learning scenarios challenge learners to apply knowledge practically, developing resilience and adaptability.',
+      color: 'var(--accent-blue)',
+    },
+    {
+      icon: '🌱',
+      title: 'Self-Discovery',
+      desc: 'Learners are supported in identifying and developing their unique strengths through a personalised, learner-centred approach.',
+      color: 'var(--accent-pink)',
+    },
+  ];
+  return (
+    <section
+      className="section-blue"
+      id="cbc"
+      ref={ref}
+      style={{
+        paddingTop: 'clamp(3rem,6vw,5rem)',
+        paddingBottom: 'clamp(3rem,6vw,5rem)',
+        scrollMarginTop: '100px',
+      }}
+    >
+      <div
+        style={{
+          margin: '0 auto',
+          padding: '0 clamp(1rem,2vw,2rem)',
+        }}
+      >
+        <div
+          className="section-header-block"
+          style={{
+            marginBottom: 'clamp(2rem,3vw,3rem)',
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(20px)',
+            transition: 'all 0.8s ease',
+          }}
+        >
+          <p className="label-tag">Kenya's National Framework</p>
+          <h2 className="section-heading">
+            Competency Based <em>Curriculum</em>
+          </h2>
+          <div className="divider" />
+          <p className="body-text">
+            The CBC focuses on developing practical competencies, creativity,
+            collaboration, and communication skills that prepare learners for
+            real-life challenges — and a meaningful future.
+          </p>
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginBottom: 'clamp(1.5rem,2vw,2rem)',
+            opacity: vis ? 1 : 0,
+            transition: 'opacity 0.8s ease 0.3s',
+          }}
+        >
+          <span
+            style={{
+              display: 'inline-block',
+              padding: '0.45rem 1.2rem',
+              border: '1px solid var(--secondary)',
+              color: 'var(--secondary)',
+              fontSize: 'clamp(0.56rem,0.8vw,0.65rem)',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              fontWeight: 700,
+            }}
+          >
+            CBE Focus
+          </span>
+        </div>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3,1fr)',
+            gap: 1,
+            background: 'rgba(255,255,255,0.1)',
+            marginBottom: 'clamp(2rem,3vw,3rem)',
+          }}
+          className="cbc-grid"
+        >
+          {pillars.map((p, i) => (
+            <div
+              key={i}
+              style={{
+                background: 'rgba(255,255,255,0.06)',
+                padding: 'clamp(1.4rem,2vw,2rem) clamp(1.2rem,1.8vw,1.6rem)',
+                borderTop: `2px solid ${p.color}`,
+                opacity: vis ? 1 : 0,
+                transform: vis ? 'none' : 'translateY(32px)',
+                transition: `all 0.9s ease ${i * 0.08}s`,
+                cursor: 'default',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.background =
+                  'rgba(255,255,255,0.12)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLDivElement).style.background =
+                  'rgba(255,255,255,0.06)';
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 'clamp(1.4rem,2vw,1.8rem)',
+                  display: 'block',
+                  marginBottom: 'clamp(0.7rem,1vw,1rem)',
+                }}
+              >
+                {p.icon}
+              </span>
+              <h3
+                style={{
+                  fontSize: 'clamp(0.7rem,0.9vw,0.82rem)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.12em',
+                  color: '#fff',
+                  fontWeight: 700,
+                  marginBottom: '0.6rem',
+                }}
+              >
+                {p.title}
+              </h3>
+              <p
+                style={{
+                  color: 'rgba(255,255,255,0.72)',
+                  fontSize: 'clamp(0.72rem,0.85vw,0.8rem)',
+                  lineHeight: 1.75,
+                  fontWeight: 300,
+                }}
+              >
+                {p.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+        {/* CBE pathway note */}
+        <div
+          style={{
+            border: '1px solid rgba(255,255,255,0.15)',
+            padding: 'clamp(1.5rem,2.5vw,2.25rem)',
+            background: 'rgba(255,255,255,0.05)',
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(24px)',
+            transition: 'all 0.9s ease 0.5s',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              gap: 'clamp(1.5rem,3vw,3rem)',
+              alignItems: 'flex-start',
+              flexWrap: 'wrap',
+            }}
+          >
+            <div style={{ flex: 1, minWidth: 260 }}>
+              <p
+                style={{
+                  fontSize: 'clamp(0.58rem,0.8vw,0.62rem)',
+                  letterSpacing: '0.2em',
+                  textTransform: 'uppercase',
+                  color: 'var(--secondary)',
+                  fontWeight: 700,
+                  marginBottom: '0.75rem',
+                }}
+              >
+                CBE Pathway
+              </p>
+              <p
+                style={{
+                  color: 'rgba(255,255,255,0.85)',
+                  fontSize: 'clamp(0.78rem,0.95vw,0.88rem)',
+                  lineHeight: 1.8,
+                }}
+              >
+                Through the CBE pathway, Granada ensures learners receive an
+                education that is both locally relevant and globally
+                competitive. The nationally focused CBC route develops
+                well-rounded competencies — preparing learners for success in
+                their academic and career aspirations.
+              </p>
+            </div>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.75rem',
+                minWidth: 200,
+              }}
+            >
+              {[
+                {
+                  label: 'Locally Relevant',
+                  desc: 'Aligned with Kenya KICD standards',
+                },
+                {
+                  label: 'Globally Competitive',
+                  desc: 'Benchmarked to international norms',
+                },
+                {
+                  label: 'Holistic Development',
+                  desc: 'Academic, social & moral growth',
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.85rem',
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 6,
+                      height: 6,
+                      background: 'var(--secondary)',
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div>
+                    <div
+                      style={{
+                        fontSize: 'clamp(0.65rem,0.8vw,0.72rem)',
+                        fontWeight: 700,
+                        color: '#fff',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1em',
+                      }}
+                    >
+                      {item.label}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 'clamp(0.6rem,0.75vw,0.68rem)',
+                        color: 'rgba(255,255,255,0.65)',
+                      }}
+                    >
+                      {item.desc}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>{`@media(max-width:768px){.cbc-grid{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:500px){.cbc-grid{grid-template-columns:1fr!important}}`}</style>
+    </section>
+  );
+}
+
+/* ── SCHOOL SECTIONS ────────────────────────────────────────────────────────── */
+function SchoolSections() {
+  const { ref, vis } = useInView(0.06);
+  const [active, setActive] = useState(0);
+  const sections = [
+    {
+      id: 'pre-primary',
+      label: 'Pre-Primary',
+      range: 'Nursery – KG 2',
+      age: 'Ages 3–6',
+      color: '#ebae1b',
+      img: '/class.jpeg',
+      curriculum: 'CBC Early Years',
+      tagline: 'Play-Based Discovery',
+      intro:
+        'Our Early Years programme lays the foundation for a lifetime of learning through nurturing, play-based experiences that spark curiosity and confidence in every child.',
+      highlights: [
+        'Structured play and early literacy',
+        'Numeracy through hands-on activities',
+        'Social skills and emotional development',
+        'Creative arts, music and movement',
+        'Outdoor exploration and discovery',
+      ],
+      quote:
+        'Every great learner begins with the freedom to play, explore, and wonder.',
+    },
+    {
+      id: 'primary',
+      label: 'Primary School',
+      range: 'Grades 1–6',
+      age: 'Ages 6–13',
+      color: 'var(--primary)',
+      img: '/class.jpeg',
+      curriculum: 'CBC Primary',
+      tagline: 'Building Strong Foundations',
+      intro:
+        'Primary School at Granada develops strong academic foundations alongside practical skills. CBC focuses on competency development, creativity, and critical thinking through a learner-centred approach.',
+      highlights: [
+        'English, Mathematics, Science & Social Studies',
+        'Creative Arts and Physical Education',
+        'Project-Based Learning (CBC)',
+        'Competency-based assessments and portfolios',
+        'Digital literacy and ICT integration',
+      ],
+      quote:
+        'Curiosity ignited in Primary School becomes the fuel for a lifetime of achievement.',
+    },
+    {
+      id: 'junior',
+      label: 'Junior School',
+      range: 'Grades 7–9',
+      age: 'Ages 13–16',
+      color: 'var(--accent-green)',
+      img: '/building.jpeg',
+      curriculum: 'CBC Lower Secondary',
+      tagline: 'Developing Independent Thinkers',
+      intro:
+        'Junior School is where learners deepen understanding, develop independence, and sharpen their critical thinking. The CBC pathway challenges learners to think analytically and creatively.',
+      highlights: [
+        'English, Maths, Sciences and Humanities',
+        'ICT and Technology Integration',
+        'Competency-based learning and assessment',
+        'Critical thinking and research skills',
+        'Leadership and co-curricular development',
+      ],
+      quote:
+        'Independence of thought is the hallmark of a truly educated mind.',
+    },
+    {
+      id: 'senior',
+      label: 'Senior School',
+      range: 'Grades 10–12',
+      age: 'Ages 16–19',
+      color: 'var(--accent-warm)',
+      img: '/class.jpeg',
+      curriculum: 'CBC Senior Secondary',
+      tagline: 'Preparing Future Leaders',
+      intro:
+        'Senior School brings the CBC pathway to its fullest expression — preparing learners for national examinations with a focus on holistic competencies, character formation, and readiness for higher education.',
+      highlights: [
+        'National examinations and competency portfolio',
+        'Subject specialisation and career pathways',
+        'University preparation and applications support',
+        'Community service and leadership development',
+        "Junior &amp; Senior Girls' Boarding",
+      ],
+      quote:
+        'Senior School is not the end of a journey — it is the gateway to everything that follows.',
+    },
+  ];
+  const cur = sections[active];
+  return (
+    <section
+      className="section-cream"
+      id="sections"
+      ref={ref}
+      style={{
+        paddingTop: 'clamp(3rem,6vw,5rem)',
+        paddingBottom: 'clamp(3rem,6vw,5rem)',
+        scrollMarginTop: '100px',
+      }}
+    >
+      <div
+        style={{
+          margin: '0 auto',
+          padding: '0 clamp(1rem,2vw,2rem)',
+        }}
+      >
+        <div
+          style={{
+            marginBottom: 'clamp(1.5rem,2.5vw,2.75rem)',
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(20px)',
+            transition: 'all 0.8s ease',
+          }}
+        >
+          <p className="label-tag">CBC Pathway</p>
+          <h2 className="section-heading">
+            A Continuous Learning <em>Journey</em>
+          </h2>
+          <div className="divider" />
+          <p className="body-text" style={{ maxWidth: 600 }}>
+            Granada provides a seamless learning journey from Nursery to Senior
+            School through the CBC pathway. Every stage is designed to build on
+            the last, developing well-rounded, confident learners.
+          </p>
+        </div>
+        {/* Stage tabs */}
+        <div
+          style={{
+            display: 'flex',
+            gap: 1,
+            background: '#dddbd8',
+            marginBottom: 'clamp(1.5rem,2vw,2rem)',
+            overflowX: 'auto',
+          }}
+          className="section-tabs"
+        >
+          {sections.map((s, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              style={{
+                flex: 1,
+                minWidth: 120,
+                padding: 'clamp(0.75rem,1.2vw,1rem) clamp(0.8rem,1.2vw,1.2rem)',
+                background: active === i ? 'var(--primary)' : '#fff',
+                border: 'none',
+                borderBottom:
+                  active === i
+                    ? `3px solid ${s.color}`
+                    : '3px solid transparent',
+                cursor: 'pointer',
+                textAlign: 'center',
+                transition: 'all 0.25s',
+                fontFamily: 'inherit',
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 'clamp(0.6rem,0.8vw,0.72rem)',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  color: active === i ? '#fff' : 'var(--muted)',
+                  marginBottom: '0.25rem',
+                  transition: 'color 0.25s',
+                }}
+              >
+                {s.label}
+              </div>
+              <div
+                style={{
+                  fontSize: 'clamp(0.55rem,0.7vw,0.6rem)',
+                  color:
+                    active === i ? 'rgba(255,255,255,0.75)' : 'var(--muted)',
+                  letterSpacing: '0.06em',
+                  transition: 'color 0.25s',
+                }}
+              >
+                {s.range}
+              </div>
+            </button>
+          ))}
+        </div>
+        {/* Section detail */}
+        <div>
+          <div
+            className="section-float-img"
+            style={{
+              float: 'left',
+              margin: '0 1.5rem 1.2rem 0',
+              width: 'clamp(280px,38vw,420px)',
+            }}
+          >
+            <div
+              style={{
+                position: 'relative',
+                overflow: 'hidden',
+                minHeight: 'clamp(280px,35vw,420px)',
+                height: '100%',
+              }}
+              className="img-hover"
+            >
+              {sections.map((s, i) => (
+                <img
+                  key={i}
+                  src={s.img}
+                  alt={s.label}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    opacity: active === i ? 1 : 0,
+                    transition: 'opacity 0.7s ease',
+                  }}
+                />
+              ))}
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background:
+                    'linear-gradient(to top,rgba(13,12,13,0.75) 0%,transparent 60%)',
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 'clamp(0.8rem,1.5vw,1.2rem)',
+                  left: 'clamp(0.8rem,1.5vw,1.2rem)',
+                }}
+              >
+                <span
+                  style={{
+                    display: 'inline-block',
+                    padding: '0.3rem 0.9rem',
+                    background: cur.color,
+                    color: '#fff',
+                    fontSize: 'clamp(0.52rem,0.75vw,0.6rem)',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    fontWeight: 700,
+                  }}
+                >
+                  {cur.age}
+                </span>
+              </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 'clamp(1rem,1.5vw,1.5rem)',
+                  left: 'clamp(1rem,1.5vw,1.5rem)',
+                  right: 'clamp(1rem,1.5vw,1.5rem)',
+                }}
+              >
+                <p
+                  style={{
+                    fontFamily: "'Euclid Circular A',sans-serif",
+                    color: 'rgba(255,255,255,0.88)',
+                    fontSize: 'clamp(0.9rem,1.3vw,1.1rem)',
+                    lineHeight: 1.5,
+                  }}
+                >
+                  "{cur.quote}"
+                </p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <span
+              style={{
+                display: 'inline-block',
+                fontSize: 'clamp(0.52rem,0.75vw,0.6rem)',
+                letterSpacing: '0.2em',
+                textTransform: 'uppercase',
+                color: '#fff',
+                background: 'var(--primary)',
+                padding: '0.3rem 0.9rem',
+                fontWeight: 700,
+                marginBottom: 'clamp(0.8rem,1.2vw,1.2rem)',
+              }}
+            >
+              {cur.curriculum}
+            </span>
+            <h3
+              className="font-display"
+              style={{
+                fontSize: 'clamp(1.5rem,2.5vw,2.2rem)',
+                fontWeight: 600,
+                color: 'var(--primary)',
+                lineHeight: 1.15,
+                marginBottom: '0.5rem',
+              }}
+            >
+              {cur.label}
+            </h3>
+            <p
+              style={{
+                fontSize: 'clamp(0.62rem,0.85vw,0.72rem)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.18em',
+                color: cur.color,
+                fontWeight: 700,
+                marginBottom: 'clamp(0.8rem,1.2vw,1.2rem)',
+              }}
+            >
+              {cur.tagline}
+            </p>
+            <p
+              className="body-text"
+              style={{ marginBottom: 'clamp(1.2rem,1.75vw,1.75rem)' }}
+            >
+              {cur.intro}
+            </p>
+            <p
+              style={{
+                fontSize: 'clamp(0.55rem,0.78vw,0.62rem)',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: 'var(--muted)',
+                fontWeight: 700,
+                marginBottom: '0.75rem',
+              }}
+            >
+              What's Covered
+            </p>
+            <ul
+              style={{
+                listStyle: 'none',
+                padding: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.4rem',
+                marginBottom: 'clamp(1.5rem,2vw,2rem)',
+              }}
+            >
+              {cur.highlights.map((h, i) => (
+                <li
+                  key={i}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '0.7rem',
+                    color: 'var(--body-text)',
+                    fontSize: 'clamp(0.75rem,0.9vw,0.82rem)',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 6,
+                      height: 6,
+                      background: cur.color,
+                      flexShrink: 0,
+                      marginTop: 6,
+                    }}
+                  />
+                  {h}
+                </li>
+              ))}
+            </ul>
+            <div
+              style={{
+                display: 'flex',
+                gap: '0.75rem',
+                flexWrap: 'wrap',
+                clear: 'both',
+              }}
+            >
+              <a
+                href="/contact?type=admissions"
+                className="btn-solid"
+              >
+                Apply for {cur.label}
+              </a>
+              <a href="/contact" className="btn-outline">
+                Make an Enquiry
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>{``}</style>
+    </section>
+  );
+}
+
+/* ── QUOTE BANNER ───────────────────────────────────────────────────────────── */
+function QuoteBanner() {
+  return (
+    <section
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        padding: 'clamp(3rem,5vw,5.5rem) clamp(1rem,2vw,2rem)',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url(/building.jpeg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'rgba(33,53,88,0.86)',
+        }}
+      />
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 2,
+          maxWidth: 820,
+          margin: '0 auto',
+          textAlign: 'center',
+        }}
+      >
+        <p
+          style={{
+            color: 'var(--accent-light)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.3em',
+            fontSize: 'clamp(0.55rem,0.8vw,0.62rem)',
+            fontWeight: 700,
+            marginBottom: '1.75rem',
+          }}
+        >
+          Granada School
+        </p>
+        <blockquote
+          className="font-display"
+          style={{
+            fontSize: 'clamp(1.2rem,3.5vw,2.4rem)',
+            fontWeight: 400,
+            color: '#fff',
+            lineHeight: 1.5,
+            marginBottom: '2rem',
+          }}
+        >
+          "We are committed to inspiring excellence and preparing learners for a
+          successful future — today, tomorrow, and beyond."
+        </blockquote>
+        <div
+          style={{
+            width: 'clamp(32px,4vw,44px)',
+            height: 2,
+            background: 'var(--secondary)',
+            margin: '0 auto 1.75rem',
+          }}
+        />
+        <p
+          style={{
+            color: 'rgba(255,255,255,0.7)',
+            fontSize: 'clamp(0.65rem,0.9vw,0.78rem)',
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            fontWeight: 500,
+          }}
+        >
+          Granada School — CBC Curriculum — Vipingo, Kenya
+        </p>
+      </div>
+    </section>
+  );
+}
+
+/* ── GIRLS BOARDING ─────────────────────────────────────────────────────────── */
+function GirlsBoarding() {
+  const { ref, vis } = useInView(0.08);
+  const benefits = [
+    {
+      icon: '🏠',
+      title: 'Home Away from Home',
+      desc: 'Comfortable, secure accommodation designed to provide warmth, safety, and a true sense of belonging for every boarder.',
+    },
+    {
+      icon: '📚',
+      title: 'Supervised Study Sessions',
+      desc: 'Structured evening study periods with teacher oversight ensure boarders stay focused, supported, and on track academically.',
+    },
+    {
+      icon: '💛',
+      title: 'Pastoral Care & Wellbeing',
+      desc: 'Dedicated housemistresses and counsellors provide emotional support and guidance, ensuring every girl thrives.',
+    },
+    {
+      icon: '⚖️',
+      title: 'Balanced Daily Routines',
+      desc: 'A structured timetable balancing study, rest, recreation, and co-curricular activities for healthy and holistic development.',
+    },
+    {
+      icon: '🌺',
+      title: 'Lifelong Friendships',
+      desc: 'Living alongside peers from diverse backgrounds fosters deep friendships, cultural appreciation, and a strong community spirit.',
+    },
+    {
+      icon: '🌟',
+      title: 'Confidence & Discipline',
+      desc: 'The boarding experience helps learners grow into confident, disciplined, and responsible young women ready for the world.',
+    },
+  ];
+  return (
+    <section
+      className="section-cream"
+      id="boarding"
+      ref={ref}
+      style={{
+        paddingTop: 'clamp(3rem,6vw,5rem)',
+        paddingBottom: 'clamp(3rem,6vw,5rem)',
+        scrollMarginTop: '100px',
+      }}
+    >
+      <div
+        style={{
+          margin: '0 auto',
+          padding: '0 clamp(1rem,2vw,2rem)',
+        }}
+      >
+        <div
+          className="section-header-block"
+          style={{
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(20px)',
+            transition: 'all 0.8s ease',
+          }}
+        >
+          <p className="label-tag">Junior &amp; Senior School Girls</p>
+          <h2 className="section-heading">
+            Girls Boarding <em>Programme</em>
+          </h2>
+          <div className="divider" />
+        </div>
+        <div style={{ opacity: vis ? 1 : 0, transition: 'all 0.9s ease' }}>
+          <div
+            className="section-float-img"
+            style={{
+              float: 'right',
+              margin: '0 0 1.2rem 1.5rem',
+              width: 'clamp(280px,38vw,420px)',
+              opacity: vis ? 1 : 0,
+              transform: vis ? 'none' : 'translateX(24px)',
+              transition: 'all 0.9s ease 0.15s',
+            }}
+          >
+            {/* Feature image with overlay stat */}
+            <div
+              style={{
+                position: 'relative',
+                marginBottom: 'clamp(1rem,1.5vw,1.5rem)',
+              }}
+            >
+              <div
+                className="img-hover"
+                style={{
+                  overflow: 'hidden',
+                  minHeight: 'clamp(260px,35vw,380px)',
+                  height: '100%',
+                }}
+              >
+                <img
+                  src="/dorm.jpeg"
+                  alt="Girls boarding"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: -24,
+                  left: 'clamp(1rem,2vw,1.5rem)',
+                  background: 'var(--primary)',
+                  padding: 'clamp(1rem,1.5vw,1.4rem) clamp(1.4rem,2vw,1.8rem)',
+                  display: 'flex',
+                  gap: 'clamp(1.5rem,2.5vw,2.5rem)',
+                  boxShadow: '0 8px 32px rgba(33,53,88,0.25)',
+                }}
+              >
+                {[
+                  { num: '24/7', label: 'Pastoral Support' },
+                  { num: '100%', label: 'Safe & Secure' },
+                ].map((s, i) => (
+                  <div key={i} style={{ textAlign: 'center' }}>
+                    <div
+                      className="font-display"
+                      style={{
+                        fontSize: 'clamp(1.4rem,2vw,1.8rem)',
+                        fontWeight: 700,
+                        color: 'var(--secondary)',
+                        lineHeight: 1,
+                      }}
+                    >
+                      {s.num}
+                    </div>
+                    <div
+                      style={{
+                        fontSize: 'clamp(0.55rem,0.7vw,0.6rem)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.12em',
+                        color: 'rgba(255,255,255,0.8)',
+                        fontWeight: 600,
+                        marginTop: 3,
+                      }}
+                    >
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <p className="body-text" style={{ marginBottom: '1.1rem' }}>
+            Granada CBE Junior &amp; Senior Girls&#39; Boarding Secondary School
+            offers secure boarding for both Junior and Senior School girls,
+            providing a safe, structured, and supportive environment that
+            promotes academic focus and personal development.
+          </p>
+          <p className="body-text" style={{ marginBottom: '1.1rem' }}>
+            Our boarding programme is designed to create a home away from home
+            where learners develop independence, responsibility, and strong
+            friendships. Boarders benefit from dedicated pastoral care,
+            supervised study sessions, and a balanced routine that supports both
+            academic and personal growth.
+          </p>
+          <p className="body-text" style={{ marginBottom: '2rem' }}>
+            The boarding experience helps learners grow into confident,
+            disciplined, and responsible young women — fully prepared for the
+            opportunities that lie ahead.
+          </p>
+          <div
+            style={{
+              display: 'flex',
+              gap: '0.75rem',
+              flexWrap: 'wrap',
+              clear: 'both',
+            }}
+          >
+            <a
+              href="/contact?type=admissions"
+              className="btn-solid"
+            >
+              Boarding Enquiry
+            </a>
+            <a href="/granada-school#admissions" className="btn-outline">
+              Learn More
+            </a>
+          </div>
+        </div>
+        {/* Benefits grid */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3,1fr)',
+            gap: 1,
+            background: '#dddbd8',
+            marginTop: 'clamp(3rem,4vw,4.5rem)',
+          }}
+          className="boarding-benefits"
+        >
+          {benefits.map((b, i) => (
+            <div
+              key={i}
+              style={{
+                background: '#fff',
+                padding: 'clamp(1.4rem,2vw,2rem) clamp(1.2rem,1.8vw,1.6rem)',
+                opacity: vis ? 1 : 0,
+                transform: vis ? 'none' : 'translateY(28px)',
+                transition: `all 0.9s ease ${0.4 + i * 0.07}s`,
+                cursor: 'default',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLDivElement).style.background =
+                  'var(--body-bg)';
+                (e.currentTarget as HTMLDivElement).style.transform =
+                  'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLDivElement).style.background = '#fff';
+                (e.currentTarget as HTMLDivElement).style.transform = 'none';
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 'clamp(1.4rem,2vw,1.8rem)',
+                  display: 'block',
+                  marginBottom: 'clamp(0.6rem,1vw,0.9rem)',
+                }}
+              >
+                {b.icon}
+              </span>
+              <h3
+                style={{
+                  fontSize: 'clamp(0.68rem,0.85vw,0.78rem)',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  color: 'var(--primary)',
+                  marginBottom: '0.5rem',
+                }}
+              >
+                {b.title}
+              </h3>
+              <p
+                style={{
+                  color: 'var(--muted)',
+                  fontSize: 'clamp(0.72rem,0.85vw,0.8rem)',
+                  lineHeight: 1.7,
+                }}
+              >
+                {b.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@media(max-width:768px){.boarding-benefits{grid-template-columns:repeat(2,1fr)!important}}@media(max-width:500px){.boarding-benefits{grid-template-columns:1fr!important}}`}</style>
+    </section>
+  );
+}
+
+/* ── ADMISSIONS CTA ─────────────────────────────────────────────────────────── */
+function AdmissionsCTA() {
+  const { ref, vis } = useInView(0.2);
+  return (
+    <section
+      className="section-blue"
+      id="apply"
+      ref={ref}
+      style={{
+        paddingTop: 'clamp(3rem,6vw,5rem)',
+        paddingBottom: 'clamp(3rem,6vw,5rem)',
+        scrollMarginTop: '100px',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: 900,
+          margin: '0 auto',
+          padding: '0 clamp(1rem,2vw,2rem)',
+          textAlign: 'center',
+        }}
+      >
+        <div
+          style={{
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(30px)',
+            transition: 'all 0.9s ease',
+          }}
+        >
+          <p className="label-tag">Begin Your Journey</p>
+          <h2
+            className="section-heading"
+            style={{ fontSize: 'clamp(2rem,4vw,3.2rem)' }}
+          >
+            Ready to Join <em>Granada School?</em>
+          </h2>
+          <div className="divider" style={{ margin: '1.5rem auto' }} />
+          <p
+            className="body-text"
+            style={{
+              maxWidth: 560,
+              margin: '0 auto clamp(2rem,3vw,2.75rem)',
+              fontSize: 'clamp(0.85rem,1.1vw,0.95rem)',
+            }}
+          >
+            Whether you are exploring the CBC pathway or boarding for your
+            daughter — our admissions team is here to guide you through every
+            step.
+          </p>
+          <div
+            style={{
+              display: 'flex',
+              gap: 'clamp(0.6rem,1.2vw,1rem)',
+              justifyContent: 'center',
+              flexWrap: 'wrap',
+            }}
+          >
+            <a
+              href="/admissions/apply"
+              className="btn-green"
+              style={{
+                fontSize: 'clamp(0.65rem,1vw,0.72rem)',
+                padding: 'clamp(0.6rem,1vw,0.8rem) clamp(1.5rem,2.5vw,2.5rem)',
+              }}
+            >
+              Apply Now
+            </a>
+            <a
+              href="/contact?type=visit"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: 'clamp(0.6rem,1vw,0.8rem) clamp(1.5rem,2.5vw,2.5rem)',
+                background: 'transparent',
+                border: '1px solid rgba(255,255,255,0.55)',
+                color: '#fff',
+                textDecoration: 'none',
+                fontSize: 'clamp(0.65rem,1vw,0.72rem)',
+                fontWeight: 600,
+                letterSpacing: '0.12em',
+                textTransform: 'uppercase',
+                transition: 'all 0.3s',
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = 'rgba(255,255,255,0.12)')
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.background = 'transparent')
+              }
+            >
+              Book a Visit
+            </a>
+            <a
+              href="/contact?type=visit"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: 'clamp(0.6rem,1vw,0.8rem) clamp(1.5rem,2.5vw,2.5rem)',
+                background: 'transparent',
+                border: '1px solid rgba(255,255,255,0.35)',
+                color: 'rgba(255,255,255,0.8)',
+                textDecoration: 'none',
+                fontSize: 'clamp(0.65rem,1vw,0.72rem)',
+                fontWeight: 500,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                transition: 'all 0.3s',
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.6)')
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.35)')
+              }
+            >
+              Download Prospectus
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── PAGE ───────────────────────────────────────────────────────────────────── */
+/* ── PAGE ───────────────────────────────────────────────────────────────────────── */
+const SECTION_MAP: Record<string, () => React.ReactNode> = {
+  overview: () => <Overview />,
+  cbc: () => <CBCCurriculum />,
+  sections: () => <SchoolSections />,
+  boarding: () => <GirlsBoarding />,
+  careers: () => <Careers />,
+  apply: () => <AdmissionsCTA />,
+};
+
+export default function GranadaSchoolAcademics() {
+  const params = useParams();
+  const section = (params.section as string) || 'overview';
+  const renderSection = SECTION_MAP[section] || SECTION_MAP['overview'];
+  return (
+    <>
+      <SchoolNavbar
+        scrolledLogo="/g-school.svg"
+        clearLogo="/g-school-dark.svg"
+        logoAlt="Granada School"
+        logoHref="/granada-school"
+        navItems={NAV_ITEMS}
+        quickLinks={[
+          { label: 'Parents', href: '/contact' },
+          { label: 'Enquire', href: '/contact' },
+          { label: 'Contact us', href: '/contact' },
+        ]}
+        enquireHref="/contact"
+        applyHref="/admissions/apply"
+        sideImage="/building.jpeg"
+        sideImageAlt="Granada School"
+      />
+      <main style={{ background: 'var(--body-bg)' }}>
+        <PageHero />
+        <div
+          style={{
+            margin: '0 auto',
+            padding: '0 clamp(1rem,2vw,2rem)',
+            display: 'flex',
+            gap: 'clamp(2rem,3vw,3.5rem)',
+            alignItems: 'flex-start',
+          }}
+          className="section-layout"
+        >
+          <SectionNav />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div
+              key={section}
+              style={{ animation: 'sectionFadeIn 0.45s ease' }}
+            >
+              {renderSection()}
+            </div>
+          </div>
+        </div>
+      </main>
+      <SchoolFooter
+        logoSrc="/g-school-dark.svg"
+        logoAlt="Granada School"
+        logoHref="/granada-school"
+        tagline="CBE Junior & Senior Girls' Boarding Secondary School."
+        schoolName="Granada School"
+        curriculumLinks={[
+          'CBC Kenya',
+          'Early Years',
+          'Primary School',
+          'Junior School',
+          'Senior School',
+        ]}
+        footerColsClass="footer-cols"
+      />
+      <style>{`
+        .font-display{font-family:'Euclid Circular A',sans-serif;}
+        .section-heading{font-family:'Euclid Circular A',sans-serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:600;line-height:1.1;color:#fff;margin-bottom:0;margin-top:0;}
+        .section-heading em{color:var(--accent-light);}
+        .section-light .section-heading,.section-cream .section-heading{color:var(--body-text)!important;}
+        .section-light .section-heading em,.section-cream .section-heading em{color:var(--primary)!important;}
+        .label-tag{font-size:clamp(0.55rem,0.8vw,0.62rem);letter-spacing:0.28em;text-transform:uppercase;color:var(--secondary);font-weight:700;margin-bottom:0.6rem;}
+        .divider{width:clamp(32px,4vw,44px);height:2px;background:var(--secondary);margin:clamp(0.75rem,1vw,1rem) 0 clamp(0.75rem,1.5vw,1.4rem);}
+        .body-text{color:rgba(255,255,255,0.78);font-size:clamp(0.82rem,1.05vw,0.92rem);line-height:1.85;font-weight:350;}
+        .section-light .body-text,.section-cream .body-text{color:var(--body-text)!important;font-weight:350!important;}
+        .section-light{background:#fff;}
+        .section-blue{background:var(--primary);color:#fff;}
+        .section-cream{background:var(--body-bg);}
+        .btn-solid{display:inline-block;padding:clamp(0.5rem,0.8vw,0.65rem) clamp(1.2rem,2vw,1.75rem);background:var(--primary);color:#fff;text-decoration:none;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;transition:all 0.3s;border:1px solid var(--primary);cursor:pointer;font-family:inherit;}
+        .btn-solid:hover{background:var(--primary-dark);border-color:var(--primary-dark);color:#fff;}
+        .section-blue .btn-solid{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.4);}
+        .section-blue .btn-solid:hover{background:rgba(255,255,255,0.25);}
+        .btn-outline{display:inline-block;padding:clamp(0.5rem,0.8vw,0.65rem) clamp(1.2rem,2vw,1.75rem);background:transparent;color:var(--primary);text-decoration:none;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:600;letter-spacing:0.14em;text-transform:uppercase;transition:all 0.3s;border:1px solid var(--primary);cursor:pointer;font-family:inherit;}
+        .btn-outline:hover{background:var(--primary);color:#fff;}
+        .section-blue .btn-outline{color:#fff;border-color:rgba(255,255,255,0.5);}
+        .section-blue .btn-outline:hover{background:rgba(255,255,255,0.15);color:#fff;}
+        .btn-green{display:inline-block;padding:clamp(0.5rem,0.8vw,0.65rem) clamp(1.2rem,2vw,1.75rem);background:var(--secondary);color:var(--primary);text-decoration:none;font-size:clamp(0.6rem,0.9vw,0.72rem);font-weight:700;letter-spacing:0.14em;text-transform:uppercase;transition:all 0.3s;border:1px solid var(--secondary);}
+        .btn-green:hover{background:var(--primary);border-color:var(--primary);color:#fff;}
+        .img-hover img{transition:transform 0.6s ease;}
+        .img-hover:hover img{transform:scale(1.06);}
+        @keyframes kenBurns{from{transform:scale(1) translateX(0);}to{transform:scale(1.07) translateX(-1%);}}
+        @media(max-width:640px){.section-tabs button{min-width:90px!important;}}
+      
+        @keyframes sectionFadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+      `}</style>
+    </>
+  );
+}

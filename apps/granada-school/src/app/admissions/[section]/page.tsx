@@ -1,0 +1,3993 @@
+﻿'use client';
+import Image from 'next/image';
+import { useState, useEffect, useRef } from 'react';
+import { useParams } from 'next/navigation';
+import Link from 'next/link';
+import { ChevronRight, Check, Phone, Mail } from 'lucide-react';
+
+/* ── NAV DATA ──────────────────────────────────────────────────────────────── */
+import { SchoolNavbar } from '@granada/ui';
+import { SchoolFooter } from '@granada/ui';
+
+const NAV_ITEMS = [
+  {
+    label: 'About Us',
+    href: '/about',
+    image: '/building.jpeg',
+    imageCaption: 'A Unique Blend of Discovery + Purpose',
+    children: [
+      { label: "Principal's Welcome", href: '/about/welcome' },
+      { label: 'Vision & Mission', href: '/about/vision' },
+      { label: 'Core Values', href: '/about/values' },
+      { label: 'Our Story', href: '/about/history' },
+      { label: 'Boarding', href: '/about/boarding' },
+      { label: 'Staff & Leadership', href: '/about/staff' },
+    ],
+  },
+  {
+    label: 'Admissions',
+    href: '/admissions',
+    image: '/dorm.jpeg',
+    imageCaption: 'A Unique Blend of Ambition + Opportunity',
+    children: [
+      { label: 'Introduction', href: '/admissions/intro' },
+      {
+        label: 'Why Choose Granada',
+        href: '/admissions/why-choose',
+      },
+      { label: 'Boarding Life', href: '/admissions/boarding' },
+      {
+        label: 'Admissions Process',
+        href: '/admissions/process',
+      },
+      { label: 'Apply', href: '/admissions/apply' },
+      { label: 'Admissions Team', href: '/admissions/team' },
+      { label: 'Fees', href: '/admissions/fees' },
+      { label: 'Term Dates', href: '/admissions/term-dates' },
+      { label: 'Uniform', href: '/admissions/uniform' },
+      {
+        label: 'School Lunches',
+        href: '/admissions/school-lunches',
+      },
+      {
+        label: 'School Transport',
+        href: '/admissions/school-transport',
+      },
+    ],
+  },
+  {
+    label: 'Academic',
+    href: '/academics',
+    image: '/class.jpeg',
+    imageCaption: 'A Unique Blend of Knowledge + Excellence',
+    children: [
+      { label: 'Overview', href: '/academics/overview' },
+      { label: 'CBC Curriculum', href: '/academics/cbc' },
+      { label: 'School Sections', href: '/academics/sections' },
+      { label: "Girls' Boarding", href: '/academics/boarding' },
+      { label: 'Career', href: '/academics/careers' },
+      { label: 'Apply', href: '/academics/apply' },
+    ],
+  },
+  {
+    label: 'Campus Life',
+    href: '/campus-life',
+    image: '/sports.jpeg',
+    imageCaption: 'A Unique Blend of Growth + Community',
+    children: [
+      { label: 'Facilities', href: '/campus-life/facilities' },
+      {
+        label: 'Co-Curricular Activities',
+        href: '/campus-life/cocurricular',
+      },
+    ],
+  },
+  {
+    label: 'Pastoral & Wellbeing',
+    href: '/wellbeing',
+    image: '/sports2.jpeg',
+    imageCaption: 'A Unique Blend of Care + Belonging',
+    children: [
+      {
+        label: 'Wellbeing Approach',
+        href: '/wellbeing/approach',
+      },
+      { label: 'Counselling', href: '/wellbeing/counselling' },
+      {
+        label: 'Character Education',
+        href: '/wellbeing/character',
+      },
+      { label: 'Global Citizenship', href: '/wellbeing/global' },
+    ],
+  },
+  {
+    label: 'Latest News',
+    href: '/news',
+    image: '/building2.jpeg',
+    imageCaption: 'A Unique Blend of Stories + Achievements',
+    children: [
+      { label: 'Featured Story', href: '/news/featured' },
+      { label: 'All News', href: '/news/all-news' },
+      { label: 'Events', href: '/news/events' },
+      { label: 'Newsletters', href: '/news/newsletters' },
+    ],
+  },
+  {
+    label: 'Parents',
+    href: '/contact',
+    image: '/staffroom.jpeg',
+    imageCaption: 'A Unique Blend of Partnership + Trust',
+    children: [
+      { label: 'Parent Portal', href: '/contact' },
+      { label: 'School Calendar', href: '/contact' },
+      { label: 'Term Dates', href: '/admissions/term-dates' },
+    ],
+  },
+  {
+    label: 'Support Us',
+    href: '/contact',
+    image: '/art-room.jpeg',
+    imageCaption: 'A Unique Blend of Giving + Impact',
+    children: [
+      { label: 'Bursaries & Scholarships', href: '/admissions' },
+      { label: 'Donations', href: '/contact' },
+      { label: 'Community Partnerships', href: '/contact' },
+    ],
+  },
+];
+
+function SectionNav() {
+  const params = useParams();
+  const activeSection = params.section as string;
+  const P = '#213558';
+  const S = '#e2c215';
+  return (
+    <aside
+      style={{
+        width: 'clamp(170px,19vw,180px)',
+        flexShrink: 0,
+        position: 'sticky',
+        top: 110,
+        alignSelf: 'flex-start',
+        display: 'none',
+        background: 'var(--body-bg)',
+        padding: '1.5rem 0',
+      }}
+      className="section-sidebar"
+    >
+      <p
+        style={{
+          fontFamily: "'Euclid Circular A',sans-serif",
+          fontSize: 'clamp(0.66rem,0.92vw,0.74rem)',
+          letterSpacing: '0.06em',
+          color: P,
+          fontWeight: 600,
+          marginBottom: '1.1rem',
+        }}
+      >
+        In this section
+      </p>
+      <nav
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 0,
+          borderLeft: '1px solid #e8e6e3',
+        }}
+      >
+        {PAGE_SECTIONS.map((s, i) => (
+          <Link
+            key={i}
+            href={`${BASE_PATH}/${s.id}`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              padding: '0.65rem 0 0.65rem 1rem',
+              color: activeSection === s.id ? P : '#5a5a5a',
+              background: 'none',
+              textDecoration: 'none',
+              borderLeft:
+                activeSection === s.id
+                  ? `2px solid ${P}`
+                  : '2px solid transparent',
+              fontSize: 'clamp(0.72rem,1vw,0.8rem)',
+              fontWeight: activeSection === s.id ? 700 : 400,
+              transition: 'all 0.2s',
+              fontFamily: 'inherit',
+              marginLeft: '-1px',
+            }}
+          >
+            {s.label}
+          </Link>
+        ))}
+      </nav>
+      <div
+        className="sidebar-where-next"
+        style={{
+          marginTop: '2.25rem',
+          border: '1px solid #e8e6e3',
+          padding: '1.4rem',
+          background: '#fff',
+        }}
+      >
+        <p
+          style={{
+            fontSize: 'clamp(0.55rem,0.78vw,0.62rem)',
+            letterSpacing: '0.18em',
+            textTransform: 'uppercase',
+            color: S,
+            fontWeight: 700,
+            marginBottom: '0.9rem',
+          }}
+        >
+          Where Next?
+        </p>
+        {[
+          { label: 'About Granada', href: '/about' },
+          { label: 'Academics', href: '/academics' },
+          { label: 'Campus Life', href: '/campus-life' },
+        ].map((l, i) => (
+          <a
+            key={i}
+            href={l.href}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              color: '#5a5a5a',
+              textDecoration: 'none',
+              fontSize: 'clamp(0.72rem,1vw,0.8rem)',
+              padding: '0.45rem 0',
+              borderBottom: '1px solid #f0eee9',
+              transition: 'color 0.2s',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = P)}
+            onMouseLeave={(e) => (e.currentTarget.style.color = '#5a5a5a')}
+          >
+            <ChevronRight size={12} strokeWidth={1.3} />
+            {l.label}
+          </a>
+        ))}
+      </div>
+      <style>{`.section-sidebar{display:block!important}`}</style>
+    </aside>
+  );
+}
+
+/* ── useInView ─────────────────────────────────────────────────────────────── */
+function useInView(threshold = 0.12) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [vis, setVis] = useState(false);
+  useEffect(() => {
+    const o = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) setVis(true);
+      },
+      { threshold }
+    );
+    if (ref.current) o.observe(ref.current);
+    return () => o.disconnect();
+  }, []);
+  return { ref, vis };
+}
+
+/* ── PAGE HERO ─────────────────────────────────────────────────────────────── */
+/* ── SECTION DATA ──────────────────────────────────────────────────────────────────── */
+const PAGE_SECTIONS = [
+  { label: 'Introduction', id: 'intro' },
+  { label: 'Why Choose Granada', id: 'why-choose' },
+  { label: 'Boarding Life', id: 'boarding' },
+  { label: 'Admissions Process', id: 'process' },
+  { label: 'Apply', id: 'apply' },
+  { label: 'Admissions Team', id: 'team' },
+  { label: 'Fees', id: 'fees' },
+  { label: 'Term Dates', id: 'term-dates' },
+  { label: 'Uniform', id: 'uniform' },
+  { label: 'School Lunches', id: 'school-lunches' },
+  { label: 'School Transport', id: 'school-transport' },
+];
+const BASE_PATH = '/admissions';
+
+function PageHero() {
+  const params = useParams();
+  const activeSection = params.section as string;
+  const sectionLabel =
+    PAGE_SECTIONS.find((s) => s.id === activeSection)?.label || 'Introduction';
+
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => setLoaded(true), []);
+  return (
+    <section
+      style={{
+        position: 'relative',
+        height: '100vh',
+        minHeight: 600,
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background:
+            'linear-gradient(95deg, rgba(13,12,13,0.85) 0%, rgba(13,12,13,0.38) 45%, transparent 100%)',
+          zIndex: 2,
+          pointerEvents: 'none',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url(/building.jpeg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          animation: 'kenBurnsAdm 14s ease-in-out infinite alternate',
+        }}
+      />
+      {/* Animated geometric decoration */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '18%',
+          right: '6%',
+          width: 'clamp(100px,16vw,200px)',
+          height: 'clamp(100px,16vw,200px)',
+          border: '1px solid rgba(170,194,12,0.3)',
+          animation: 'spinAdm 28s linear infinite',
+          opacity: 0.7,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          top: '21%',
+          right: '9%',
+          width: 'clamp(60px,10vw,130px)',
+          height: 'clamp(60px,10vw,130px)',
+          border: '1px solid rgba(170,194,12,0.18)',
+          animation: 'spinAdm 18s linear infinite reverse',
+          opacity: 0.5,
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '15%',
+          left: '4%',
+          width: 'clamp(60px,8vw,100px)',
+          height: 'clamp(60px,8vw,100px)',
+          border: '1px solid rgba(255,255,255,0.12)',
+          animation: 'spinAdm 22s linear infinite',
+          opacity: 0.4,
+        }}
+      />
+
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 5,
+          height: '100%',
+          margin: '0 auto',
+          padding: '0 clamp(1rem,2vw,2rem)',
+          paddingTop: 'clamp(140px,16vw,165px)',
+          display: 'flex',
+          flexDirection: 'column',
+          paddingBottom: 'clamp(2rem,4vw,8rem)',
+        }}
+        className="hero-inner"
+      >
+        <div style={{ flex: 1 }} />
+
+        <div
+          style={{ display: 'flex', justifyContent: 'flex-end' }}
+          className="hero-content"
+        >
+          <div style={{ maxWidth: 'clamp(260px,45vw,520px)' }}>
+            <h1
+              className="font-display"
+              style={{
+                fontSize: 'clamp(1.375rem, 1.3rem + 0.375vw, 1.75rem)',
+                fontWeight: 600,
+                lineHeight: 1.3,
+                letterSpacing: '0.06em',
+                textTransform: 'uppercase',
+                color: '#fff',
+                textShadow: '0 2px 14px rgba(0,0,0,0.8)',
+                marginBottom: '0.1rem',
+                opacity: loaded ? 1 : 0,
+                transform: loaded ? 'translateY(0)' : 'translateY(22px)',
+                transition: 'all 0.8s ease 0.4s',
+              }}
+            >
+              <span style={{ color: '#e2c215' }}>A Unique</span>
+              <br />
+              <span style={{ color: '#e2c215' }}>Blend</span>
+              <br />
+              <span style={{ color: '#e2c215' }}>of </span>Ambition
+              <br />
+              <span style={{ color: '#e2c215' }}>+ </span>Opportunity
+            </h1>
+          </div>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes kenBurnsAdm{0%{transform:scale(1)}100%{transform:scale(1.07)}}
+        @keyframes spinAdm{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+      `}</style>
+    </section>
+  );
+}
+
+/* ── TAGLINE STRIP ─────────────────────────────────────────────────────────── */
+function TaglineStrip() {
+  const tags = [
+    'Academic Excellence · CBE Framework',
+    'Safe Boarding Environment',
+    'Holistic Character Formation',
+    'Every Learner Thrives',
+  ];
+  return (
+    <div
+      style={{
+        background: 'var(--primary)',
+        padding: 'clamp(0.75rem,1.4vw,1.1rem) clamp(1rem,2vw,2rem)',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          margin: '0 auto',
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 'clamp(1.2rem,2.5vw,3rem)',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+        }}
+      >
+        {tags.map((t, i) => (
+          <span
+            key={i}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 'clamp(0.5rem,0.9vw,0.9rem)',
+            }}
+          >
+            <span
+              className="font-display"
+              style={{
+                fontSize: 'clamp(0.78rem,1.3vw,0.95rem)',
+                fontWeight: 400,
+                color: '#fff',
+                letterSpacing: '0.02em',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {t}
+            </span>
+            {i < tags.length - 1 && (
+              <span
+                style={{
+                  width: 4,
+                  height: 4,
+                  borderRadius: '50%',
+                  background: 'var(--secondary)',
+                  flexShrink: 0,
+                }}
+              />
+            )}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ── INTRO SECTION ─────────────────────────────────────────────────────────── */
+function Intro() {
+  const { ref, vis } = useInView(0.08);
+  return (
+    <section
+      id="intro"
+      className="section-cream"
+      ref={ref}
+      style={{ padding: 'clamp(2rem,4vw,3.5rem)', scrollMarginTop: '100px' }}
+    >
+      <div>
+        <div
+          className="section-header-block"
+          style={{
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateX(-30px)',
+            transition: 'all 0.9s ease',
+            marginBottom: 'clamp(1.5rem,3vw,2.5rem)',
+          }}
+        >
+          <p className="label-tag">About Our Admissions</p>
+          <h2 className="section-heading">
+            Nurturing <em>Confident, Disciplined</em>
+            <br />& High-Achieving Learners
+          </h2>
+          <div className="divider" />
+        </div>
+        <div>
+          <div
+            className="section-float-img"
+            style={{
+              float: 'right',
+              margin: '0 0 1.2rem 1.5rem',
+              width: 'clamp(280px,38vw,420px)',
+              opacity: vis ? 1 : 0,
+              transform: vis ? 'none' : 'translateY(28px)',
+              transition: 'all 0.9s ease 0.15s',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'clamp(0.8rem,1.5vw,1.2rem)',
+            }}
+          >
+            <div
+              className="img-hover"
+              style={{
+                overflow: 'hidden',
+                minHeight: 'clamp(240px,32vw,360px)',
+                height: '100%',
+                position: 'relative',
+              }}
+            >
+              <img
+                src="/dorm.jpeg"
+                alt="Students at Granada"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background:
+                    'linear-gradient(to top,rgba(33,53,88,0.45),transparent 65%)',
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '1.2rem',
+                  left: '1.4rem',
+                  right: '1.4rem',
+                  zIndex: 2,
+                }}
+              >
+                <p
+                  className="font-display"
+                  style={{
+                    color: '#fff',
+                    fontSize: 'clamp(0.95rem,1.6vw,1.25rem)',
+                    fontWeight: 400,
+                    textShadow: '0 1px 4px rgba(0,0,0,0.4)',
+                  }}
+                >
+                  Every learner deserves a space to shine.
+                </p>
+              </div>
+            </div>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3,1fr)',
+                gap: 'clamp(0.5rem,1vw,0.8rem)',
+              }}
+            >
+              {[
+                {
+                  num: 'CBE',
+                  label: 'Curriculum Framework',
+                  color: 'var(--primary)',
+                },
+                {
+                  num: '100%',
+                  label: "Girls' Boarding School",
+                  color: '#936c51',
+                },
+                {
+                  num: '360°',
+                  label: 'Holistic Development',
+                  color: '#4a6428',
+                },
+              ].map((s, i) => (
+                <div
+                  key={i}
+                  style={{
+                    border: `1px solid ${s.color}22`,
+                    padding: 'clamp(0.8rem,1.4vw,1.2rem)',
+                    textAlign: 'center',
+                    transition: 'all 0.35s',
+                    cursor: 'default',
+                    background: '#fff',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = s.color;
+                    e.currentTarget.style.background = `${s.color}08`;
+                    e.currentTarget.style.transform = 'translateY(-3px)';
+                    e.currentTarget.style.boxShadow = `0 6px 24px ${s.color}18`;
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = `${s.color}22`;
+                    e.currentTarget.style.background = '#fff';
+                    e.currentTarget.style.transform = 'none';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                >
+                  <p
+                    className="font-display"
+                    style={{
+                      fontSize: 'clamp(0.9rem,1vw,1.85rem)',
+                      fontWeight: 700,
+                      color: s.color,
+                      lineHeight: 1,
+                    }}
+                  >
+                    {s.num}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 'clamp(0.32rem,0.55vw,0.62rem)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.1em',
+                      color: 'var(--muted)',
+                      marginTop: '0.3rem',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {s.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div
+            style={{
+              opacity: vis ? 1 : 0,
+              transform: vis ? 'none' : 'translateX(-30px)',
+              transition: 'all 0.9s ease',
+            }}
+          >
+            <p className="body-text" style={{ marginBottom: '1.2rem' }}>
+              At Granada CBE Junior &amp; Senior Girls' Boarding Secondary
+              School, we are dedicated to nurturing confident, disciplined, and
+              high-achieving young women under the Competency-Based Education
+              (CBE) framework.
+            </p>
+            <p className="body-text" style={{ marginBottom: '1.2rem' }}>
+              Our boarding environment provides a safe, structured, and
+              supportive space where learners grow academically, socially,
+              emotionally, and spiritually — a community grounded in sisterhood,
+              shared values, and mutual accountability.
+            </p>
+            <p
+              className="body-text"
+              style={{ marginBottom: 'clamp(1.5rem,2.5vw,2.2rem)' }}
+            >
+              We welcome applications from students who are ready to embrace
+              excellence, leadership, and personal growth. Joining Granada means
+              joining a family passionately committed to seeing every learner
+              rise to her highest potential.
+            </p>
+            <div
+              style={{
+                display: 'flex',
+                gap: '0.75rem',
+                flexWrap: 'wrap',
+                clear: 'both',
+              }}
+            >
+              <a href="#apply" className="btn-solid">
+                How to Apply
+              </a>
+              <a
+                href="/contact?type=admissions"
+                className="btn-outline"
+              >
+                Contact Admissions
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── WHY CHOOSE ────────────────────────────────────────────────────────────── */
+function WhyChoose() {
+  const { ref, vis } = useInView(0.06);
+  const reasons = [
+    {
+      num: '01',
+      title: 'Competency-Based Excellence',
+      body: 'We implement the CBE curriculum with a strong focus on mastery of skills, critical thinking, creativity, and real-world application — preparing learners for a dynamic future.',
+      img: '/class.jpeg',
+      color: '#213558',
+    },
+    {
+      num: '02',
+      title: "A Safe Girls' Environment",
+      body: 'Our school provides a secure and nurturing space where girls can focus, build confidence, and thrive without distractions. Free from the pressures of a mixed environment, every learner is seen, supported, and empowered to shine.',
+      img: '/dorm2.jpeg',
+      color: '#c0180b',
+    },
+    {
+      num: '03',
+      title: 'Strong Academic Performance',
+      body: 'We are committed to high academic standards, personalised attention, and consistent mentorship to help every learner achieve her full potential — no learner is left behind.',
+      img: '/building.jpeg',
+      color: '#ebae1b',
+    },
+    {
+      num: '04',
+      title: 'Leadership & Character Formation',
+      body: 'We intentionally nurture leadership skills, integrity, discipline, and responsibility in every student — forming confident, morally grounded young women who are ready to lead.',
+      img: '/building.jpeg',
+      color: '#4a6428',
+    },
+    {
+      num: '05',
+      title: 'Modern Facilities & Structured Boarding Life',
+      body: 'Our boarding facilities are designed to promote comfort, order, and a strong culture of academic focus. Structured prep sessions, nutritious meals, and trained matrons ensure every learner thrives.',
+      img: '/dorm.jpeg',
+      color: '#84b7c8',
+    },
+    {
+      num: '06',
+      title: 'Holistic Development',
+      body: 'Beyond academics, we offer co-curricular activities, mentorship programs, talent development, counselling services, and life-skills training.',
+      img: '/sports.jpeg',
+      color: '#483454',
+    },
+  ];
+  return (
+    <section
+      className="section-cream"
+      id="why-choose"
+      ref={ref}
+      style={{ padding: 'clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)' }}
+    >
+      <div style={{ width: '100%' }}>
+        <div
+          className="section-header-block"
+          style={{
+            textAlign: 'center',
+            marginBottom: 'clamp(2rem,4vw,3.5rem)',
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(22px)',
+            transition: 'all 0.8s ease',
+          }}
+        >
+          <p className="label-tag">Why Granada</p>
+          <h2 className="section-heading">
+            Six Reasons to <em>Choose Granada</em>
+          </h2>
+          <div className="divider" style={{ margin: '1.25rem auto' }} />
+          <p className="body-text">
+            Everything we do is intentionally designed to nurture every
+            learner's full potential — academically, socially, and spiritually.
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr',
+            gap: 'clamp(1rem,1.8vw,1.5rem)',
+          }}
+          className="why-grid"
+        >
+          {reasons.map((r, i) => (
+            <div
+              key={i}
+              style={{
+                position: 'relative',
+                overflow: 'hidden',
+                background: '#fff',
+                border: '1px solid rgba(0,0,0,0.06)',
+                opacity: vis ? 1 : 0,
+                transform: vis ? 'none' : `translateY(${28 + i * 6}px)`,
+                transition: `all 0.8s ease ${i * 0.1}s`,
+                cursor: 'default',
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget;
+                el.style.boxShadow = `0 12px 50px ${r.color}20`;
+                el.style.borderColor = `${r.color}40`;
+                el.style.transform = 'translateY(-5px)';
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget;
+                el.style.boxShadow = 'none';
+                el.style.borderColor = 'rgba(0,0,0,0.06)';
+                el.style.transform = 'none';
+              }}
+            >
+              <div
+                className="img-hover"
+                style={{
+                  height: 'clamp(150px,18vw,195px)',
+                  overflow: 'hidden',
+                  position: 'relative',
+                }}
+              >
+                <img
+                  src={r.img}
+                  alt={r.title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: `linear-gradient(to top,${r.color}78 0%,transparent 55%)`,
+                  }}
+                />
+              </div>
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '3px',
+                  background: r.color,
+                }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  top: 'clamp(130px,16.2vw,175px)',
+                  left: 'clamp(1rem,1.8vw,1.4rem)',
+                  width: 'clamp(30px,3.5vw,38px)',
+                  height: 'clamp(30px,3.5vw,38px)',
+                  background: r.color,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transform: 'translateY(-50%)',
+                  boxShadow: `0 3px 12px ${r.color}50`,
+                }}
+              >
+                <span
+                  style={{
+                    color: '#fff',
+                    fontSize: 'clamp(0.52rem,0.75vw,0.62rem)',
+                    fontWeight: 700,
+                    letterSpacing: '0.06em',
+                  }}
+                >
+                  {r.num}
+                </span>
+              </div>
+              <div
+                style={{
+                  padding: 'clamp(1rem,1.8vw,1.6rem)',
+                  paddingTop: 'clamp(0.6rem,0.9vw,0.75rem)',
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: 'clamp(0.84rem,1.2vw,0.98rem)',
+                    fontWeight: 700,
+                    color: 'var(--body-text)',
+                    marginBottom: '0.55rem',
+                    marginTop: 'clamp(0.7rem,0.9vw,0.9rem)',
+                  }}
+                >
+                  {r.title}
+                </h3>
+                <p
+                  className="body-text"
+                  style={{
+                    fontSize: 'clamp(0.76rem,0.95vw,0.84rem)',
+                    marginBottom: 0,
+                  }}
+                >
+                  {r.body}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`@media(min-width:580px){.why-grid{grid-template-columns:1fr 1fr!important}}@media(min-width:1024px){.why-grid{grid-template-columns:repeat(3,1fr)!important}}`}</style>
+    </section>
+  );
+}
+
+/* ── BOARDING LIFE ─────────────────────────────────────────────────────────── */
+function BoardingLife() {
+  const { ref, vis } = useInView(0.06);
+  const features = [
+    'Secure and supervised dormitories',
+    'Trained boarding matrons and pastoral care support',
+    'Structured study time (prep sessions)',
+    'Nutritious and balanced meals',
+    'Guidance and counselling services',
+    'A strong sense of community and belonging',
+  ];
+  return (
+    <section
+      className="section-blue"
+      id="boarding"
+      ref={ref}
+      style={{ padding: 'clamp(2rem,4vw,3.5rem) 0', scrollMarginTop: '100px' }}
+    >
+      <div
+        style={{
+          margin: '0 auto',
+          padding: '0 clamp(1rem,2vw,2rem)',
+        }}
+      >
+        <div
+          className="section-header-block"
+          style={{
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(20px)',
+            transition: 'all 0.8s ease',
+          }}
+        >
+          <p className="label-tag">Boarding Programme</p>
+          <h2 className="section-heading">
+            More Than <em>Accommodation</em> —<br />A Structured Life
+          </h2>
+          <div className="divider" />
+        </div>
+
+        <div style={{ opacity: vis ? 1 : 0, transition: 'all 0.9s ease' }}>
+          <div
+            className="section-float-img"
+            style={{
+              float: 'right',
+              margin: '0 0 1.2rem 1.5rem',
+              width: 'clamp(260px,38vw,420px)',
+              opacity: vis ? 1 : 0,
+              transform: vis ? 'none' : 'translateY(20px)',
+              transition: 'all 0.9s ease 0.2s',
+            }}
+          >
+            <div
+              className="img-hover"
+              style={{ overflow: 'hidden', height: 'clamp(260px,34vw,360px)' }}
+            >
+              <img
+                src="/dorm.jpeg"
+                alt=""
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  background:
+                    'linear-gradient(to top,rgba(33,53,88,0.45),transparent 65%)',
+                }}
+              />
+            </div>
+          </div>
+
+          <p className="body-text" style={{ marginBottom: '1.2rem' }}>
+            Boarding at Granada is more than accommodation — it is a structured
+            lifestyle that promotes discipline, independence, and sisterhood.
+            Our programme is designed to give students the support and
+            environment they need to focus, grow, and thrive.
+          </p>
+          <p className="body-text" style={{ marginBottom: '1.5rem' }}>
+            We create a home-away-from-home environment where students feel
+            safe, supported, and motivated to excel. Every aspect of boarding
+            life is intentionally structured to reinforce our academic and
+            values mission.
+          </p>
+          <div style={{ marginBottom: 'clamp(1.2rem,2vw,1.8rem)' }}>
+            {features.map((f, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: '0.9rem',
+                  padding: 'clamp(0.5rem,0.7vw,0.65rem) 0',
+                  borderBottom: '1px solid rgba(255,255,255,0.1)',
+                  opacity: vis ? 1 : 0,
+                  transform: vis ? 'none' : 'translateX(-18px)',
+                  transition: `all 0.7s ease ${0.2 + i * 0.08}s`,
+                }}
+              >
+                <div
+                  style={{
+                    width: 'clamp(20px,2.8vw,24px)',
+                    height: 'clamp(20px,2.8vw,24px)',
+                    background: 'rgba(170,194,12,0.18)',
+                    border: '1px solid var(--secondary)',
+                    flexShrink: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    marginTop: '1px',
+                  }}
+                >
+                  <Check size={8} color="#e2c215" strokeWidth={1.5} />
+                </div>
+                <p
+                  style={{
+                    color: 'rgba(255,255,255,0.88)',
+                    fontSize: 'clamp(0.78rem,1vw,0.88rem)',
+                    lineHeight: 1.65,
+                    fontWeight: 300,
+                  }}
+                >
+                  {f}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div
+            style={{
+              display: 'flex',
+              gap: '0.75rem',
+              flexWrap: 'wrap',
+              clear: 'both',
+            }}
+          >
+            <a
+              href="/contact?type=admissions"
+              className="btn-solid"
+            >
+              Apply for Boarding
+            </a>
+            <a
+              href="/contact?type=admissions"
+              className="btn-outline"
+            >
+              Enquire Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── ADMISSIONS PROCESS ────────────────────────────────────────────────────── */
+function AdmissionsProcess() {
+  const { ref, vis } = useInView(0.05);
+  const [tab, setTab] = useState<'new' | 'transfer'>('new');
+  const newSteps = [
+    {
+      n: '01',
+      title: 'Inquiry & Campus Visit',
+      body: 'Parents/guardians contact the school for detailed information and may schedule a campus visit to understand our academic and boarding programmes first-hand.',
+      icon: '🏫',
+      link: '/contact',
+      linkText: 'Enquire Now',
+    },
+    {
+      n: '02',
+      title: 'Application Submission',
+      body: 'Submit the completed admission form with: copy of birth certificate, parent/guardian ID copy, recent passport-size photos, and latest academic reports (Grade 6 or Grade 9 results where applicable).',
+      icon: '📋',
+      link: '/admissions/apply',
+      linkText: 'Start Application',
+    },
+    {
+      n: '03',
+      title: 'Entrance Assessment / Interview',
+      body: 'Applicants may sit for an academic assessment or attend an interview to determine placement and subject pathway selection within the CBE framework.',
+      icon: '✏️',
+    },
+    {
+      n: '04',
+      title: 'Admission Approval',
+      body: 'Successful applicants receive an official admission letter, fee structure, and reporting instructions from our admissions office.',
+      icon: '✅',
+    },
+    {
+      n: '05',
+      title: 'Fee Payment & Enrollment',
+      body: 'Admission is confirmed upon payment of the required fees. The student is then issued boarding requirements, reporting details, and uniform guidelines.',
+      icon: '🎒',
+    },
+  ];
+  const transferSteps = [
+    {
+      n: '01',
+      title: 'Initial Consultation',
+      body: 'Parent/guardian contacts the Admissions Office to confirm availability of space in the desired grade level and discuss the transition process.',
+      icon: '💬',
+      link: '/contact',
+      linkText: 'Contact Admissions',
+    },
+    {
+      n: '02',
+      title: 'Application & Documents',
+      body: 'Submit: completed admission form, birth certificate copy, transfer letter from previous school, latest academic reports, parent/guardian ID, and passport-size photos.',
+      icon: '📋',
+      link: '/admissions/apply',
+      linkText: 'Start Application',
+    },
+    {
+      n: '03',
+      title: 'Academic Review & Assessment',
+      body: 'The school reviews academic records and may conduct an assessment to ensure smooth integration into the CBE curriculum framework.',
+      icon: '📊',
+    },
+    {
+      n: '04',
+      title: 'Admission Decision',
+      body: 'If successful, an official admission letter and fee structure are issued to the family within the agreed timeline.',
+      icon: '✅',
+    },
+    {
+      n: '05',
+      title: 'Fee Payment & Reporting',
+      body: 'Upon payment, admission is confirmed and the student receives reporting dates, uniform guidelines, and boarding requirements.',
+      icon: '🎒',
+    },
+  ];
+  const steps = tab === 'new' ? newSteps : transferSteps;
+  const P = '#213558';
+  const S = '#e2c215';
+  return (
+    <section
+      className="section-cream"
+      id="process"
+      ref={ref}
+      style={{
+        padding: 'clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)',
+        scrollMarginTop: '100px',
+      }}
+    >
+      <div style={{ width: '100%' }}>
+        <div
+          className="section-header-block"
+          style={{
+            textAlign: 'center',
+            marginBottom: 'clamp(2rem,3.5vw,3.5rem)',
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(22px)',
+            transition: 'all 0.8s ease',
+          }}
+        >
+          <p className="label-tag">Admission Process</p>
+          <h2 className="section-heading">
+            Your Journey <em>Starts Here</em>
+          </h2>
+          <div className="divider" style={{ margin: '1.25rem auto' }} />
+          <p className="body-text">
+            A clear, straightforward process guiding your learner from first
+            enquiry all the way to their first day at Granada.
+          </p>
+          <div
+            style={{
+              display: 'inline-flex',
+              border: `1px solid ${P}28`,
+              overflow: 'hidden',
+              boxShadow: `0 2px 16px ${P}12`,
+            }}
+          >
+            {(['new', 'transfer'] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => setTab(t)}
+                style={{
+                  padding:
+                    'clamp(0.55rem,0.9vw,0.7rem) clamp(1.3rem,2.2vw,2.2rem)',
+                  background: tab === t ? P : 'transparent',
+                  color: tab === t ? '#fff' : P,
+                  border: 'none',
+                  cursor: 'pointer',
+                  fontSize: 'clamp(0.6rem,0.88vw,0.7rem)',
+                  fontWeight: 700,
+                  letterSpacing: '0.1em',
+                  textTransform: 'uppercase',
+                  transition: 'all 0.35s',
+                  fontFamily: 'inherit',
+                }}
+              >
+                {t === 'new' ? 'New Students' : 'Transfer Students'}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div style={{ position: 'relative', maxWidth: 820, margin: '0 auto' }}>
+          <div
+            style={{
+              position: 'absolute',
+              left: 'clamp(14px,3vw,19px)',
+              top: 'clamp(16px,2.5vw,20px)',
+              bottom: 'clamp(16px,2.5vw,20px)',
+              width: 2,
+              background: `linear-gradient(to bottom,${P},${S},${P})`,
+              opacity: 0.2,
+            }}
+          />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+            {steps.map((s, i) => (
+              <div
+                key={`${tab}-${i}`}
+                style={{
+                  display: 'flex',
+                  gap: 'clamp(1rem,2.5vw,2rem)',
+                  alignItems: 'flex-start',
+                  padding:
+                    'clamp(1rem,1.8vw,1.5rem) 0 clamp(1rem,1.8vw,1.5rem) clamp(0.5rem,1vw,0.75rem)',
+                  opacity: vis ? 1 : 0,
+                  transform: vis ? 'none' : 'translateX(-26px)',
+                  transition: `all 0.8s ease ${i * 0.12}s`,
+                  borderBottom:
+                    i < steps.length - 1 ? '1px solid #f0eee9' : 'none',
+                }}
+              >
+                <div
+                  style={{
+                    width: 'clamp(32px,4.2vw,44px)',
+                    height: 'clamp(32px,4.2vw,44px)',
+                    borderRadius: '50%',
+                    background: i % 2 === 0 ? P : S,
+                    color: i % 2 === 0 ? '#fff' : P,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    fontSize: 'clamp(0.55rem,0.78vw,0.65rem)',
+                    fontWeight: 700,
+                    letterSpacing: '0.06em',
+                    boxShadow: `0 3px 15px ${i % 2 === 0 ? P : S}42`,
+                    zIndex: 1,
+                    transition: 'transform 0.3s',
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.transform = 'scale(1.12)')
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.transform = 'scale(1)')
+                  }
+                >
+                  {s.n}
+                </div>
+                <div
+                  style={{ flex: 1, paddingTop: 'clamp(0.3rem,0.7vw,0.5rem)' }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      marginBottom: '0.4rem',
+                    }}
+                  >
+                    <span style={{ fontSize: 'clamp(0.9rem,1.2vw,1.1rem)' }}>
+                      {s.icon}
+                    </span>
+                    <h3
+                      style={{
+                        fontSize: 'clamp(0.84rem,1.15vw,0.98rem)',
+                        fontWeight: 700,
+                        color: 'var(--body-text)',
+                      }}
+                    >
+                      {s.title}
+                    </h3>
+                  </div>
+                  <p
+                    className="body-text"
+                    style={{
+                      fontSize: 'clamp(0.76rem,0.95vw,0.85rem)',
+                      marginBottom: s.link ? '0.6rem' : 0,
+                    }}
+                  >
+                    {s.body}
+                  </p>
+                  {s.link && (
+                    <a
+                      href={s.link}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.25rem',
+                        color: 'var(--primary)',
+                        textDecoration: 'underline',
+                        textUnderlineOffset: '3px',
+                        fontSize: 'clamp(0.72rem,0.9vw,0.8rem)',
+                        fontWeight: 600,
+                      }}
+                    >
+                      {s.linkText} →
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div
+          style={{
+            textAlign: 'center',
+            marginTop: 'clamp(2rem,3vw,3.5rem)',
+            opacity: vis ? 1 : 0,
+            transition: 'opacity 1s ease 0.9s',
+          }}
+        >
+          <a
+            href="#team"
+            className="btn-solid"
+            style={{ marginRight: '0.75rem' }}
+          >
+            Talk to Our Team
+          </a>
+          <a href="/granada-school" className="btn-outline">
+            School Home
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── APPLY ─────────────────────────────────────────────────────────────────── */
+function Apply() {
+  const { ref, vis } = useInView(0.06);
+  const [form, setForm] = useState({
+    child: '',
+    dob: '',
+    grade: '',
+    parent: '',
+    email: '',
+    phone: '',
+    current: '',
+    message: '',
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const docs = [
+    {
+      icon: '📄',
+      label: 'Birth Certificate',
+      desc: "Certified copy of the learner's birth certificate",
+    },
+    {
+      icon: '📸',
+      label: 'Passport Photographs',
+      desc: 'Two recent passport-size photographs of the learner',
+    },
+    {
+      icon: '📋',
+      label: 'Previous School Reports',
+      desc: 'Most recent end-of-term or end-of-year academic reports',
+    },
+    {
+      icon: '🆔',
+      label: 'Parent / Guardian ID',
+      desc: 'Copy of parent or guardian national ID or passport',
+    },
+    {
+      icon: '📝',
+      label: 'Transfer Letter',
+      desc: 'Official transfer or release letter from the previous school',
+    },
+    {
+      icon: '💉',
+      label: 'Immunisation Records',
+      desc: 'Up-to-date immunisation card or certificate',
+    },
+  ];
+  const steps = [
+    {
+      num: '01',
+      title: 'Register Interest',
+      desc: 'Complete the application form below or contact our Admissions Team to express your interest in joining Granada.',
+      color: 'var(--primary)',
+    },
+    {
+      num: '02',
+      title: 'Submit Documents',
+      desc: 'Provide all required supporting documents including academic records, birth certificate, and parent identification.',
+      color: '#936c51',
+    },
+    {
+      num: '03',
+      title: 'Assessment & Interview',
+      desc: 'The learner will be invited for an assessment and a brief interview to understand her strengths, interests, and readiness.',
+      color: 'var(--secondary)',
+    },
+    {
+      num: '04',
+      title: 'Offer & Enrolment',
+      desc: 'Successful applicants will receive a formal offer letter. Once accepted, the enrolment process is completed with the Admissions Office.',
+      color: '#4a6428',
+    },
+  ];
+  return (
+    <section id="apply" ref={ref} style={{ scrollMarginTop: '100px' }}>
+      {/* Intro */}
+      <div
+        className="section-cream"
+        style={{ padding: 'clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)' }}
+      >
+        <div style={{ width: '100%' }}>
+          <div
+            className="section-header-block"
+            style={{
+              opacity: vis ? 1 : 0,
+              transform: vis ? 'none' : 'translateY(22px)',
+              transition: 'all 0.8s ease',
+              marginBottom: 'clamp(1.2rem,2vw,1.8rem)',
+            }}
+          >
+            <p className="label-tag">Apply to Granada</p>
+            <h2 className="section-heading">
+              Begin Your <em>Application</em>
+            </h2>
+            <div className="divider" />
+          </div>
+          <div
+            style={{
+              opacity: vis ? 1 : 0,
+              transform: vis ? 'none' : 'translateY(22px)',
+              transition: 'all 0.8s ease 0.1s',
+            }}
+          >
+            <p className="body-text" style={{ marginBottom: '1.2rem' }}>
+              Applications to Granada CBE Junior &amp; Senior Girls' Boarding
+              Secondary School are welcomed throughout the year, subject to
+              assessment and availability of places.
+            </p>
+            <p className="body-text" style={{ marginBottom: '1.2rem' }}>
+              Choosing the right school is an important decision, and we
+              strongly encourage families to{' '}
+              <a
+                href="/admissions/team"
+                style={{ color: 'var(--primary)', fontWeight: 600 }}
+              >
+                arrange a visit
+              </a>{' '}
+              to experience our campus, meet our community, and understand our
+              CBE approach before applying.
+            </p>
+            <p className="body-text">
+              Applications for the current or upcoming academic year may be
+              submitted at any time. Mid-year enrolment may be possible
+              depending on availability.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Steps */}
+      <div
+        className="section-blue"
+        style={{ padding: 'clamp(2.5rem,5vw,4.5rem) clamp(1rem,2vw,2rem)' }}
+      >
+        <div style={{ width: '100%' }}>
+          <div
+            className="section-header-block"
+            style={{ marginBottom: 'clamp(1.5rem,2.5vw,2.5rem)' }}
+          >
+            <p
+              style={{
+                color: 'var(--secondary)',
+                fontSize: 'clamp(0.55rem,0.8vw,0.62rem)',
+                letterSpacing: '0.25em',
+                textTransform: 'uppercase',
+                fontWeight: 700,
+              }}
+            >
+              How It Works
+            </p>
+          </div>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr',
+              gap: 'clamp(1rem,2vw,1.5rem)',
+            }}
+            className="apply-steps-grid"
+          >
+            {steps.map((s, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  gap: 'clamp(1rem,1.8vw,1.5rem)',
+                  alignItems: 'flex-start',
+                  opacity: vis ? 1 : 0,
+                  transform: vis ? 'none' : `translateY(${20 + i * 8}px)`,
+                  transition: `all 0.8s ease ${0.1 + i * 0.12}s`,
+                }}
+              >
+                <div
+                  style={{
+                    width: 'clamp(38px,5vw,48px)',
+                    height: 'clamp(38px,5vw,48px)',
+                    background: s.color,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                  }}
+                >
+                  <span
+                    style={{
+                      color: '#fff',
+                      fontSize: 'clamp(0.62rem,0.85vw,0.72rem)',
+                      fontWeight: 700,
+                      letterSpacing: '0.06em',
+                    }}
+                  >
+                    {s.num}
+                  </span>
+                </div>
+                <div>
+                  <h3
+                    style={{
+                      fontSize: 'clamp(0.9rem,1.3vw,1.05rem)',
+                      fontWeight: 700,
+                      color: '#fff',
+                      marginBottom: '0.35rem',
+                    }}
+                  >
+                    {s.title}
+                  </h3>
+                  <p
+                    style={{
+                      color: 'rgba(255,255,255,0.75)',
+                      fontSize: 'clamp(0.78rem,0.95vw,0.86rem)',
+                      lineHeight: 1.7,
+                    }}
+                  >
+                    {s.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Required Documents */}
+      <div
+        className="section-cream"
+        style={{ padding: 'clamp(3rem,6vw,5rem) clamp(1rem,2vw,2rem)' }}
+      >
+        <div style={{ width: '100%' }}>
+          <div
+            style={{
+              marginBottom: 'clamp(1.5rem,3vw,2.5rem)',
+              opacity: vis ? 1 : 0,
+              transform: vis ? 'none' : 'translateY(18px)',
+              transition: 'all 0.8s ease 0.1s',
+            }}
+          >
+            <p className="label-tag">Required Documents</p>
+            <h2 className="section-heading">
+              Supporting <em>Documentation</em>
+            </h2>
+            <div className="divider" />
+            <p className="body-text">
+              Please ensure all required documents are submitted before an
+              assessment can be arranged. Families applying from overseas may
+              email completed applications and documentation to{' '}
+              <a
+                href="mailto:admissions@granadaschools.group"
+                style={{ color: 'var(--primary)', fontWeight: 600 }}
+              >
+                admissions@granadaschools.group
+              </a>
+              .
+            </p>
+          </div>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr',
+              gap: 'clamp(0.6rem,1vw,0.8rem)',
+            }}
+            className="docs-grid"
+          >
+            {docs.map((d, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 'clamp(0.8rem,1.5vw,1.2rem)',
+                  padding: 'clamp(0.9rem,1.5vw,1.2rem)',
+                  background: '#fff',
+                  border: '1px solid rgba(0,0,0,0.06)',
+                  opacity: vis ? 1 : 0,
+                  transform: vis ? 'none' : 'translateX(-16px)',
+                  transition: `all 0.7s ease ${0.15 + i * 0.08}s`,
+                  cursor: 'default',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.borderColor = 'var(--primary)';
+                  e.currentTarget.style.boxShadow =
+                    '0 4px 20px rgba(33,53,88,0.08)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.borderColor = 'rgba(0,0,0,0.06)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 'clamp(1.2rem,1.8vw,1.5rem)',
+                    flexShrink: 0,
+                  }}
+                >
+                  {d.icon}
+                </span>
+                <div>
+                  <p
+                    style={{
+                      fontSize: 'clamp(0.82rem,1vw,0.9rem)',
+                      fontWeight: 700,
+                      color: 'var(--body-text)',
+                      marginBottom: '0.15rem',
+                    }}
+                  >
+                    {d.label}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 'clamp(0.72rem,0.88vw,0.8rem)',
+                      color: 'var(--muted)',
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {d.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Application Form */}
+      <div
+        className="section-blue"
+        style={{ padding: 'clamp(3rem,6vw,5.5rem) clamp(1rem,2vw,2rem)' }}
+      >
+        <div style={{ maxWidth: 720, margin: '0 auto' }}>
+          <div
+            style={{
+              marginBottom: 'clamp(1.5rem,3vw,2.5rem)',
+              opacity: vis ? 1 : 0,
+              transform: vis ? 'none' : 'translateY(18px)',
+              transition: 'all 0.8s ease',
+            }}
+          >
+            <p
+              style={{
+                color: 'var(--secondary)',
+                fontSize: 'clamp(0.55rem,0.8vw,0.62rem)',
+                letterSpacing: '0.25em',
+                textTransform: 'uppercase',
+                fontWeight: 700,
+                marginBottom: 'clamp(0.5rem,1vw,0.75rem)',
+              }}
+            >
+              Apply Now
+            </p>
+            <h2
+              style={{
+                fontSize: 'clamp(1.6rem,3vw,2.2rem)',
+                fontWeight: 600,
+                color: '#fff',
+                lineHeight: 1.15,
+                marginBottom: 'clamp(0.5rem,1vw,0.75rem)',
+              }}
+            >
+              Application <em style={{ color: 'var(--accent-light)' }}>Form</em>
+            </h2>
+            <p
+              style={{
+                color: 'rgba(255,255,255,0.7)',
+                fontSize: 'clamp(0.8rem,1vw,0.88rem)',
+                lineHeight: 1.7,
+              }}
+            >
+              Please complete the form below. Our Admissions Team will be in
+              touch within 48 hours.
+            </p>
+          </div>
+          {submitted ? (
+            <div
+              style={{
+                textAlign: 'center',
+                padding: 'clamp(2rem,4vw,3.5rem)',
+                background: 'rgba(170,194,12,0.12)',
+                border: '1px solid rgba(170,194,12,0.3)',
+              }}
+            >
+              <p
+                style={{
+                  fontSize: 'clamp(1.6rem,2.5vw,2rem)',
+                  marginBottom: '0.5rem',
+                }}
+              >
+                ✓
+              </p>
+              <h3
+                style={{
+                  color: '#fff',
+                  fontSize: 'clamp(1.1rem,1.6vw,1.3rem)',
+                  fontWeight: 700,
+                  marginBottom: '0.5rem',
+                }}
+              >
+                Application Submitted
+              </h3>
+              <p
+                style={{
+                  color: 'rgba(255,255,255,0.75)',
+                  fontSize: 'clamp(0.8rem,1vw,0.88rem)',
+                }}
+              >
+                Thank you! Our Admissions Team will contact you shortly.
+              </p>
+            </div>
+          ) : (
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 'clamp(0.8rem,1.5vw,1.1rem)',
+                opacity: vis ? 1 : 0,
+                transform: vis ? 'none' : 'translateY(20px)',
+                transition: 'all 0.9s ease 0.15s',
+              }}
+            >
+              {[
+                {
+                  key: 'child',
+                  label: "Child's Full Name",
+                  type: 'text',
+                  placeholder: "Enter learner's full name",
+                },
+                {
+                  key: 'dob',
+                  label: 'Date of Birth',
+                  type: 'date',
+                  placeholder: '',
+                },
+                {
+                  key: 'grade',
+                  label: 'Year / Grade Applying For',
+                  type: 'text',
+                  placeholder: 'e.g. Grade 7, Form 1',
+                },
+                {
+                  key: 'parent',
+                  label: 'Parent / Guardian Name',
+                  type: 'text',
+                  placeholder: 'Enter parent or guardian name',
+                },
+                {
+                  key: 'email',
+                  label: 'Email Address',
+                  type: 'email',
+                  placeholder: 'your.email@example.com',
+                },
+                {
+                  key: 'phone',
+                  label: 'Phone Number',
+                  type: 'tel',
+                  placeholder: '+254 7XX XXX XXX',
+                },
+                {
+                  key: 'current',
+                  label: 'Current School (if applicable)',
+                  type: 'text',
+                  placeholder: 'Name of current school',
+                },
+              ].map((f) => (
+                <div key={f.key}>
+                  <label
+                    style={{
+                      display: 'block',
+                      color: 'rgba(255,255,255,0.7)',
+                      fontSize: 'clamp(0.62rem,0.82vw,0.7rem)',
+                      letterSpacing: '0.12em',
+                      textTransform: 'uppercase',
+                      fontWeight: 600,
+                      marginBottom: '0.4rem',
+                    }}
+                  >
+                    {f.label}
+                  </label>
+                  <input
+                    type={f.type}
+                    placeholder={f.placeholder}
+                    value={form[f.key as keyof typeof form]}
+                    onChange={(e) =>
+                      setForm((p) => ({ ...p, [f.key]: e.target.value }))
+                    }
+                    style={{
+                      width: '100%',
+                      padding:
+                        'clamp(0.6rem,1vw,0.8rem) clamp(0.8rem,1.2vw,1rem)',
+                      background: 'rgba(255,255,255,0.08)',
+                      border: '1px solid rgba(255,255,255,0.2)',
+                      color: '#fff',
+                      fontSize: 'clamp(0.8rem,1vw,0.88rem)',
+                      outline: 'none',
+                      transition: 'border-color 0.2s',
+                      fontFamily: 'inherit',
+                    }}
+                    onFocus={(e) =>
+                      (e.currentTarget.style.borderColor = 'var(--secondary)')
+                    }
+                    onBlur={(e) =>
+                      (e.currentTarget.style.borderColor =
+                        'rgba(255,255,255,0.2)')
+                    }
+                  />
+                </div>
+              ))}
+              <div>
+                <label
+                  style={{
+                    display: 'block',
+                    color: 'rgba(255,255,255,0.7)',
+                    fontSize: 'clamp(0.62rem,0.82vw,0.7rem)',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    fontWeight: 600,
+                    marginBottom: '0.4rem',
+                  }}
+                >
+                  Additional Message
+                </label>
+                <textarea
+                  rows={4}
+                  placeholder="Any additional information or questions…"
+                  value={form.message}
+                  onChange={(e) =>
+                    setForm((p) => ({ ...p, message: e.target.value }))
+                  }
+                  style={{
+                    width: '100%',
+                    padding:
+                      'clamp(0.6rem,1vw,0.8rem) clamp(0.8rem,1.2vw,1rem)',
+                    background: 'rgba(255,255,255,0.08)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    color: '#fff',
+                    fontSize: 'clamp(0.8rem,1vw,0.88rem)',
+                    outline: 'none',
+                    transition: 'border-color 0.2s',
+                    fontFamily: 'inherit',
+                    resize: 'vertical',
+                  }}
+                  onFocus={(e) =>
+                    (e.currentTarget.style.borderColor = 'var(--secondary)')
+                  }
+                  onBlur={(e) =>
+                    (e.currentTarget.style.borderColor =
+                      'rgba(255,255,255,0.2)')
+                  }
+                />
+              </div>
+              <button
+                onClick={() => setSubmitted(true)}
+                style={{
+                  alignSelf: 'flex-start',
+                  padding: 'clamp(0.6rem,1vw,0.8rem) clamp(1.8rem,3vw,2.8rem)',
+                  background: 'var(--secondary)',
+                  color: 'var(--dark)',
+                  fontSize: 'clamp(0.62rem,0.85vw,0.7rem)',
+                  fontWeight: 700,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s',
+                  fontFamily: 'inherit',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = '#96ac0a';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'var(--secondary)';
+                  e.currentTarget.style.transform = 'none';
+                }}
+              >
+                Submit Application
+              </button>
+              <p
+                style={{
+                  color: 'rgba(255,255,255,0.45)',
+                  fontSize: 'clamp(0.65rem,0.82vw,0.72rem)',
+                  lineHeight: 1.6,
+                }}
+              >
+                For enquiries, contact{' '}
+                <a
+                  href="mailto:admissions@granadaschools.group"
+                  style={{ color: 'var(--secondary)', textDecoration: 'none' }}
+                >
+                  admissions@granadaschools.group
+                </a>{' '}
+                or call{' '}
+                <a
+                  href="tel:+254714848289"
+                  style={{ color: 'var(--secondary)', textDecoration: 'none' }}
+                >
+                  +254 714 848 289
+                </a>
+                .
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+      <style>{`@media(min-width:640px){.apply-steps-grid{grid-template-columns:1fr 1fr!important}.docs-grid{grid-template-columns:1fr 1fr!important}}@media(min-width:1024px){.docs-grid{grid-template-columns:1fr 1fr 1fr!important}}`}</style>
+    </section>
+  );
+}
+
+/* ── ADMISSIONS TEAM ───────────────────────────────────────────────────────── */
+function AdmissionsTeam() {
+  const { ref, vis } = useInView(0.06);
+  const [hov, setHov] = useState<number | null>(null);
+  const team = [
+    {
+      name: 'Christopher Sabwa',
+      role: 'Admissions Officer',
+      tel: '+254 714 848 289',
+      email: 'admissions@granadaschools.group',
+      img: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=500&q=80',
+    },
+    {
+      name: 'Asya Adan',
+      role: 'Admissions Officer',
+      tel: '+254 717 682 138',
+      email: 'admissions@granadaschools.group',
+      img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80',
+    },
+  ];
+  return (
+    <section
+      className="section-cream"
+      id="team"
+      ref={ref}
+      style={{
+        padding: 'clamp(3rem,6vw,6rem) clamp(1rem,2vw,2rem)',
+        scrollMarginTop: '100px',
+      }}
+    >
+      <div style={{ width: '100%' }}>
+        <div
+          className="section-header-block"
+          style={{
+            textAlign: 'center',
+            marginBottom: 'clamp(2rem,4vw,3.5rem)',
+            opacity: vis ? 1 : 0,
+            transform: vis ? 'none' : 'translateY(22px)',
+            transition: 'all 0.8s ease',
+          }}
+        >
+          <p className="label-tag">Meet the Team</p>
+          <h2 className="section-heading">
+            Our <em>Admissions Team</em>
+          </h2>
+          <div className="divider" style={{ margin: '1.25rem auto' }} />
+          <p className="body-text">
+            Our Admissions Team is available to assist you throughout the entire
+            process — from your very first question to your child's first day.
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr',
+            gap: 'clamp(1.5rem,3vw,2.5rem)',
+            maxWidth: 760,
+            margin: '0 auto clamp(2rem,3.5vw,3.5rem)',
+          }}
+          className="team-grid"
+        >
+          {team.map((m, i) => {
+            const a = hov === i;
+            return (
+              <div
+                key={i}
+                style={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                  height: 'clamp(340px,48vw,440px)',
+                  cursor: 'default',
+                  opacity: vis ? 1 : 0,
+                  transform: vis ? 'none' : `translateY(${30 + i * 10}px)`,
+                  transition: `all 0.9s ease ${i * 0.16}s`,
+                }}
+                onMouseEnter={() => setHov(i)}
+                onMouseLeave={() => setHov(null)}
+              >
+                <img
+                  src={m.img}
+                  alt={m.name}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'top',
+                    transition: 'transform 0.7s ease',
+                    transform: a ? 'scale(1.06)' : 'scale(1)',
+                  }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: a
+                      ? 'linear-gradient(to top,rgba(33,53,88,0.95) 0%,rgba(33,53,88,0.5) 55%,rgba(33,53,88,0.1) 100%)'
+                      : 'linear-gradient(to top,rgba(33,53,88,0.85) 0%,rgba(33,53,88,0.05) 45%)',
+                    transition: 'background 0.5s ease',
+                  }}
+                />
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    padding: 'clamp(1.2rem,2vw,1.75rem)',
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: 'clamp(0.52rem,0.78vw,0.6rem)',
+                      fontWeight: 700,
+                      letterSpacing: '0.2em',
+                      textTransform: 'uppercase',
+                      color: 'var(--secondary)',
+                      marginBottom: '0.3rem',
+                    }}
+                  >
+                    Admissions
+                  </p>
+                  <h3
+                    className="font-display"
+                    style={{
+                      fontSize: 'clamp(1.1rem,1.8vw,1.4rem)',
+                      fontWeight: 600,
+                      color: '#fff',
+                      marginBottom: '0.15rem',
+                    }}
+                  >
+                    {m.name}
+                  </h3>
+                  <p
+                    style={{
+                      fontSize: 'clamp(0.72rem,0.9vw,0.8rem)',
+                      color: 'rgba(255,255,255,0.75)',
+                      marginBottom: a ? 'clamp(0.8rem,1.4vw,1.2rem)' : '0',
+                      transition: 'margin 0.4s ease',
+                    }}
+                  >
+                    {m.role}
+                  </p>
+                  <div
+                    style={{
+                      opacity: a ? 1 : 0,
+                      maxHeight: a ? 200 : 0,
+                      overflow: 'hidden',
+                      transition: 'opacity 0.4s ease 0.1s,max-height 0.5s ease',
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.55rem',
+                      }}
+                    >
+                      <a
+                        href={`tel:${m.tel.replace(/\s/g, '')}`}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.65rem',
+                          color: '#fff',
+                          textDecoration: 'none',
+                          fontSize: 'clamp(0.73rem,0.88vw,0.82rem)',
+                          transition: 'color 0.2s',
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.color = 'var(--secondary)')
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.color = '#fff')
+                        }
+                      >
+                        <span
+                          style={{
+                            width: 'clamp(24px,2.8vw,28px)',
+                            height: 'clamp(24px,2.8vw,28px)',
+                            background: 'rgba(255,255,255,0.15)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
+                          <Phone size={11} color="#fff" strokeWidth={2.2} />
+                        </span>
+                        {m.tel}
+                      </a>
+                      <a
+                        href={`mailto:${m.email}`}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.65rem',
+                          color: 'rgba(255,255,255,0.8)',
+                          textDecoration: 'none',
+                          fontSize: 'clamp(0.7rem,0.82vw,0.8rem)',
+                          transition: 'color 0.2s',
+                          wordBreak: 'break-all',
+                        }}
+                        onMouseEnter={(e) =>
+                          (e.currentTarget.style.color = 'var(--secondary)')
+                        }
+                        onMouseLeave={(e) =>
+                          (e.currentTarget.style.color =
+                            'rgba(255,255,255,0.8)')
+                        }
+                      >
+                        <span
+                          style={{
+                            width: 'clamp(24px,2.8vw,28px)',
+                            height: 'clamp(24px,2.8vw,28px)',
+                            background: 'rgba(170,194,12,0.25)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                          }}
+                        >
+                          <Mail size={11} color="#fff" strokeWidth={2.2} />
+                        </span>
+                        {m.email}
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div
+          style={{
+            maxWidth: 760,
+            margin: '0 auto',
+            padding: 'clamp(1.5rem,2.5vw,2.5rem)',
+            background: 'var(--primary)',
+            position: 'relative',
+            overflow: 'hidden',
+            opacity: vis ? 1 : 0,
+            transition: 'opacity 1s ease 0.5s',
+          }}
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: -50,
+              right: -50,
+              width: 200,
+              height: 200,
+              borderRadius: '50%',
+              background: 'rgba(170,194,12,0.08)',
+            }}
+          />
+          <div
+            style={{
+              position: 'absolute',
+              bottom: -30,
+              left: -30,
+              width: 130,
+              height: 130,
+              borderRadius: '50%',
+              background: 'rgba(255,255,255,0.04)',
+            }}
+          />
+          <div
+            style={{
+              position: 'relative',
+              zIndex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
+              gap: '0.75rem',
+            }}
+          >
+            <p
+              style={{
+                color: 'var(--secondary)',
+                fontSize: 'clamp(0.58rem,0.82vw,0.64rem)',
+                letterSpacing: '0.22em',
+                textTransform: 'uppercase',
+                fontWeight: 700,
+              }}
+            >
+              Visit Us
+            </p>
+            <p
+              className="font-display"
+              style={{ color: '#fff', fontSize: 'clamp(1.1rem,1.8vw,1.55rem)' }}
+            >
+              We'd love to show you around Granada
+            </p>
+            <p
+              style={{
+                color: 'rgba(255,255,255,0.7)',
+                fontSize: 'clamp(0.75rem,0.9vw,0.82rem)',
+              }}
+            >
+              📍 Vipingo, Kilifi County, Kenya
+            </p>
+            <a
+              href="/contact?type=visit"
+              style={{
+                marginTop: '0.25rem',
+                display: 'inline-block',
+                padding:
+                  'clamp(0.55rem,0.9vw,0.7rem) clamp(1.5rem,2.2vw,2.2rem)',
+                background: 'var(--secondary)',
+                color: 'var(--dark)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.14em',
+                fontSize: 'clamp(0.6rem,0.8vw,0.68rem)',
+                fontWeight: 700,
+                textDecoration: 'none',
+                transition: 'all 0.3s',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = '#96ac0a';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'var(--secondary)';
+                e.currentTarget.style.transform = 'none';
+              }}
+            >
+              Book a Visit
+            </a>
+          </div>
+        </div>
+      </div>
+      <style>{`@media(min-width:640px){.team-grid{grid-template-columns:1fr 1fr!important}}`}</style>
+    </section>
+  );
+}
+
+/* ── PAGE CTA ─────────────────────────────────────────────────────────────── */
+function PageCTA() {
+  return (
+    <section style={{ position: 'relative', overflow: 'hidden' }}>
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          backgroundImage: 'url(/dorm.jpeg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'rgba(33,53,88,0.9)',
+        }}
+      />
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 2,
+          maxWidth: 800,
+          margin: '0 auto',
+          textAlign: 'center',
+          padding: 'clamp(3rem,5vw,5.5rem) clamp(1rem,2vw,2rem)',
+        }}
+      >
+        <p
+          style={{
+            color: 'var(--accent-light)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.3em',
+            fontSize: 'clamp(0.55rem,0.85vw,0.62rem)',
+            fontWeight: 700,
+            marginBottom: 'clamp(0.9rem,1.5vw,1.4rem)',
+          }}
+        >
+          Ready to Begin?
+        </p>
+        <h2
+          className="font-display"
+          style={{
+            fontSize: 'clamp(1.8rem,3.8vw,3rem)',
+            fontWeight: 400,
+            color: '#fff',
+            lineHeight: 1.3,
+            marginBottom: 'clamp(1.5rem,2.25vw,2.25rem)',
+          }}
+        >
+          Are you ready to feel the{' '}
+          <span style={{ color: 'var(--accent-light)' }}>difference?</span>
+        </h2>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '0.9rem',
+            flexWrap: 'wrap',
+          }}
+        >
+          {[
+            { l: 'Enquire', h: '/contact' },
+            { l: 'Visit Granada', h: '/contact?type=visit' },
+            { l: 'Apply Now', h: '/admissions/apply' },
+          ].map(({ l, h }) => (
+            <a
+              key={l}
+              href={h}
+              style={{
+                display: 'inline-block',
+                padding: '0.7rem 1.75rem',
+                background: 'transparent',
+                border: '1px solid rgba(255,255,255,0.55)',
+                color: '#fff',
+                textTransform: 'uppercase',
+                letterSpacing: '0.14em',
+                fontSize: 'clamp(0.62rem,0.88vw,0.7rem)',
+                fontWeight: 600,
+                textDecoration: 'none',
+                transition: 'all 0.3s',
+                fontFamily: 'inherit',
+              }}
+              onMouseEnter={(e) =>
+                (e.currentTarget.style.background = 'rgba(255,255,255,0.15)')
+              }
+              onMouseLeave={(e) =>
+                (e.currentTarget.style.background = 'transparent')
+              }
+            >
+              {l}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── FEES ──────────────────────────────────────────────────────────────────── */
+function Fees() {
+  const { ref, vis } = useInView(0.06);
+  const P = '#213558';
+  const S = '#e2c215';
+  const T = '#e79b0b';
+
+  const headers = [
+    '',
+    'Tuition (per term)',
+    'Boarding (per term)',
+    'Lunch (per term)',
+    'Total per Term',
+  ];
+
+  const juniorRows = [
+    {
+      grade: 'Grade 7',
+      tuition: 'KES 78,000',
+      boarding: 'KES 38,500',
+      lunch: 'KES 14,000',
+      total: 'KES 130,500',
+    },
+    {
+      grade: 'Grade 8',
+      tuition: 'KES 78,000',
+      boarding: 'KES 38,500',
+      lunch: 'KES 14,000',
+      total: 'KES 130,500',
+    },
+    {
+      grade: 'Grade 9',
+      tuition: 'KES 82,000',
+      boarding: 'KES 40,000',
+      lunch: 'KES 14,000',
+      total: 'KES 136,000',
+    },
+  ];
+  const seniorRows = [
+    {
+      grade: 'Grade 10',
+      tuition: 'KES 88,000',
+      boarding: 'KES 43,500',
+      lunch: 'KES 15,500',
+      total: 'KES 147,000',
+    },
+    {
+      grade: 'Grade 11',
+      tuition: 'KES 88,000',
+      boarding: 'KES 43,500',
+      lunch: 'KES 15,500',
+      total: 'KES 147,000',
+    },
+    {
+      grade: 'Grade 12',
+      tuition: 'KES 94,000',
+      boarding: 'KES 45,000',
+      lunch: 'KES 15,500',
+      total: 'KES 154,500',
+    },
+  ];
+
+  const lunchTerms = [
+    {
+      term: 'Term 1 (Jan – Apr)',
+      days: 90,
+      juniorPerTerm: 'KES 14,000',
+      seniorPerTerm: 'KES 15,500',
+    },
+    {
+      term: 'Term 2 (May – Jul)',
+      days: 80,
+      juniorPerTerm: 'KES 12,500',
+      seniorPerTerm: 'KES 13,800',
+    },
+    {
+      term: 'Term 3 (Sep – Nov)',
+      days: 70,
+      juniorPerTerm: 'KES 10,850',
+      seniorPerTerm: 'KES 12,000',
+    },
+  ];
+
+  const thStyle: React.CSSProperties = {
+    padding: '0.75rem 1rem',
+    textAlign: 'left',
+    fontSize: 'clamp(0.72rem,0.82vw,0.62rem)',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    fontWeight: 700,
+    color: '#fff',
+    background: P,
+    whiteSpace: 'nowrap',
+  };
+  const tdStyle: React.CSSProperties = {
+    padding: '0.7rem 1rem',
+    fontSize: 'clamp(0.7rem,0.9vw,0.85rem)',
+    color: '#333',
+    borderBottom: '1px solid #e8e6e3',
+  };
+  const totalTdStyle: React.CSSProperties = {
+    ...tdStyle,
+    fontWeight: 700,
+    color: P,
+  };
+
+  return (
+    <section
+      id="fees"
+      className="section-cream"
+      ref={ref}
+      style={{ padding: 'clamp(2rem,4vw,3.5rem) 0', scrollMarginTop: '100px' }}
+    >
+      <div
+        style={{
+          opacity: vis ? 1 : 0,
+          transform: vis ? 'none' : 'translateY(24px)',
+          transition: 'all 0.9s ease',
+        }}
+      >
+        <div
+          className="section-header-block"
+          style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}
+        >
+          <p className="label-tag">2025 / 2026 Academic Year</p>
+          <h2 className="section-heading">School Fees</h2>
+          <div className="divider" />
+          <p className="body-text" style={{ marginTop: '0.75rem' }}>
+            All fees are quoted per term in Kenyan Shillings (KES) and are
+            reviewed annually. A non-refundable registration fee of{' '}
+            <strong>KES 5,000</strong> applies to all new students. Payment is
+            due in full before the start of each term.
+          </p>
+        </div>
+
+        {/* JUNIOR SCHOOL TABLE */}
+        <div style={{ marginBottom: 'clamp(2rem,3vw,3rem)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{ width: 4, height: 28, background: S, flexShrink: 0 }}
+            />
+            <h3
+              style={{
+                fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                fontWeight: 700,
+                color: P,
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
+              Junior School — Grades 7–9
+            </h3>
+          </div>
+          <div style={{ overflowX: 'auto' }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 560,
+              }}
+            >
+              <thead>
+                <tr>
+                  {headers.map((h, i) => (
+                    <th
+                      key={i}
+                      style={{ ...thStyle, width: i === 0 ? '18%' : undefined }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {juniorRows.map((row, i) => (
+                  <tr
+                    key={i}
+                    style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}
+                  >
+                    <td style={{ ...tdStyle, fontWeight: 600, color: P }}>
+                      {row.grade}
+                    </td>
+                    <td style={tdStyle}>{row.tuition}</td>
+                    <td style={tdStyle}>{row.boarding}</td>
+                    <td style={tdStyle}>{row.lunch}</td>
+                    <td style={totalTdStyle}>{row.total}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* SENIOR SCHOOL TABLE */}
+        <div style={{ marginBottom: 'clamp(2rem,3vw,3rem)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{ width: 4, height: 28, background: S, flexShrink: 0 }}
+            />
+            <h3
+              style={{
+                fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                fontWeight: 700,
+                color: P,
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
+              Senior School — Grades 10–12
+            </h3>
+          </div>
+          <div style={{ overflowX: 'auto' }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 560,
+              }}
+            >
+              <thead>
+                <tr>
+                  {headers.map((h, i) => (
+                    <th
+                      key={i}
+                      style={{
+                        ...thStyle,
+                        background: S,
+                        width: i === 0 ? '18%' : undefined,
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {seniorRows.map((row, i) => (
+                  <tr
+                    key={i}
+                    style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}
+                  >
+                    <td
+                      style={{ ...tdStyle, fontWeight: 600, color: '#936c51' }}
+                    >
+                      {row.grade}
+                    </td>
+                    <td style={tdStyle}>{row.tuition}</td>
+                    <td style={tdStyle}>{row.boarding}</td>
+                    <td style={tdStyle}>{row.lunch}</td>
+                    <td style={{ ...totalTdStyle, color: '#936c51' }}>
+                      {row.total}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* SCHOOL LUNCHES BREAKDOWN */}
+        <div style={{ marginBottom: 'clamp(2rem,3vw,3rem)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{ width: 4, height: 28, background: T, flexShrink: 0 }}
+            />
+            <h3
+              style={{
+                fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                fontWeight: 700,
+                color: P,
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
+              School Lunches — Term Breakdown
+            </h3>
+          </div>
+          <div style={{ overflowX: 'auto' }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 480,
+              }}
+            >
+              <thead>
+                <tr>
+                  {[
+                    'Term',
+                    'School Days',
+                    'Junior (Gr 7–9)',
+                    'Senior (Gr 10–12)',
+                  ].map((h, i) => (
+                    <th key={i} style={{ ...thStyle, background: T }}>
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {lunchTerms.map((row, i) => (
+                  <tr
+                    key={i}
+                    style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}
+                  >
+                    <td
+                      style={{ ...tdStyle, fontWeight: 600, color: '#4a6428' }}
+                    >
+                      {row.term}
+                    </td>
+                    <td style={tdStyle}>{row.days} days</td>
+                    <td style={tdStyle}>{row.juniorPerTerm}</td>
+                    <td style={tdStyle}>{row.seniorPerTerm}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* NOTES */}
+        <div
+          style={{
+            background: '#fff',
+            border: `1px solid ${S}55`,
+            padding: 'clamp(1.2rem,2vw,1.8rem)',
+            marginTop: '0.5rem',
+          }}
+        >
+          <p
+            style={{
+              fontSize: 'clamp(0.95rem,0.78vw,0.64rem)',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: S,
+              fontWeight: 700,
+              marginBottom: '0.75rem',
+            }}
+          >
+            Notes &amp; Payment Terms
+          </p>
+          {[
+            'All fees are inclusive of standard tuition, boarding accommodation, and school lunch where indicated.',
+            'A one-time admission fee of KES 15,000 is payable upon acceptance of a place.',
+            'Fees must be paid in full by the first day of each term. A late payment surcharge of 5% applies.',
+            'Sibling discounts of 10% are available from the second child onwards.',
+            'Financial assistance and bursary applications are reviewed termly — contact the Admissions Office.',
+          ].map((note, i) => (
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                gap: '0.6rem',
+                marginBottom: '0.5rem',
+                alignItems: 'flex-start',
+              }}
+            >
+              <div
+                style={{
+                  width: 5,
+                  height: 5,
+                  borderRadius: '50%',
+                  background: P,
+                  flexShrink: 0,
+                  marginTop: '0.55rem',
+                }}
+              />
+              <p
+                style={{
+                  fontSize: 'clamp(0.85rem,0.85vw,0.72rem)',
+                  color: '#555',
+                  lineHeight: 1.65,
+                  margin: 0,
+                }}
+              >
+                {note}
+              </p>
+            </div>
+          ))}
+          <div style={{ marginTop: '1.2rem' }}>
+            <a href="/contact?type=fees" className="btn-solid">
+              Request Full Fee Schedule
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── TERM DATES ────────────────────────────────────────────────────────────── */
+function TermDates() {
+  const { ref, vis } = useInView(0.06);
+  const P = '#213558';
+  const S = '#e2c215';
+  const T = '#e79b0b';
+
+  const years = [
+    {
+      year: '2025 / 2026',
+      terms: [
+        {
+          name: 'Term 1',
+          open: '6 January 2026',
+          close: '3 April 2026',
+          halfTerm: '16–20 February 2026',
+          exams: '23–27 March 2026',
+        },
+        {
+          name: 'Term 2',
+          open: '5 May 2026',
+          close: '18 July 2026',
+          halfTerm: '1–5 June 2026',
+          exams: '6–10 July 2026',
+        },
+        {
+          name: 'Term 3',
+          open: '1 September 2026',
+          close: '21 November 2026',
+          halfTerm: '12–16 October 2026',
+          exams: '9–13 November 2026',
+        },
+      ],
+    },
+    {
+      year: '2026 / 2027',
+      terms: [
+        {
+          name: 'Term 1',
+          open: '5 January 2027',
+          close: '26 March 2027',
+          halfTerm: '9–13 February 2027',
+          exams: '16–20 March 2027',
+        },
+        {
+          name: 'Term 2',
+          open: '4 May 2027',
+          close: '16 July 2027',
+          halfTerm: '31 May – 4 June 2027',
+          exams: '5–9 July 2027',
+        },
+        {
+          name: 'Term 3',
+          open: '7 September 2027',
+          close: '20 November 2027',
+          halfTerm: '18–22 October 2027',
+          exams: '8–12 November 2027',
+        },
+      ],
+    },
+  ];
+
+  const termColors = [P, S, T];
+
+  return (
+    <section
+      id="term-dates"
+      className="section-cream"
+      ref={ref}
+      style={{ padding: 'clamp(2rem,4vw,3.5rem) 0', scrollMarginTop: '100px' }}
+    >
+      <div
+        style={{
+          opacity: vis ? 1 : 0,
+          transform: vis ? 'none' : 'translateY(24px)',
+          transition: 'all 0.9s ease',
+        }}
+      >
+        <div
+          className="section-header-block"
+          style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}
+        >
+          <p className="label-tag">Academic Calendar</p>
+          <h2 className="section-heading">Term Dates</h2>
+          <div className="divider" />
+          <p className="body-text" style={{ marginTop: '0.75rem' }}>
+            Granada School follows the Kenya national academic calendar with
+            three terms per year. Boarders arrive one day before the official
+            opening date. All dates are subject to change — parents will be
+            notified of any amendments.
+          </p>
+        </div>
+
+        {years.map((yr, yi) => (
+          <div key={yi} style={{ marginBottom: 'clamp(2rem,3.5vw,3.5rem)' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                marginBottom: '1.25rem',
+              }}
+            >
+              <div
+                style={{ width: 4, height: 28, background: S, flexShrink: 0 }}
+              />
+              <h3
+                style={{
+                  fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                  fontWeight: 700,
+                  color: P,
+                  margin: 0,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.06em',
+                }}
+              >
+                Academic Year {yr.year}
+              </h3>
+            </div>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))',
+                gap: '1rem',
+              }}
+            >
+              {yr.terms.map((term, ti) => (
+                <div
+                  key={ti}
+                  style={{
+                    background: '#fff',
+                    border: '1px solid #e8e6e3',
+                    overflow: 'hidden',
+                  }}
+                >
+                  <div
+                    style={{
+                      background: termColors[ti],
+                      padding: '0.85rem 1.2rem',
+                    }}
+                  >
+                    <p
+                      style={{
+                        color: '#fff',
+                        fontWeight: 700,
+                        fontSize: 'clamp(0.85rem,1vw,0.88rem)',
+                        margin: 0,
+                        letterSpacing: '0.04em',
+                      }}
+                    >
+                      {term.name}
+                    </p>
+                  </div>
+                  <div style={{ padding: '1rem 1.2rem' }}>
+                    {[
+                      { label: 'School Opens', value: term.open },
+                      { label: 'Half Term', value: term.halfTerm },
+                      { label: 'Examinations', value: term.exams },
+                      { label: 'School Closes', value: term.close },
+                    ].map((item, k) => (
+                      <div
+                        key={k}
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'flex-start',
+                          padding: '0.4rem 0',
+                          borderBottom: k < 3 ? '1px solid #f0eee9' : 'none',
+                          gap: '0.5rem',
+                        }}
+                      >
+                        <p
+                          style={{
+                            fontSize: 'clamp(0.63em,0.75vw,0.64rem)',
+                            color: '#888',
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.1em',
+                            fontWeight: 600,
+                            margin: 0,
+                            flexShrink: 0,
+                          }}
+                        >
+                          {item.label}
+                        </p>
+                        <p
+                          style={{
+                            fontSize: 'clamp(0.62rem,0.85vw,0.72rem)',
+                            color: '#333',
+                            fontWeight: 500,
+                            margin: 0,
+                            textAlign: 'right',
+                          }}
+                        >
+                          {item.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <div
+          style={{
+            background: `${P}08`,
+            border: `1px solid ${P}22`,
+            padding: 'clamp(1.2rem,2vw,1.8rem)',
+            marginTop: '0.5rem',
+          }}
+        >
+          <p
+            style={{
+              fontSize: 'clamp(0.95rem,0.98vw,1.44rem)',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: P,
+              fontWeight: 700,
+              marginBottom: '0.6rem',
+            }}
+          >
+            Important Reminders
+          </p>
+          {[
+            'Boarders must arrive by 5:00 pm on the day before school opens to settle in.',
+            'Collection on closing days is from 3:00 pm onwards. The school is not responsible for students after 7:00 pm.',
+            'No early departures within the last week of term without prior written approval from the Principal.',
+          ].map((note, i) => (
+            <div
+              key={i}
+              style={{
+                display: 'flex',
+                gap: '0.6rem',
+                marginBottom: '0.45rem',
+                alignItems: 'flex-start',
+              }}
+            >
+              <div
+                style={{
+                  width: 5,
+                  height: 5,
+                  borderRadius: '50%',
+                  background: S,
+                  flexShrink: 0,
+                  marginTop: '0.55rem',
+                }}
+              />
+              <p
+                style={{
+                  fontSize: 'clamp(0.85rem,0.85vw,0.72rem)',
+                  color: '#555',
+                  lineHeight: 1.65,
+                  margin: 0,
+                }}
+              >
+                {note}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── UNIFORM ───────────────────────────────────────────────────────────────── */
+function Uniform() {
+  const { ref, vis } = useInView(0.06);
+  const P = '#213558';
+  const S = '#e2c215';
+
+  const categories = [
+    {
+      title: 'School Uniform (Daily)',
+      color: P,
+      items: [
+        'Navy blue pleated skirt (below knee)',
+        'Light blue long-sleeve blouse with school crest collar',
+        'Navy blue V-neck pullover (crest embroidered)',
+        'Navy blue school blazer with embroidered crest',
+        'School tie — navy with gold stripe',
+        'Black leather flat shoes (no high heels)',
+        'White ankle socks or navy knee-high socks',
+      ],
+    },
+    {
+      title: 'PE & Sports Kit',
+      color: S,
+      items: [
+        'Granada green PE shorts with school logo',
+        'White Granada PE shirt (short sleeve)',
+        'Green-and-white Granada tracksuit',
+        'White sports socks',
+        'White or black lace-up trainers',
+        'Optional: Granada sports cap (for outdoor events)',
+      ],
+    },
+    {
+      title: 'Boarding Essentials',
+      color: '#e79b0b',
+      items: [
+        '3 sets of casual wear for evenings/weekends (modest, no logos)',
+        'Bed linen: 2 sets of single bedsheets + pillowcases (navy or white)',
+        '1 lightweight blanket + 1 heavy duvet (for cooler terms)',
+        '2 bath towels (labelled)',
+        'Toiletries in a zip bag (labelled)',
+        'House shoes / flip-flops for dorm use',
+        'Personal laundry bag (labelled)',
+      ],
+    },
+    {
+      title: 'Grooming Standards',
+      color: '#A6D6C9',
+      items: [
+        'Hair to be neatly braided, dreadlocked, or in natural styles — no wigs during school hours',
+        'No nail polish, false nails, jewellery, or make-up during school hours',
+        'One small stud earring per ear is permitted',
+        'All clothing items must be clearly labelled with the student\u2019s name',
+        'Uniform must be clean, ironed, and worn correctly at all times on school premises',
+      ],
+    },
+  ];
+
+  return (
+    <section
+      id="uniform"
+      className="section-cream"
+      ref={ref}
+      style={{ padding: 'clamp(2rem,4vw,3.5rem) 0', scrollMarginTop: '100px' }}
+    >
+      <div
+        style={{
+          opacity: vis ? 1 : 0,
+          transform: vis ? 'none' : 'translateY(24px)',
+          transition: 'all 0.9s ease',
+        }}
+      >
+        <div
+          className="section-header-block"
+          style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}
+        >
+          <p className="label-tag">Dress Code &amp; Preparation</p>
+          <h2 className="section-heading">Uniform &amp; School Kit</h2>
+          <div className="divider" />
+          <p className="body-text" style={{ marginTop: '0.75rem' }}>
+            Granada School's uniform reflects our values of pride, discipline,
+            and belonging. All items must be purchased from our approved
+            supplier or the school shop. Please ensure all items are clearly
+            labelled before the first day of term.
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+            gap: '1.25rem',
+            marginBottom: 'clamp(1.5rem,2.5vw,2.5rem)',
+          }}
+        >
+          {categories.map((cat, ci) => (
+            <div
+              key={ci}
+              style={{
+                background: '#fff',
+                border: '1px solid #e8e6e3',
+                overflow: 'hidden',
+              }}
+            >
+              <div style={{ background: cat.color, padding: '0.85rem 1.2rem' }}>
+                <p
+                  style={{
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: 'clamp(0.82rem,0.95vw,0.82rem)',
+                    margin: 0,
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {cat.title}
+                </p>
+              </div>
+              <ul
+                style={{
+                  padding: '1rem 1.2rem',
+                  margin: 0,
+                  listStyle: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.45rem',
+                }}
+              >
+                {cat.items.map((item, ii) => (
+                  <li
+                    key={ii}
+                    style={{
+                      display: 'flex',
+                      gap: '0.55rem',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 5,
+                        height: 5,
+                        borderRadius: '50%',
+                        background: cat.color,
+                        flexShrink: 0,
+                        marginTop: '0.58rem',
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: 'clamp(0.82rem,0.85vw,0.72rem)',
+                        color: '#444',
+                        lineHeight: 1.6,
+                        margin: 0,
+                      }}
+                    >
+                      {item}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div
+          style={{
+            background: `${S}18`,
+            border: `1px solid ${S}66`,
+            padding: 'clamp(1.2rem,2vw,1.8rem)',
+          }}
+        >
+          <p
+            style={{
+              fontSize: 'clamp(0.95rem,0.78vw,0.64rem)',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: S,
+              fontWeight: 700,
+              marginBottom: '0.6rem',
+            }}
+          >
+            Where to Purchase
+          </p>
+          <p
+            style={{
+              fontSize: 'clamp(0.82rem,0.85vw,0.72rem)',
+              color: '#555',
+              lineHeight: 1.7,
+              marginBottom: '1rem',
+            }}
+          >
+            Full uniform sets are available from the{' '}
+            <strong>Granada School Shop</strong> on campus, open on school days
+            from 7:00 am – 5:00 pm. Items can also be ordered in advance through
+            the school office. Replacement items are available throughout the
+            term.
+          </p>
+          <a href="/contact" className="btn-outline">
+            Contact the School Shop
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── SCHOOL LUNCHES ────────────────────────────────────────────────────────── */
+function SchoolLunches() {
+  const { ref, vis } = useInView(0.06);
+  const P = '#213558';
+  const S = '#e2c215';
+
+  const menu = [
+    {
+      day: 'Monday',
+      junior: 'Ugali, beef stew & steamed vegetables',
+      senior: 'Rice, chicken curry & kachumbari salad',
+    },
+    {
+      day: 'Tuesday',
+      junior: 'Pasta bolognese & green salad',
+      senior: 'Pilau rice, lentil soup & chapati',
+    },
+    {
+      day: 'Wednesday',
+      junior: 'Githeri (maize & beans) & coleslaw',
+      senior: 'Fried rice, grilled fish & mixed salad',
+    },
+    {
+      day: 'Thursday',
+      junior: 'Rice & bean stew with fresh fruit',
+      senior: 'Ugali, fried chicken & sukuma wiki',
+    },
+    {
+      day: 'Friday',
+      junior: 'Chapati, minced meat & fresh juice',
+      senior: 'Pasta, mixed veg sauce & seasonal fruit',
+    },
+  ];
+
+  const inclusions = [
+    {
+      group: 'Junior School (Grades 7–9)',
+      color: P,
+      includes: [
+        'Hot two-course lunch (main + dessert or fruit)',
+        'Fresh drinking water',
+        'Mid-morning break snack (fruit or mandazi)',
+        'Tea/porridge at breakfast for boarders',
+      ],
+    },
+    {
+      group: 'Senior School (Grades 10–12)',
+      color: '#936c51',
+      includes: [
+        'Hot two-course lunch (main + salad or fruit)',
+        'Fresh drinking water',
+        'Choice of two main options on selected days',
+        'Tea/porridge at breakfast for boarders',
+      ],
+    },
+  ];
+
+  return (
+    <section
+      id="school-lunches"
+      className="section-cream"
+      ref={ref}
+      style={{ padding: 'clamp(2rem,4vw,3.5rem) 0', scrollMarginTop: '100px' }}
+    >
+      <div
+        style={{
+          opacity: vis ? 1 : 0,
+          transform: vis ? 'none' : 'translateY(24px)',
+          transition: 'all 0.9s ease',
+        }}
+      >
+        <div
+          className="section-header-block"
+          style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}
+        >
+          <p className="label-tag">Nutrition &amp; Wellbeing</p>
+          <h2 className="section-heading">School Lunches</h2>
+          <div className="divider" />
+          <p className="body-text" style={{ marginTop: '0.75rem' }}>
+            We believe nourished learners are engaged learners. Our school
+            kitchen provides balanced, freshly prepared meals every day, drawing
+            on locally sourced produce and rotating menus designed by a
+            qualified nutritionist. All meals are inclusive of the boarding fee
+            for boarders; day scholars subscribe per term.
+          </p>
+        </div>
+
+        {/* What's included */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+            gap: '1.25rem',
+            marginBottom: 'clamp(2rem,3vw,3rem)',
+          }}
+        >
+          {inclusions.map((inc, ii) => (
+            <div
+              key={ii}
+              style={{
+                background: '#fff',
+                border: '1px solid #e8e6e3',
+                overflow: 'hidden',
+              }}
+            >
+              <div style={{ background: inc.color, padding: '0.85rem 1.2rem' }}>
+                <p
+                  style={{
+                    color: '#fff',
+                    fontWeight: 700,
+                    fontSize: 'clamp(0.82rem,0.95vw,0.82rem)',
+                    margin: 0,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.06em',
+                  }}
+                >
+                  {inc.group}
+                </p>
+              </div>
+              <ul
+                style={{
+                  padding: '1rem 1.2rem',
+                  margin: 0,
+                  listStyle: 'none',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.45rem',
+                }}
+              >
+                {inc.includes.map((item, iii) => (
+                  <li
+                    key={iii}
+                    style={{
+                      display: 'flex',
+                      gap: '0.55rem',
+                      alignItems: 'flex-start',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: 5,
+                        height: 5,
+                        borderRadius: '50%',
+                        background: inc.color,
+                        flexShrink: 0,
+                        marginTop: '0.58rem',
+                      }}
+                    />
+                    <p
+                      style={{
+                        fontSize: 'clamp(0.82rem,0.85vw,0.72rem)',
+                        color: '#444',
+                        lineHeight: 1.6,
+                        margin: 0,
+                      }}
+                    >
+                      {item}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Sample weekly menu */}
+        <div style={{ marginBottom: 'clamp(1.5rem,2.5vw,2.5rem)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{ width: 4, height: 28, background: S, flexShrink: 0 }}
+            />
+            <h3
+              style={{
+                fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                fontWeight: 700,
+                color: P,
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
+              Sample Weekly Lunch Menu
+            </h3>
+          </div>
+          <div style={{ overflowX: 'auto' }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 480,
+              }}
+            >
+              <thead>
+                <tr>
+                  {['Day', 'Lunch', 'Dinner'].map((h, i) => (
+                    <th
+                      key={i}
+                      style={{
+                        padding: '0.75rem 1rem',
+                        textAlign: 'left',
+                        fontSize: 'clamp(0.82rem,0.72vw,0.62rem)',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        fontWeight: 700,
+                        color: '#fff',
+                        background: P,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {menu.map((row, i) => (
+                  <tr
+                    key={i}
+                    style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}
+                  >
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.82rem,0.9vw,0.75rem)',
+                        color: P,
+                        fontWeight: 700,
+                        borderBottom: '1px solid #e8e6e3',
+                      }}
+                    >
+                      {row.day}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.82rem,0.9vw,0.75rem)',
+                        color: '#333',
+                        borderBottom: '1px solid #e8e6e3',
+                      }}
+                    >
+                      {row.junior}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.82rem,0.9vw,0.75rem)',
+                        color: '#333',
+                        borderBottom: '1px solid #e8e6e3',
+                      }}
+                    >
+                      {row.senior}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div
+          style={{
+            background: '#fff',
+            border: `1px solid #e8e6e3`,
+            padding: 'clamp(1.2rem,2vw,1.8rem)',
+          }}
+        >
+          <p
+            style={{
+              fontSize: 'clamp(0.95rem,0.78vw,0.64rem)',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              color: '#4a6428',
+              fontWeight: 700,
+              marginBottom: '0.6rem',
+            }}
+          >
+            Dietary &amp; Allergy Needs
+          </p>
+          <p
+            style={{
+              fontSize: 'clamp(0.92rem,0.85vw,0.72rem)',
+              color: '#555',
+              lineHeight: 1.7,
+              marginBottom: '1rem',
+            }}
+          >
+            We cater for vegetarian, vegan, and medically indicated dietary
+            requirements. Please declare any food allergies or dietary needs on
+            the enrolment form. Our kitchen staff are briefed on all student
+            requirements at the start of each term. For severe allergies,
+            written medical documentation is required.
+          </p>
+          <a
+            href="/contact?type=lunches"
+            className="btn-outline"
+          >
+            Dietary Enquiries
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── SCHOOL TRANSPORT ──────────────────────────────────────────────────────── */
+function SchoolTransport() {
+  const { ref, vis } = useInView(0.06);
+  const P = '#213558';
+  const S = '#e2c215';
+
+  const routes = [
+    {
+      route: 'Route A — Mombasa CBD',
+      stops: 'Nyali Bridge · Bamburi · Shanzu · Mtwapa · Vipingo Gate',
+      departureAM: '5:30 am',
+      departurePM: '4:30 pm',
+      termFee: 'KES 18,500',
+    },
+    {
+      route: 'Route B — Kilifi Town',
+      stops: 'Kilifi Bridge · Mnarani · Tezo · Bofa · Vipingo Gate',
+      departureAM: '5:45 am',
+      departurePM: '4:30 pm',
+      termFee: 'KES 15,000',
+    },
+    {
+      route: 'Route C — Malindi',
+      stops: 'Watamu · Gede · Malindi Bus Stage · Vipingo Gate',
+      departureAM: '5:00 am',
+      departurePM: '5:00 pm',
+      termFee: 'KES 22,000',
+    },
+    {
+      route: 'Route D — Vipingo & Kikambala',
+      stops: 'Kikambala · Mtondia · Vipingo Ridge · Vipingo Gate',
+      departureAM: '6:15 am',
+      departurePM: '4:15 pm',
+      termFee: 'KES 9,500',
+    },
+  ];
+
+  return (
+    <section
+      id="school-transport"
+      className="section-cream"
+      ref={ref}
+      style={{ padding: 'clamp(2rem,4vw,3.5rem) 0', scrollMarginTop: '100px' }}
+    >
+      <div
+        style={{
+          opacity: vis ? 1 : 0,
+          transform: vis ? 'none' : 'translateY(24px)',
+          transition: 'all 0.9s ease',
+        }}
+      >
+        <div
+          className="section-header-block"
+          style={{ marginBottom: 'clamp(1.5rem,3vw,2.5rem)' }}
+        >
+          <p className="label-tag">Getting to Granada</p>
+          <h2 className="section-heading">School Transport</h2>
+          <div className="divider" />
+          <p className="body-text" style={{ marginTop: '0.75rem' }}>
+            Granada School operates a fleet of licensed, GPS-tracked school
+            buses serving key routes along the Mombasa–Malindi corridor. All
+            vehicles are maintained to school safety standards and supervised by
+            a trained bus prefect. Transport is available to day scholars;
+            boarders are welcome to use the service for exeat weekends.
+          </p>
+        </div>
+
+        {/* Routes table */}
+        <div style={{ marginBottom: 'clamp(2rem,3vw,3rem)' }}>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              marginBottom: '1rem',
+            }}
+          >
+            <div
+              style={{ width: 4, height: 28, background: S, flexShrink: 0 }}
+            />
+            <h3
+              style={{
+                fontSize: 'clamp(0.82rem,1.1vw,0.95rem)',
+                fontWeight: 700,
+                color: P,
+                margin: 0,
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+              }}
+            >
+              Bus Routes &amp; Fees
+            </h3>
+          </div>
+          <div style={{ overflowX: 'auto' }}>
+            <table
+              style={{
+                width: '100%',
+                borderCollapse: 'collapse',
+                minWidth: 580,
+              }}
+            >
+              <thead>
+                <tr>
+                  {[
+                    'Route',
+                    'Key Stops',
+                    'Morning Pick-up',
+                    'Afternoon Drop',
+                    'Fee per Term',
+                  ].map((h, i) => (
+                    <th
+                      key={i}
+                      style={{
+                        padding: '0.75rem 1rem',
+                        textAlign: 'left',
+                        fontSize: 'clamp(0.72rem,0.72vw,0.62rem)',
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        fontWeight: 700,
+                        color: '#fff',
+                        background: P,
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {routes.map((row, i) => (
+                  <tr
+                    key={i}
+                    style={{ background: i % 2 === 0 ? '#fff' : '#f8f7f5' }}
+                  >
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.65rem,0.9vw,0.75rem)',
+                        color: P,
+                        fontWeight: 700,
+                        borderBottom: '1px solid #e8e6e3',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {row.route}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.6rem,0.82vw,0.7rem)',
+                        color: '#555',
+                        borderBottom: '1px solid #e8e6e3',
+                      }}
+                    >
+                      {row.stops}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.65rem,0.9vw,0.75rem)',
+                        color: '#333',
+                        borderBottom: '1px solid #e8e6e3',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {row.departureAM}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.65rem,0.9vw,0.75rem)',
+                        color: '#333',
+                        borderBottom: '1px solid #e8e6e3',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {row.departurePM}
+                    </td>
+                    <td
+                      style={{
+                        padding: '0.7rem 1rem',
+                        fontSize: 'clamp(0.65rem,0.9vw,0.75rem)',
+                        color: P,
+                        fontWeight: 700,
+                        borderBottom: '1px solid #e8e6e3',
+                      }}
+                    >
+                      {row.termFee}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        {/* How to register + rules */}
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit,minmax(280px,1fr))',
+            gap: '1.25rem',
+          }}
+        >
+          <div
+            style={{
+              background: '#fff',
+              border: '1px solid #e8e6e3',
+              padding: 'clamp(1.2rem,2vw,1.8rem)',
+            }}
+          >
+            <p
+              style={{
+                fontSize: 'clamp(0.85rem,0.78vw,0.64rem)',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: P,
+                fontWeight: 700,
+                marginBottom: '0.75rem',
+              }}
+            >
+              How to Register
+            </p>
+            {[
+              'Complete the Transport Registration Form available from the school office or website.',
+              'Submit proof of home address and term payment.',
+              'Registration closes two weeks before the start of each term.',
+              'Route changes must be requested in writing at least one week in advance.',
+            ].map((item, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  gap: '0.55rem',
+                  marginBottom: '0.5rem',
+                  alignItems: 'flex-start',
+                }}
+              >
+                <div
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: '50%',
+                    background: S,
+                    flexShrink: 0,
+                    marginTop: '0.58rem',
+                  }}
+                />
+                <p
+                  style={{
+                    fontSize: 'clamp(0.82rem,0.85vw,0.72rem)',
+                    color: '#555',
+                    lineHeight: 1.65,
+                    margin: 0,
+                  }}
+                >
+                  {item}
+                </p>
+              </div>
+            ))}
+            <div style={{ marginTop: '1.2rem' }}>
+              <a
+                href="/contact?type=transport"
+                className="btn-solid"
+              >
+                Register for Transport
+              </a>
+            </div>
+          </div>
+
+          <div
+            style={{
+              background: '#fff',
+              border: '1px solid #e8e6e3',
+              padding: 'clamp(1.2rem,2vw,1.8rem)',
+            }}
+          >
+            <p
+              style={{
+                fontSize: 'clamp(0.85rem,0.78vw,0.64rem)',
+                letterSpacing: '0.18em',
+                textTransform: 'uppercase',
+                color: '#936c51',
+                fontWeight: 700,
+                marginBottom: '0.75rem',
+              }}
+            >
+              Bus Rules &amp; Safety
+            </p>
+            {[
+              'Full school uniform must be worn while travelling on the school bus.',
+              'Students must be at the designated stop 5 minutes before departure — the bus will not wait.',
+              'No eating, drinking (other than water), or loud music on the bus.',
+              "Any damage to the bus will be charged to the responsible student's account.",
+              'Parents will be notified by SMS of any significant delays.',
+            ].map((item, i) => (
+              <div
+                key={i}
+                style={{
+                  display: 'flex',
+                  gap: '0.55rem',
+                  marginBottom: '0.5rem',
+                  alignItems: 'flex-start',
+                }}
+              >
+                <div
+                  style={{
+                    width: 5,
+                    height: 5,
+                    borderRadius: '50%',
+                    background: '#936c51',
+                    flexShrink: 0,
+                    marginTop: '0.58rem',
+                  }}
+                />
+                <p
+                  style={{
+                    fontSize: 'clamp(0.82rem,0.85vw,0.72rem)',
+                    color: '#555',
+                    lineHeight: 1.65,
+                    margin: 0,
+                  }}
+                >
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ── PAGE EXPORT ───────────────────────────────────────────────────────────── */
+/* ── PAGE ───────────────────────────────────────────────────────────────────────── */
+const SECTION_MAP: Record<string, () => React.ReactNode> = {
+  intro: () => <Intro />,
+  'why-choose': () => <WhyChoose />,
+  boarding: () => <BoardingLife />,
+  process: () => <AdmissionsProcess />,
+  apply: () => <Apply />,
+  team: () => <AdmissionsTeam />,
+  fees: () => <Fees />,
+  'term-dates': () => <TermDates />,
+  uniform: () => <Uniform />,
+  'school-lunches': () => <SchoolLunches />,
+  'school-transport': () => <SchoolTransport />,
+};
+
+export default function AdmissionsPage() {
+  const params = useParams();
+  const section = (params.section as string) || 'intro';
+  const renderSection = SECTION_MAP[section] || SECTION_MAP['intro'];
+  return (
+    <>
+      <SchoolNavbar
+        scrolledLogo="/g-school.svg"
+        clearLogo="/g-school-dark.svg"
+        logoAlt="Granada School"
+        logoHref="/granada-school"
+        navItems={NAV_ITEMS}
+        quickLinks={[
+          { label: 'Parents', href: '/contact' },
+          { label: 'Enquire', href: '/contact' },
+          { label: 'Contact us', href: '/contact' },
+        ]}
+        enquireHref="/contact"
+        applyHref="/admissions/apply"
+        sideImage="/building.jpeg"
+        sideImageAlt="Granada School"
+      />
+      <main style={{ background: 'var(--body-bg)' }}>
+        <PageHero />
+        <TaglineStrip />
+        <div
+          style={{
+            margin: '0 auto',
+            padding: '0 clamp(1rem,2vw,2rem)',
+            display: 'flex',
+            gap: 'clamp(2rem,3vw,3.5rem)',
+            alignItems: 'flex-start',
+          }}
+          className="section-layout"
+        >
+          <SectionNav />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div
+              key={section}
+              style={{ animation: 'sectionFadeIn 0.45s ease' }}
+            >
+              {renderSection()}
+            </div>
+          </div>
+        </div>
+      </main>
+      <PageCTA />
+      <SchoolFooter
+        logoSrc="/g-school-dark.svg"
+        logoAlt="Granada School"
+        logoHref="/granada-school"
+        tagline="CBE Junior & Senior Girls' Boarding Secondary School."
+        schoolName="Granada School"
+        curriculumLinks={[
+          'CBC Kenya',
+          'Early Years',
+          'Primary School',
+          'Junior School',
+          'Senior School',
+        ]}
+        footerColsClass="footer-cols"
+      />
+    </>
+  );
+}

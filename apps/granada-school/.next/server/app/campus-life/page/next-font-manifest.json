@@ -1,0 +1,19 @@
+{
+  "pages": {},
+  "app": {
+    "[project]/apps/granada-school/src/app/campus-life/page": [
+      "static/media/Euclid Circular A Light-s.p.0e5gy_9y2ka82.ttf",
+      "static/media/Euclid Circular A Light Italic-s.p.14b68p-0r52z..ttf",
+      "static/media/Euclid Circular A Regular-s.p.0-rkz7~7gmsye.ttf",
+      "static/media/Euclid Circular A Italic-s.p.0267a25~hqzfc.ttf",
+      "static/media/Euclid Circular A Medium-s.p.022-wvaj8l1_-.ttf",
+      "static/media/Euclid Circular A Medium Italic-s.p.0uwpzyyaye.v~.ttf",
+      "static/media/Euclid Circular A SemiBold-s.p.0et.l75v.6z19.ttf",
+      "static/media/Euclid Circular A SemiBold Italic-s.p.0-o0d9~m24j9f.ttf",
+      "static/media/Euclid Circular A Bold-s.p.03_vj6juu2xj3.ttf",
+      "static/media/Euclid Circular A Bold Italic-s.p.0.p5eyuq4xlk3.ttf"
+    ]
+  },
+  "appUsingSizeAdjust": true,
+  "pagesUsingSizeAdjust": false
+}

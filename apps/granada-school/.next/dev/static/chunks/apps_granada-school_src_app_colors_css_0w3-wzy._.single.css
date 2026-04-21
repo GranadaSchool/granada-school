@@ -1,0 +1,26 @@
+/* [project]/apps/granada-school/src/app/colors.css [app-client] (css) */
+:root {
+  --primary: #213558;
+  --secondary: #e2c215;
+  --white: #fff;
+  --dark: #0d0c0d;
+  --gray: #afaeaf;
+  --accent-warm: #936c51;
+  --accent-green: #436b0d;
+  --accent-light: #ecfb94;
+  --accent-pink: #d52978;
+  --accent-blue: #0d88e4;
+}
+
+* {
+  --lightningcss-light: initial;
+  --lightningcss-dark: ;
+  color-scheme: light;
+}
+
+body {
+  background-color: var(--dark);
+  color: var(--white);
+}
+
+/*# sourceMappingURL=apps_granada-school_src_app_colors_css_0w3-wzy._.single.css.map*/

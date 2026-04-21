@@ -1,0 +1,18 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/[section]/page": "/about/[section]",
+  "/about/page": "/about",
+  "/academics/[section]/page": "/academics/[section]",
+  "/academics/page": "/academics",
+  "/admissions/[section]/page": "/admissions/[section]",
+  "/admissions/page": "/admissions",
+  "/campus-life/[section]/page": "/campus-life/[section]",
+  "/campus-life/page": "/campus-life",
+  "/contact/page": "/contact",
+  "/news/[section]/page": "/news/[section]",
+  "/news/page": "/news",
+  "/page": "/",
+  "/wellbeing/[section]/page": "/wellbeing/[section]",
+  "/wellbeing/page": "/wellbeing"
+}

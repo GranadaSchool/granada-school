@@ -1,0 +1,13 @@
+var R=require("../../../chunks/ssr/[turbopack]_runtime.js")("server/app/news/[section]/page.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0a9sbaf._.js")
+R.c("server/chunks/ssr/node_modules_next_dist_esm_build_templates_app-page_0ops~~8.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0l0b20-._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0zgvpt1._.js")
+R.c("server/chunks/ssr/apps_granada-school_src_app_0xktsj3._.js")
+R.c("server/chunks/ssr/node_modules_next_dist_client_components_0inhx6q._.js")
+R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_forbidden_0ghu-f7.js")
+R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_unauthorized_0cjv-23.js")
+R.c("server/chunks/ssr/node_modules_next_dist_client_components_builtin_global-error_0lgvd_..js")
+R.c("server/chunks/ssr/02dz_granada-school__next-internal_server_app_news_[section]_page_actions_0n1ohv0.js")
+R.m(49078)
+module.exports=R.m(49078).exports

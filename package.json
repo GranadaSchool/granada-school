@@ -1,0 +1,16 @@
+{
+  "name": "granada-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:school": "npm run dev --workspace=apps/granada-school",
+    "dev:international": "npm run dev --workspace=apps/granada-international",
+    "build:school": "npm run build --workspace=apps/granada-school",
+    "build:international": "npm run build --workspace=apps/granada-international",
+    "lint:school": "npm run lint --workspace=apps/granada-school",
+    "lint:international": "npm run lint --workspace=apps/granada-international"
+  }
+}

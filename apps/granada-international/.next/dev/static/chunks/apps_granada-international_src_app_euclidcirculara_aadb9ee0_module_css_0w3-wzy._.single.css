@@ -1,0 +1,99 @@
+/* [project]/apps/granada-international/src/app/euclidcirculara_aadb9ee0.module.css [app-client] (css) */
+@font-face {
+  font-family: euclidCircularA;
+  src: url("../media/Euclid Circular A Light-s.p.0e5gy_9y2ka82.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: euclidCircularA;
+  src: url("../media/Euclid Circular A Light Italic-s.p.14b68p-0r52z..ttf") format("truetype");
+  font-display: swap;
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: euclidCircularA;
+  src: url("../media/Euclid Circular A Regular-s.p.0-rkz7~7gmsye.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: euclidCircularA;
+  src: url("../media/Euclid Circular A Italic-s.p.0267a25~hqzfc.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: euclidCircularA;
+  src: url("../media/Euclid Circular A Medium-s.p.022-wvaj8l1_-.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: euclidCircularA;
+  src: url("../media/Euclid Circular A Medium Italic-s.p.0uwpzyyaye.v~.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: euclidCircularA;
+  src: url("../media/Euclid Circular A SemiBold-s.p.0et.l75v.6z19.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: euclidCircularA;
+  src: url("../media/Euclid Circular A SemiBold Italic-s.p.0-o0d9~m24j9f.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: euclidCircularA;
+  src: url("../media/Euclid Circular A Bold-s.p.03_vj6juu2xj3.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: euclidCircularA;
+  src: url("../media/Euclid Circular A Bold Italic-s.p.0.p5eyuq4xlk3.ttf") format("truetype");
+  font-display: swap;
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: euclidCircularA Fallback;
+  src: local(Arial);
+  ascent-override: 93.26%;
+  descent-override: 24.99%;
+  line-gap-override: 0.0%;
+  size-adjust: 107.23%;
+}
+
+.euclidcirculara_aadb9ee0-module__RpAdLq__className {
+  font-family: euclidCircularA, euclidCircularA Fallback;
+}
+
+.euclidcirculara_aadb9ee0-module__RpAdLq__variable {
+  --font-euclid: "euclidCircularA", "euclidCircularA Fallback";
+}
+
+/*# sourceMappingURL=apps_granada-international_src_app_euclidcirculara_aadb9ee0_module_css_0w3-wzy._.single.css.map*/
