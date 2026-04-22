@@ -27,31 +27,55 @@ Desktop.ini
 *.p12
 
 # ============================================================
-# Frontend (Next.js)
+# apps/granada-international (Next.js)
 # ============================================================
-frontend/node_modules/
-frontend/.next/
-frontend/out/
-frontend/.vercel/
-frontend/next-env.d.ts
-frontend/*.tsbuildinfo
-frontend/.pnp
-frontend/.pnp.js
-frontend/yarn.lock
-frontend/package-lock.json
-frontend/pnpm-lock.yaml
-frontend/bun.lockb
-frontend/.env
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
-frontend/coverage/
-frontend/build/
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
-frontend/.pnpm-debug.log*
+apps/granada-international/node_modules/
+apps/granada-international/.next/
+apps/granada-international/out/
+apps/granada-international/.vercel/
+apps/granada-international/next-env.d.ts
+apps/granada-international/*.tsbuildinfo
+apps/granada-international/.pnp
+apps/granada-international/.pnp.js
+apps/granada-international/yarn.lock
+apps/granada-international/package-lock.json
+apps/granada-international/pnpm-lock.yaml
+apps/granada-international/bun.lockb
+apps/granada-international/.env
+apps/granada-international/.env.local
+apps/granada-international/.env.development.local
+apps/granada-international/.env.test.local
+apps/granada-international/.env.production.local
+apps/granada-international/coverage/
+apps/granada-international/build/
+apps/granada-international/npm-debug.log*
+apps/granada-international/yarn-debug.log*
+apps/granada-international/yarn-error.log*
+apps/granada-international/.pnpm-debug.log*
+
+apps/granada-school/node_modules/
+apps/granada-school/.next/
+apps/granada-school/out/
+apps/granada-school/.vercel/
+apps/granada-school/next-env.d.ts
+apps/granada-school/*.tsbuildinfo
+apps/granada-school/.pnp
+apps/granada-school/.pnp.js
+apps/granada-school/yarn.lock
+apps/granada-school/package-lock.json
+apps/granada-school/pnpm-lock.yaml
+apps/granada-school/bun.lockb
+apps/granada-school/.env
+apps/granada-school/.env.local
+apps/granada-school/.env.development.local
+apps/granada-school/.env.test.local
+apps/granada-school/.env.production.local
+apps/granada-school/coverage/
+apps/granada-school/build/
+apps/granada-school/npm-debug.log*
+apps/granada-school/yarn-debug.log*
+apps/granada-school/yarn-error.log*
+apps/granada-school/.pnpm-debug.log*
 
 # ============================================================
 # Backend (Strapi)
