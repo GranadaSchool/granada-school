@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/apps/granada-international/src/app/colors.css"],"sourcesContent":[":root {\n  --primary: #213558;\n  --secondary: #e2c215;\n  --white: #ffffff;\n  --dark: #0d0c0d;\n  --gray: #afaeaf;\n  --accent-warm: #936c51;\n  --accent-green: #436b0d;\n  --accent-light: #ecfb94;\n  --accent-pink: #d52978;\n  --accent-blue: #0d88e4;\n}\n\n* {\n  color-scheme: light;\n}\n\nbody {\n  background-color: var(--dark);\n  color: var(--white);\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;;;;;;AAaA;;;;;;AAIA"}}]
-}
